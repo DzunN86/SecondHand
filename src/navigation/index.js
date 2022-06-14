@@ -3,11 +3,16 @@ import React from 'react';
 import {
   Login,
   Register,
+  Account,
+  DaftarJual,
+  DetailProduct,
+  FormDetail,
+  Home,
+  InfoAkun,
+  InfoPenawaran,
+  Notifikasi,
   Splash,
-  Dashboard,
-  PokeBag,
-  PokeDetail,
-  Profile,
+  Jual
 } from '../screens';
 import {COLORS} from '../themes';
 
@@ -37,23 +42,23 @@ function Router() {
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="DashboardScreen"
-        component={Dashboard}
+        name="HomeScreen"
+        component={Home}
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="PokeBagScreen"
-        component={PokeBag}
+        name="NotifikasiScreen"
+        component={Notifikasi}
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="PokeDetailScreen"
-        component={PokeDetail}
+        name="JualScreen"
+        component={Jual}
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="ProfileScreen"
-        component={Profile}
+        name="AccountScreen"
+        component={Account}
         options={{
           headerStyle: {
             backgroundColor: COLORS.secondary,
@@ -63,6 +68,31 @@ function Router() {
             fontWeight: 'bold',
           },
         }}
+      />
+      <Stack.Screen
+        name="InfoAkunScreen"
+        component={InfoAkun}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="DetailProductScreen"
+        component={DetailProduct}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="FormDetailScreen"
+        component={FormDetail}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="InfoPenawaranScreen"
+        component={InfoPenawaran}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="DaftarJualScreen"
+        component={DaftarJual}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );
