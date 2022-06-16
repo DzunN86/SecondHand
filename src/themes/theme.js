@@ -3,7 +3,7 @@ const {width, height} = Dimensions.get('window');
 
 export const COLORS = {
   // base colors
-  primary: '#1686ED',
+  primary: '#6BA940',
   secondary: '#092734',
 
   accent: '#4895ef',
@@ -17,7 +17,7 @@ export const COLORS = {
   white: '#FFFFFF',
   lightGray: '#64676D',
   lightGray2: '#EFEFF0',
-  lightGray3: '#D4D5D6',
+  lightGray3: '#8A8A8A',
   lightGray4: '#7D7E84',
   gray: '#2D3038',
   gray1: '#282C35',
@@ -49,6 +49,7 @@ export const SIZES = {
   body2: 20,
   body3: 16,
   body4: 14,
+  tablabel: 12,
 
   // app dimensions
   width,
@@ -69,6 +70,7 @@ export const FONTS = {
   body2: {fontFamily: 'Poppins-Regular', fontSize: SIZES.body2, lineHeight: 30},
   body3: {fontFamily: 'Poppins-Regular', fontSize: SIZES.body3, lineHeight: 22},
   body4: {fontFamily: 'Poppins-Regular', fontSize: SIZES.body4, lineHeight: 22},
+  tabBarLabel: {fontFamily: 'Poppins-Regular', fontSize: SIZES.tablabel},
 };
 
 const appTheme = {COLORS, SIZES, FONTS};

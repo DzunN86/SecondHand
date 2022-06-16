@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
 import {Text, TextInput, View} from 'react-native';
-import {COLORS} from '../../themes';
+import {COLORS} from '../../../themes';
 import styles from './styles';
 
 const Input = ({

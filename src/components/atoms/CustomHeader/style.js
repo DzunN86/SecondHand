@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { COLORS } from '../../../themes';
-const styles = StyleSheet.create({
+export default StyleSheet.create({
     view: {
 		marginHorizontal: 16,
 		alignItems: 'center',

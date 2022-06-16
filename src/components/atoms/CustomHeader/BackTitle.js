@@ -1,6 +1,6 @@
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { COLORS, FONTS, SIZES } from '../../../themes'
+import { COLORS,SIZES } from '../../../themes'
 import Icon from 'react-native-vector-icons/Feather'
 
 const IconSize = 24

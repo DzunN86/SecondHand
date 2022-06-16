@@ -1,8 +1,10 @@
+import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {ButtonNavigatior} from '../components';
 import React from 'react';
+import {COLORS} from '../themes';
 import {
-  Login,
-  Register,
   Account,
   DaftarJual,
   DetailProduct,
@@ -10,92 +12,75 @@ import {
   Home,
   InfoAkun,
   InfoPenawaran,
+  Jual,
+  Login,
   Notifikasi,
+  Register,
   Splash,
-  Jual
 } from '../screens';
-import {COLORS} from '../themes';
 
 const Stack = createNativeStackNavigator();
 
-function Router() {
+const Tab = createBottomTabNavigator();
+
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: COLORS.white,
+  },
+};
+
+const MainApp = () => {
   return (
-    <Stack.Navigator
-      initialRouteName="SplashScreen"
-      screenOptions={{
-        gestureEnabled: true,
-        gestureDirection: 'horizontal-inverted',
-      }}>
-      <Stack.Screen
-        name="SplashScreen"
-        component={Splash}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="LoginScreen"
-        component={Login}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="RegisterScreen"
-        component={Register}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="HomeScreen"
+    <Tab.Navigator screenOptions={{
+      headerShown: false,
+    }} tabBar={props => <ButtonNavigatior {...props} />}>
+      <Tab.Screen
+        name="Home"
         component={Home}
-        options={{headerShown: false}}
       />
-      <Stack.Screen
-        name="NotifikasiScreen"
+      <Tab.Screen
+        name="Notifikasi"
         component={Notifikasi}
-        options={{headerShown: false}}
       />
-      <Stack.Screen
-        name="JualScreen"
+      <Tab.Screen
+        name="Jual"
         component={Jual}
-        options={{headerShown: false}}
       />
-      <Stack.Screen
-        name="AccountScreen"
-        component={Account}
-        options={{
-          headerStyle: {
-            backgroundColor: COLORS.secondary,
-          },
-          headerTintColor: COLORS.white,
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        }}
-      />
-      <Stack.Screen
-        name="InfoAkunScreen"
-        component={InfoAkun}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="DetailProductScreen"
-        component={DetailProduct}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="FormDetailScreen"
-        component={FormDetail}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="InfoPenawaranScreen"
-        component={InfoPenawaran}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="DaftarJualScreen"
+      <Tab.Screen
+        name="Daftar Jual"
         component={DaftarJual}
-        options={{headerShown: false}}
       />
-    </Stack.Navigator>
+      <Tab.Screen
+        name="Akun"
+        component={Account}
+      />
+    </Tab.Navigator>
+  );
+};
+
+function Navigation() {
+  return (
+    <NavigationContainer theme={MyTheme}>
+      <Stack.Navigator
+        initialRouteName="MainApp"
+        screenOptions={{
+          gestureEnabled: true,
+          gestureDirection: 'horizontal-inverted',
+          headerShown: false,
+        }}>
+        <Stack.Screen name="SplashScreen" component={Splash} />
+        <Stack.Screen name="MainApp" component={MainApp} />
+        <Stack.Screen name="LoginScreen" component={Login} />
+        <Stack.Screen name="RegisterScreen" component={Register} />
+        <Stack.Screen name="InfoAkunScreen" component={InfoAkun} />
+        <Stack.Screen name="DetailProductScreen" component={DetailProduct} />
+        <Stack.Screen name="FormDetailScreen" component={FormDetail} />
+        <Stack.Screen name="InfoPenawaranScreen" component={InfoPenawaran} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-export default Router;
+export default Navigation;
