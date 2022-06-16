@@ -1,17 +1,18 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import styles from './style';
-import Back from './Back';
+// import Back from './Back'
 import BackTitle from './BackTitle';
 import Title from './Title';
+import BackHeader from './BackHeader';
 
 function CustomHeader ({
     title,
     onPress,
     type
 }) {
-    if(type === 'Back'){
-        return <Back onPress={onPress}/>
+    if(type === 'BackHeader'){
+        return <BackHeader onPress={onPress}/>
     }
     if(type === 'BackTitle'){
         return <BackTitle title={title} onPress={onPress} />

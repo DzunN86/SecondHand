@@ -4,7 +4,7 @@ import { COLORS, SIZES } from '../../../themes'
 import Icon from 'react-native-vector-icons/Feather'
 
 const IconSize= 24
-function Back ()  {
+function BackHeader ()  {
   return (
     <View style={styles.container}>
         <Icon name='arrow-left' size={IconSize} color={COLORS.black} />
@@ -12,7 +12,7 @@ function Back ()  {
   )
 }
 
-export default Back
+export default BackHeader
 
 const styles = StyleSheet.create({
     container: {
