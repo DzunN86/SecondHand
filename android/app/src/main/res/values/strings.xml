@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">SecondHandZ</string>
+    <string name="app_name">Second Hand</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">iSYhPmn-qGIXMFzvXnjV22fqdQyyAHGyeZSEW</string>
 </resources>
