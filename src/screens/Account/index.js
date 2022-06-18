@@ -5,7 +5,7 @@ import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {COLORS} from '../../themes';
 
-function Menu({name, title}) {
+function Menu({name, title, onPress}) {
   return (
     <View>
       <TouchableOpacity onPress={onPress}>
@@ -14,7 +14,7 @@ function Menu({name, title}) {
           <Text style={styles.menuItemText}>{title}</Text>
         </View>
       </TouchableOpacity>
-      <View style={{ height: 0.5, width: '100%', backgroundColor: '#c8c8c8'}} />
+      <View style={styles.separator} />
     </View>
   )
 }
@@ -33,15 +33,22 @@ function Upload() {
   )
 }
 
-export default function Account() {
+export default function Account({navigation}) {
   return (
     <View>
       <CustomHeader type="Title" title="Akun Saya" />
       <Upload />
       <View style={styles.menuWrapper}>
-        <Menu name="account-edit" title="Ubah Akun" onPress={() => {}} />
-        <Menu name="account-cog" title="Pengaturan Akun" />
-        <Menu name="logout" title="Keluar" />
+        <Menu 
+          name="account-edit" 
+          title="Ubah Akun" 
+          onPress={() => navigation.navigate("InfoAkunScreen")} />
+        <Menu 
+          name="account-cog" 
+          title="Pengaturan Akun" />
+        <Menu 
+          name="logout" 
+          title="Keluar" />
       </View>
     </View>
   );

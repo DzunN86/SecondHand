@@ -24,6 +24,11 @@ export default StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 15,
   },
+  separator : {
+    height: 0.5, 
+    width: '100%', 
+    backgroundColor: '#c8c8c8'
+  },
   menuItemText: {
     color: '#777777',
     marginLeft: 20,
