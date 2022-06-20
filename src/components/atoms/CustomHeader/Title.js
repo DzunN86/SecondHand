@@ -1,8 +1,7 @@
-import { Button, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { COLORS, SIZES, FONTS} from '../../../themes'
+import { COLORS, SIZES} from '../../../themes'
 
-const IconSize = 24
 function Title({ title }) {
     return (
         <View style={styles.container}>

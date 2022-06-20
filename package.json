@@ -12,7 +12,7 @@
     "pretier": "prettier --write 'src/**/*.js'",
     "cleanG": "cd android && ./gradlew clean && cd ..",
     "buildG": "cd android && ./gradlew assembleRelease && cd ..",
-    "codepush:dev": "appcenter codepush release-react -a dzun_nn/Pokedex -d Development"
+    "codepush:dev": "appcenter codepush release-react -a dzun_nn/SecondHand -d Staging"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.17.6",
@@ -24,6 +24,7 @@
     "formik": "^2.2.9",
     "react": "17.0.2",
     "react-native": "0.68.2",
+    "react-native-code-push": "^7.0.4",
     "react-native-dropdown-picker": "^5.4.2",
     "react-native-flash-message": "^0.2.1",
     "react-native-image-picker": "^4.8.4",
