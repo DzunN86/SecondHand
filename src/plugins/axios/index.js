@@ -1,9 +1,9 @@
 import axios from 'axios';
+import config from '../../config';
 
 const instance = axios.create({
-  baseURL: 'https://some-domain.com/api/',
+  baseURL: config.backendApi,
   timeout: 1000,
-  headers: {'X-Custom-Header': 'foobar'},
 });
 
 export default instance;
