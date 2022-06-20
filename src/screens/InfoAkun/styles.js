@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {COLORS} from '../../themes';
+import {COLORS, SIZES} from '../../themes';
 
 export default StyleSheet.create({
   icon: {
@@ -16,24 +16,30 @@ export default StyleSheet.create({
     backgroundColor: COLORS.lightGreen,
     justifyContent: 'center',
   },
+  button: {
+    position: "absolute", 
+    bottom: 10, 
+    width: SIZES.width * 0.9, 
+    alignSelf: "center"
+  },
   menuWrapper: {
-    marginTop: 20,
+    marginTop: 35,
     paddingHorizontal: 20,
   },
-  menuItem: {
-    flexDirection: 'row',
-    paddingVertical: 15,
+  action: {
+    textAlignVertical: 'top',
+    paddingBottom: 0,
+    paddingVertical: 5,
+    marginBottom: 10,
+    borderRadius: 5,
+    borderWidth: 0.25,
+    borderColor: COLORS.darkGreen,
+    color: COLORS.darkBlue,
   },
-  separator : {
-    height: 0.5, 
-    width: '100%', 
-    backgroundColor: '#c8c8c8'
-  },
-  menuItemText: {
-    color: '#777777',
-    marginLeft: 20,
+  textLabel: {
     fontWeight: '600',
     fontSize: 16,
     lineHeight: 26,
-  },
+    marginBottom: 3,
+  }
 });
