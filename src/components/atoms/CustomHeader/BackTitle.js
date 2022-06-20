@@ -8,7 +8,7 @@ function BackTitle({ title, onPress }) {
     return (
         <View style={styles.container}>
             <TouchableOpacity>
-                <Icon name='arrow-left' size={IconSize} color={COLORS.white} onPress={onPress} />
+                <Icon name='arrow-left' size={IconSize} color={COLORS.black} onPress={onPress} />
             </TouchableOpacity>
             <View style={styles.content}>
                 <Text style={styles.title}>{title}</Text>
@@ -21,7 +21,7 @@ export default BackTitle
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: COLORS.black,
+        backgroundColor: COLORS.white,
         paddingVertical: 30,
         paddingLeft: SIZES.padding,
         paddingRight: SIZES.padding2,
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     },
     title:{
         fontSize: 20,
-        color: COLORS.white,
+        color: COLORS.black,
         marginTop: 4,
         alignSelf: 'center'
     }
