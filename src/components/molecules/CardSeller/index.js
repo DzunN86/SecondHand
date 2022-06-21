@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { COLORS, FONTS } from '../../../themes';
+import { COLORS } from '../../../themes';
 import styles from './styles';
 
 const CardSeller = ({ name, city, title, onPress }) => {
