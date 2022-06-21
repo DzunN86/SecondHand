@@ -36,4 +36,8 @@ export default StyleSheet.create({
     fontSize: 16,
     lineHeight: 26,
   },
+  version: {
+    marginTop: 20,
+    textAlign: 'center'
+  }
 });

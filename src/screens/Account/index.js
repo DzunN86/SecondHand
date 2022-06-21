@@ -4,13 +4,18 @@ import {CustomHeader} from '../../components/atoms';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {COLORS} from '../../themes';
+import {version} from '../../../package.json'
+
 
 function Menu({name, title, onPress}) {
   return (
     <View>
       <TouchableOpacity onPress={onPress}>
         <View style={styles.menuItem}>
-          <Icon name={name} color={COLORS.primary} size={25}/>
+          <Icon 
+            name={name} 
+            color={COLORS.primary} 
+            size={25}/>
           <Text style={styles.menuItemText}>{title}</Text>
         </View>
       </TouchableOpacity>
@@ -36,7 +41,9 @@ function Upload() {
 export default function Account({navigation}) {
   return (
     <View>
-      <CustomHeader type="Title" title="Akun Saya" />
+      <CustomHeader 
+        type="Title" 
+        title="Akun Saya" />
       <Upload />
       <View style={styles.menuWrapper}>
         <Menu 
@@ -50,6 +57,7 @@ export default function Account({navigation}) {
           name="logout" 
           title="Keluar" />
       </View>
+      <Text style={styles.version}> Version {version} </Text>
     </View>
   );
 }
