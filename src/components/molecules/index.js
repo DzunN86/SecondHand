@@ -1,3 +1,4 @@
 import ButtonNavigatior from './BottomNavigator';
+import CardSeller from './CardSeller';
 
-export {ButtonNavigatior};
+export {ButtonNavigatior, CardSeller};
