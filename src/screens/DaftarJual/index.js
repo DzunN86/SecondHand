@@ -3,6 +3,7 @@ import React from 'react';
 import HeaderTitle from '../../components/atoms/CustomHeader/Title';
 import CardCategory from '../../components/atoms/CustomCard';
 import CardSeller from '../../components/molecules/CardSeller';
+import TabAdd from '../../components/atoms/TabAdd';
 
 export default function DaftarJual() {
   return (
@@ -20,7 +21,7 @@ export default function DaftarJual() {
           <CardCategory icon='dollar-sign' title='Terjual' />
         </View>
       </ScrollView>
-
+      <TabAdd title='Tambah Produk' icon='plus'/>
     </View>
   );
 }
