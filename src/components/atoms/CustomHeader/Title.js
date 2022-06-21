@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { COLORS, SIZES} from '../../../themes'
+import { COLORS, SIZES } from '../../../themes'
 
-function Title({ title }) {
+function HeaderTitle({ title }) {
     return (
         <View style={styles.container}>
             <View style={styles.content}>
@@ -12,16 +12,14 @@ function Title({ title }) {
     )
 }
 
-export default Title
+export default HeaderTitle
 
 const styles = StyleSheet.create({
     container: {
         backgroundColor: COLORS.white,
-        paddingVertical: 30,
+        paddingVertical: 20,
         paddingLeft: SIZES.padding,
         paddingRight: SIZES.padding2,
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
         flexDirection: 'row',
         alignItems: 'center',
     },
@@ -29,7 +27,8 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     title: {
-        fontSize: 20,
+        fontSize: 30,
+        fontWeight: 'bold',
         color: COLORS.black,
         marginTop: 4,
     }
