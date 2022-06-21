@@ -5,7 +5,7 @@ import CardCategory from '../../components/atoms/CustomCard';
 import CardSeller from '../../components/molecules/CardSeller';
 import TabAdd from '../../components/atoms/TabAdd';
 
-export default function DaftarJual() {
+export default function DaftarJual({ navigation }) {
   return (
     <View>
       <HeaderTitle title='Daftar Jual Saya' />
@@ -21,7 +21,7 @@ export default function DaftarJual() {
           <CardCategory icon='dollar-sign' title='Terjual' />
         </View>
       </ScrollView>
-      <TabAdd title='Tambah Produk' icon='plus'/>
+      <TabAdd title='Tambah Produk' icon='plus' onPress={() => navigation.navigate('FormDetailScreen')}/>
     </View>
   );
 }
