@@ -17,7 +17,7 @@ function CustomHeader ({
     if(type === 'BackTitle'){
         return <BackTitle title={title} onPress={onPress} />
     }
-    if(type === 'Title'){
+    if(type === 'HeaderTitle'){
         return <Title title={title}/>
     }
     return (

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { COLORS,SIZES } from '../../../themes'
+import { COLORS, SIZES } from '../../../themes'
 import Icon from 'react-native-vector-icons/Feather'
 
 const IconSize = 24
@@ -8,7 +8,7 @@ function BackTitle({ title, onPress }) {
     return (
         <View style={styles.container}>
             <TouchableOpacity>
-                <Icon name='arrow-left' size={IconSize} color={COLORS.white} onPress={onPress} />
+                <Icon name='arrow-left' size={IconSize} color={COLORS.black} onPress={onPress} />
             </TouchableOpacity>
             <View style={styles.content}>
                 <Text style={styles.title}>{title}</Text>
@@ -21,21 +21,19 @@ export default BackTitle
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: COLORS.black,
-        paddingVertical: 30,
+        backgroundColor: COLORS.white,
+        paddingVertical: 20,
         paddingLeft: SIZES.padding,
         paddingRight: SIZES.padding2,
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
         flexDirection: 'row',
         alignItems: 'center',
     },
     content: {
         flex: 1,
     },
-    title:{
+    title: {
         fontSize: 20,
-        color: COLORS.white,
+        color: COLORS.black,
         marginTop: 4,
         alignSelf: 'center'
     }
