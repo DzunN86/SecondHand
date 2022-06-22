@@ -42,7 +42,7 @@ export default function Account({navigation}) {
   return (
     <View>
       <CustomHeader 
-        type="Title" 
+        type="HeaderTitle" 
         title="Akun Saya" />
       <Upload />
       <View style={styles.menuWrapper}>
