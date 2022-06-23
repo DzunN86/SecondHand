@@ -33,12 +33,12 @@ const Input = ({
     if (focused) {
       return COLORS.primary;
     } else {
-      return COLORS.grey;
+      return COLORS.gray;
     }
   };
   return (
     <View style={styles.inputContainer}>
-      {label && <Text>{label}</Text>}
+      {label && <Text style={styles.label}>{label}</Text>}
 
       <View
         style={[
