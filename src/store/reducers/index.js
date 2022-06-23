@@ -1,8 +1,11 @@
 import {combineReducers} from 'redux';
-import {UserReducer} from './user';
+import {loginReducer, registerReducer} from './auth';
+import {commonReducers} from './common';
 
 const reducer = combineReducers({
-  UserReducer,
+  loginReducer,
+  registerReducer,
+  commonReducers,
 });
 
 export default reducer;

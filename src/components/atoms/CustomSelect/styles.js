@@ -3,11 +3,11 @@ import {COLORS, FONTS} from '../../../themes';
 
 export default StyleSheet.create({
   wrapper: {
-    height: 48,
+    // height: 50,
     borderWidth: 1,
     borderRadius: 16,
-    paddingHorizontal: 16,
-
+    paddingHorizontal: 8,
+    paddingVertical: 0,
     marginTop: 5,
   },
 
@@ -23,6 +23,7 @@ export default StyleSheet.create({
   textInput: {
     flex: 1,
     width: '100%',
+    color: 'red',
   },
 
   error: {
