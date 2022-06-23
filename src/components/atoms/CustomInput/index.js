@@ -46,7 +46,7 @@ const Input = ({
           {alignItems: icon ? 'center' : 'baseline'},
           {borderColor: getBorderColor(), flexDirection: getFlexDirection()},
         ]}>
-        <View>{icon && icon}</View>
+        {icon && <View>{icon}</View>}
 
         <TextInput
           style={[styles.textInput, style]}

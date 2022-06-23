@@ -46,7 +46,7 @@ const CustomSelect = ({
           {alignItems: icon ? 'center' : 'baseline'},
           {borderColor: getBorderColor(), flexDirection: getFlexDirection()},
         ]}>
-        <View>{icon && icon}</View>
+        {icon && <View>{icon}</View>}
         <View style={[styles.textInput, style]}>
           <Picker
             {...props}
@@ -60,7 +60,7 @@ const CustomSelect = ({
             }}>
             <Picker.Item label="Pilih" value="" />
             {selectData.map((item, idx) => (
-              <Picker.Item label={item.label} value={item.label} key={idx}/>
+              <Picker.Item label={item.label} value={item.label} key={idx} />
             ))}
           </Picker>
         </View>
