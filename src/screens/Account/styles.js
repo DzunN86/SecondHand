@@ -13,7 +13,7 @@ export default StyleSheet.create({
     width: 100,
     borderRadius: 15,
     alignSelf: 'center',
-    backgroundColor: COLORS.lightGreen,
+    backgroundColor: "#E2D4F0",
     justifyContent: 'center',
   },
   menuWrapper: {
