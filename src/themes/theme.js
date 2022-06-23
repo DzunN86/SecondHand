@@ -3,7 +3,7 @@ const {width, height} = Dimensions.get('window');
 
 export const COLORS = {
   // base colors
-  primary: '#6BA940',
+  primary: '#7126B5',
   secondary: '#092734',
 
   accent: '#4895ef',
@@ -13,14 +13,14 @@ export const COLORS = {
   rating: '#FFCE31',
 
   // colors
-  black: '#1E1B26',
+  black: '#151515',
   white: '#FFFFFF',
   lightGray: '#64676D',
   lightGray2: '#EFEFF0',
   lightGray3: '#8A8A8A',
   lightGray4: '#7D7E84',
-  gray: '#2D3038',
-  gray1: '#282C35',
+  gray: '#D0D0D0',
+  gray1: '#8A8A8A',
   darkRed: '#31262F',
   lightRed: '#C5505E',
   darkBlue: '#22273B',
@@ -42,7 +42,7 @@ export const SIZES = {
   // font sizes
   largeTitle: 50,
   h1: 30,
-  h2: 22,
+  h2: 24,
   h3: 16,
   h4: 14,
   body1: 30,
@@ -63,7 +63,7 @@ export const FONTS = {
     lineHeight: 55,
   },
   h1: {fontFamily: 'Poppins-Bold', fontSize: SIZES.h1, lineHeight: 36},
-  h2: {fontFamily: 'Poppins-SemiBold', fontSize: SIZES.h2, lineHeight: 30},
+  h2: {fontFamily: 'Poppins-Bold', fontSize: SIZES.h2, lineHeight: 30},
   h3: {fontFamily: 'Poppins-SemiBold', fontSize: SIZES.h3, lineHeight: 22},
   h4: {fontFamily: 'Poppins-SemiBold', fontSize: SIZES.h4, lineHeight: 22},
   body1: {fontFamily: 'Poppins-Regular', fontSize: SIZES.body1, lineHeight: 36},
