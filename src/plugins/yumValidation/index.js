@@ -1,26 +1,32 @@
 import * as Yup from 'yup';
 
 const Fpassword = Yup.string()
-  .required('Please Enter your password')
+  .required('Silahkan masukan password')
+  .min(8, 'Kata sandi harus minimal 8 karakter')
   .matches(
     /^(?=.{8,}$)(?=.*[a-z])(?=.*[0-9]).*$/,
-    'Password must be contain at least 1 letter and 1 number',
+    'Password harus mengandung minimal 1 huruf dan 1 angka',
   );
 
 export const loginSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Please Enter your email'),
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Silahkan masukan nama email'),
   password: Fpassword,
 });
 
 export const registerSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(2, 'Too Short!')
+  nama: Yup.string()
+    .min(2, 'Terlalu pendek!!')
     .max(50, 'Too Long!')
-    .required('Please Enter your name'),
-  bio: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
-  email: Yup.string().email('Invalid email').required('Please Enter your email'),
+    .required('Silahkan masukan nama anda'),
+  alamat: Yup.string()
+    .min(2, 'Terlalu pendek!!')
+    .required('Silahkan masukan alamat'),
+  kota: Yup.string().required('Silahkan pilih kota'),
+  phone_number: Yup.string().required('Silahkan masukan Nomor Telepon'),
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Silahkan masukan nama email'),
   password: Fpassword,
 });
