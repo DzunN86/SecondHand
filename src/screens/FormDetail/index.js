@@ -1,9 +1,10 @@
 import { Text, View, TouchableOpacity } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import BackTitle from '../../components/atoms/CustomHeader/BackTitle';
 import { CustomInput, CustomButton } from '../../components/atoms/';
 import Icon from 'react-native-vector-icons/Feather';
 import styles from './styles';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const IconSize = 35
 const TabAdd = ({ icon, onPress }) => {
@@ -15,6 +16,20 @@ const TabAdd = ({ icon, onPress }) => {
     </TouchableOpacity>
   )
 }
+const Dropdown = ({ label, items, placeholder, onChangeItem }) => {
+  return (
+    <View style={{paddingVertical: 12}}>
+      {label && <Text style={styles.label}>{label}</Text>}
+      <DropDownPicker
+        items={items}
+        defaultNull
+        placeholder={placeholder}
+        containerStyle={{ height: 40 }}
+        onChangeItem={onChangeItem}
+      />
+    </View>
+  )
+}
 export default function FormDetail({ navigation }) {
   return (
     <>
@@ -22,7 +37,7 @@ export default function FormDetail({ navigation }) {
       <View style={{ marginVertical: 10, marginHorizontal: 25 }}>
         <CustomInput label="Nama Produk" placeholder="Nama Produk" />
         <CustomInput label="Harga Produk" placeholder='Rp 0,00' />
-        <CustomInput label="Kategori" placeholder='Pilih Kategori' />
+        <Dropdown label='Kategori' placeholder='Pilih Kategori' items={['2', '5', '6', '10']} />
         <CustomInput
           label="Deskripsi"
           placeholder='Contoh: Jalan Ikan Kerapu 21'

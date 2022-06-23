@@ -36,5 +36,9 @@ export default StyleSheet.create({
     icon: {
         color: COLORS.lightGray2,
         alignItems: 'center'
-    }
+    },
+    label: {
+        color: COLORS.black,
+        ...FONTS.tabBarLabel,
+    },
 })
