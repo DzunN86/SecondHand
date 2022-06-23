@@ -49,12 +49,12 @@ export default function Register({navigation}) {
         <View style={styles.form}>
           <Formik
             initialValues={{
-              nama: 'Test Aja Wes',
-              email: 'test1234@email.com',
-              password: 'test1234',
-              phone_number: '0888888888',
-              alamat: 'Pacitan city',
-              kota: 'Kota Surabaya',
+              nama: '',
+              email: '',
+              password: '',
+              phone_number: '',
+              alamat: '',
+              kota: '',
             }}
             validationSchema={registerSchema}
             onSubmit={values => onPressLogin(values)}>
