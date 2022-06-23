@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {memo} from 'react';
 import {ActivityIndicator, Text, TouchableOpacity, View} from 'react-native';
-import {COLORS} from '../../../themes';
+import {COLORS, FONTS} from '../../../themes';
 import styles from './styles';
 
 function CustomButton({
@@ -46,6 +46,7 @@ function CustomButton({
           <Text
             style={{
               color: disabled ? 'black' : COLORS.white,
+              ...FONTS.h4,
               paddingLeft: loading || icon ? 10 : 0,
             }}>
             {loading ? 'Please wait...' : title}
