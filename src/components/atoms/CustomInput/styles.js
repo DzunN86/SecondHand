@@ -1,18 +1,23 @@
 import {StyleSheet} from 'react-native';
-import {COLORS} from '../../../themes';
+import {COLORS, FONTS} from '../../../themes';
 
 export default StyleSheet.create({
   wrapper: {
-    height: 42,
+    height: 48,
     borderWidth: 1,
-    borderRadius: 4,
-    paddingHorizontal: 5,
+    borderRadius: 16,
+    paddingHorizontal: 16,
 
     marginTop: 5,
   },
 
   inputContainer: {
     paddingVertical: 12,
+  },
+
+  label: {
+    color: COLORS.black,
+    ...FONTS.tabBarLabel,
   },
 
   textInput: {

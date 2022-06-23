@@ -1,6 +1,7 @@
 import CustomButton from './CustomButton';
 import CustomInput from './CustomInput';
 import TabItems from './TabItem';
+import CustomHeader from './CustomHeader';
+import CustomSelect from './CustomSelect';
 
-
-export {CustomButton, CustomInput, TabItems};
+export {CustomHeader, CustomButton, CustomInput, TabItems, CustomSelect};

@@ -4,6 +4,7 @@ import CodePush from 'react-native-code-push';
 import {PersistGate} from 'redux-persist/integration/react';
 import Navigation from './navigation';
 import {Persistore, Store} from './store';
+import FlashMessage from 'react-native-flash-message';
 
 const CodePushOptions = {
   checkFrequency: CodePush.CheckFrequency.ON_APP_START,
@@ -15,7 +16,10 @@ const CodePushOptions = {
 
 const MainApp = () => {
   return (
+    <>
       <Navigation />
+      <FlashMessage position="top" />
+    </>
   );
 };
 const App = () => {
