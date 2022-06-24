@@ -16,9 +16,10 @@ export const SET_LOADING = '@SET_LOADING';
 export const REFRESH = '@REFRESH';
 export const SET_NOTIF = '@SET_NOTIF';
 
-// Buyer
-export const GET_PRODUCT_SUCCESS = '@GET_PRODUCT_SUCCESS';
-export const GET_PRODUCT_FAILED = '@GET_PRODUCT_FAILED';
+// HOME
+export const GET_PRODUCT_SUCCESS = 'GET_PRODUCT_SUCCESS';
+export const GET_PRODUCT_FAIL = 'GET_PRODUCT_FAIL';
+export const GET_PRODUCT_LOADING = 'GET_PRODUCT_LOADING';
 
 // Seller
 export const GET_CATEGORY_SUCCESS = '@GET_CATEGORY_SUCCESS';
