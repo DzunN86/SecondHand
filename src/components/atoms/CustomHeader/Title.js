@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { COLORS, SIZES } from '../../../themes'
+import { COLORS, FONTS, SIZES } from '../../../themes'
 
 function HeaderTitle({ title }) {
     return (
@@ -27,8 +27,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     title: {
-        fontSize: 30,
-        fontWeight: 'bold',
+        ...FONTS.h2,
         color: COLORS.black,
         marginTop: 4,
     }
