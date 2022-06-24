@@ -47,7 +47,7 @@ export default function FormDetail({ navigation }) {
           icon='plus'
         />
       </View>
-      <View style={{ marginVertical: 210, marginHorizontal: 25, flexDirection: 'column' }}>
+      <View style={{ marginVertical: 190, marginHorizontal: 25, flexDirection: 'column' }}>
         <CustomButton primary title='Preview' style={styles.button1} onPress={() => navigation.navigate('PreviewScreen')} />
         <CustomButton primary title='Terbitkan' style={styles.button2} onPress={() => navigation.navigate('')} />
       </View>

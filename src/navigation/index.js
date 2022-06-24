@@ -47,7 +47,7 @@ const MainApp = () => {
       />
       <Tab.Screen
         name="Jual"
-        component={Jual}
+        component={FormDetail}
       />
       <Tab.Screen
         name="Daftar Jual"
