@@ -10,6 +10,7 @@ import Notifikasi from './Notifikasi';
 import Register from './Auth/Register';
 import Splash from './Splash';
 import Jual from './Jual';
+import Preview from './Preview';
 
 export {DaftarJual, 
     DetailProduct, 
@@ -22,5 +23,6 @@ export {DaftarJual,
     Notifikasi, 
     Register,
     Splash,
-    Jual
+    Jual,
+    Preview
 };

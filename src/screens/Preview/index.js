@@ -139,7 +139,7 @@ const Preview = ({ navigation }) => {
     return (
         <View>
             <ImageBackground source={require('./bg.png')} style={styles.bgProduk}>
-                <BackHeader onPress={() => navigation.navigate('MainApp')} />
+                <BackHeader onPress={() => navigation.navigate('FormDetailScreen')} />
                 <View style={{ marginTop: 250, }}>
                     <CardProduk nameProduk='Jam Tangan Casio' kategori='Aksesoris' price='Rp 250.000' />
                     <CardPenjual name='Nama Penjual' city='Kota' />

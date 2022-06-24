@@ -59,12 +59,12 @@ function ListSearch() {
   );
 }
 
-function CardProduct({data}) {
+function CardProduct({data, onPress}) {
   const hargaConvert = `Rp. ${parseFloat(data.base_price).toLocaleString(
     'id-ID',
   )}`;
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <View style={styles.cardProduct}>
         <Image source={{uri: data.image_url}} style={styles.imageProduk} />
         <Text style={styles.textCardProduct} numberOfLines={1}>
@@ -105,7 +105,7 @@ function renderHeader() {
   );
 }
 
-export default function Home() {
+export default function Home({navigation}) {
   const dispatch = useDispatch();
   const {products, isLoading} = useSelector(state => state.homeReducer);
 
@@ -121,7 +121,7 @@ export default function Home() {
         <FlatList
           ListHeaderComponent={renderHeader}
           data={products}
-          renderItem={({item}) => <CardProduct data={item} />}
+          renderItem={({item}) => <CardProduct data={item} onPress={() => navigation.navigate('DetailProductScreen')}/>}
           keyExtractor={item => item.id}
           numColumns={2}
           showsVerticalScrollIndicator={false}
