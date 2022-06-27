@@ -8,5 +8,5 @@ export const updateBuyerOrder = async (product_id, bid_price) => await axios.put
 export const deleteBuyerOrder = async (id) => await axios.delete(`/buyer/order/${id}`);
 
 // buyer/product
-export const getBuyerProduct = async () => await axios.get('/buyer/product');
+export const getBuyerProduct = async (params) => await axios.get(`/buyer/product${params}`);
 export const detailBuyerProduct = async (id) => await axios.get(`/buyer/product/${id}`);

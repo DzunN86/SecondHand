@@ -48,7 +48,7 @@ export default function FormDetail({ navigation }) {
         />
       </View>
       <View style={{ marginVertical: 210, marginHorizontal: 25, flexDirection: 'column' }}>
-        <CustomButton primary title='Preview' style={styles.button1} onPress={() => navigation.navigate('')} />
+        <CustomButton primary title='Preview' style={styles.button1} onPress={() => navigation.navigate('PreviewScreen')} />
         <CustomButton primary title='Terbitkan' style={styles.button2} onPress={() => navigation.navigate('')} />
       </View>
     </>
