@@ -5,9 +5,10 @@ on:
       - development
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+([0-9]+)'
-  env:
-    BOT_TOKEN : ${{ secrets.TG_BOT_TOKEN }}
-    CHAT_ID : ${{ secrets.TG_CHAT_ID }}
+env:
+  BOT_TOKEN : ${{ secrets.TG_BOT_TOKEN }}
+  CHAT_ID : ${{ secrets.TG_CHAT_ID }}
+
 jobs:
   install-and-test:
       runs-on: ubuntu-latest
