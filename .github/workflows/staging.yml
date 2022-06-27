@@ -16,4 +16,4 @@ jobs:
         - uses: actions/checkout@v2
         - name: Install npm dependencies
           run: |
-            curl -X POST -H 'Content-Type: multipart/form-data' -F text='🍊 App Release! ✅' -F chat_id=${{ env.CHAT_ID }} chat_id=${{ env.BOT_TOKEN }}/sendMessage
+            curl -X POST -H 'Content-Type: multipart/form-data' -F text='🍊 App Release! ✅' -F chat_id=-1001648262360 ${{ secrets.BOT_TOKEN }}/sendMessage
