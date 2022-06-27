@@ -2,7 +2,9 @@ name: Build
 on:
   push:
     branches:
-      - master
+      - development
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+([0-9]+)'
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
@@ -18,32 +20,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-  install-and-test:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        - name: Install npm dependencies
-          run: |
-            npm install
-
-  build-android:
-      needs: install-and-test
-      runs-on: ubuntu-latest
-      steps: 
-        - uses: actions/checkout@v2
-        - name: Install npm dependencies
-          run: |
-            npm install
-        - name: Build Android Release
-          run: |
-            cd android && chmod +x ./gradlew && ./gradlew assembleRelease
-        - name: Upload Artifact
-          uses: wzieba/AppCenter-Github-Action@v1
-          with:
-            appName: dzun_nn/SecondHand
-            token: ${{secrets.APP_CENTER_TOKEN}}
-            group: Staging Tester
-            file: android/app/build/outputs/apk/release/app-release.apk
-            notifyTesters: true
-            debug: false 
