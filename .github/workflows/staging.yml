@@ -13,26 +13,3 @@ jobs:
         - name: Install npm dependencies
           run: |
             npm install
-
-  build-android:
-      needs: install-and-test
-      runs-on: ubuntu-latest
-      steps: 
-        - uses: actions/checkout@v2
-        - name: Install npm dependencies
-          run: |
-            npm install
-        - name: Build Android Release
-          run: |
-            cd android && chmod +x ./gradlew && ./gradlew assembleRelease
-            curl -X POST -H 'Content-Type: multipart/form-data' -F text='🍊 App Release! ✅' -F chat_id=${{secrets.TG_CHAT_ID}} ${{secrets.TG_BOT_TOKEN}}/sendMessage && curl -X POST -H 'Content-Type: multipart/form-data' -F document=@app-release.apk -F chat_id=${{secrets.TG_CHAT_ID}} ${{secrets.TG_BOT_TOKEN}}/sendDocument
-        - name: Send
-        - name: Upload Artifact
-          uses: wzieba/AppCenter-Github-Action@v1
-          with:
-            appName: dzun_nn/SecondHand
-            token: ${{secrets.APP_CENTER_TOKEN}}
-            group: Staging Tester
-            file: android/app/build/outputs/apk/release/app-release.apk
-            notifyTesters: true
-            debug: false
