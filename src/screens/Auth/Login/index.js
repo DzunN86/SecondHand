@@ -22,7 +22,7 @@ export default function Login({navigation}) {
       <View style={styles.container}>
         <CustomHeader
           type="BackTitle"
-          onPress={() => navigation.navigate('')}
+          onPress={() => navigation.goBack()}
         />
         <View style={styles.masuk}>
           <Text style={styles.label}>Masuk</Text>

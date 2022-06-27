@@ -68,8 +68,8 @@ export const FONTS = {
   h4: {fontFamily: 'Poppins-SemiBold', fontSize: SIZES.h4, lineHeight: 22},
   body1: {fontFamily: 'Poppins-Regular', fontSize: SIZES.body1, lineHeight: 36},
   body2: {fontFamily: 'Poppins-Regular', fontSize: SIZES.body2, lineHeight: 30},
-  body3: {fontFamily: 'Poppins-Regular', fontSize: SIZES.body3, lineHeight: 22},
-  body4: {fontFamily: 'Poppins-Regular', fontSize: SIZES.body4, lineHeight: 22},
+  body3: {fontFamily: 'Poppins-Regular', fontSize: SIZES.body3, lineHeight: 20},
+  body4: {fontFamily: 'Poppins-Regular', fontSize: SIZES.body4, lineHeight: 20},
   tabBarLabel: {fontFamily: 'Poppins-Regular', fontSize: SIZES.tablabel},
 };
 

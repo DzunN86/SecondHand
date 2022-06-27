@@ -2,9 +2,9 @@ import * as Yup from 'yup';
 
 const Fpassword = Yup.string()
   .required('Silahkan masukan password')
-  .min(8, 'Kata sandi harus minimal 8 karakter')
+  .min(6, 'Kata sandi harus minimal 6 karakter')
   .matches(
-    /^(?=.{8,}$)(?=.*[a-z])(?=.*[0-9]).*$/,
+    /^(?=.{6,}$)(?=.*[a-z])(?=.*[0-9]).*$/,
     'Password harus mengandung minimal 1 huruf dan 1 angka',
   );
 

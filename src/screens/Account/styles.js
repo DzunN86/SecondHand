@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {COLORS} from '../../themes';
+import { SIZES } from '../../themes';
 
 export default StyleSheet.create({
   icon: {
@@ -39,5 +39,9 @@ export default StyleSheet.create({
   version: {
     marginTop: 20,
     textAlign: 'center'
+  },
+  doLogin: {
+    marginTop: SIZES.height * 0.3,
+    alignSelf: 'center',
   }
 });

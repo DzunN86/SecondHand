@@ -1,25 +1,29 @@
-import {Text, View, Image, TextInput, FlatList, TouchableOpacity } from 'react-native';
-import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+/* eslint-disable no-undef */
+import {
+  Text,
+  View,
+  Image,
+  FlatList,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
+import React, {useEffect} from 'react';
+import Icon from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './styles';
+import {useDispatch, useSelector} from 'react-redux';
+import {getProduct} from '../../store/actions/home';
+import {COLORS} from '../../themes';
 
 function Search() {
   return (
-    <View>
+    <TouchableOpacity>
       <View style={styles.search}>
-        <TextInput
-          placeholder="Cari di Second Chance"
-          placeholderTextColor="grey"
-          style={styles.textSearch}
-        />
-        <Icon 
-          name="magnify" 
-          color='black' 
-          size={25}/>
+        <Text style={styles.textSearch}>Cari di Second Chance</Text>
+        <Icon name="search" color={COLORS.gray} size={25} />
       </View>
-    </View>
-  )
+    </TouchableOpacity>
+  );
 }
 
 function Iklan() {
@@ -27,106 +31,108 @@ function Iklan() {
     <View>
       <View style={styles.card}>
         <View>
-          <Text 
-            style={styles.textIklan} 
-            numberOfLines={2}>
-              {'Bulan Ramadhan\nBanyak diskon!'}
+          <Text style={styles.textIklan} numberOfLines={2}>
+            {'Bulan Ramadhan\nBanyak diskon!'}
           </Text>
           <View style={styles.diskonWrapper}>
-            <Text style={styles.textDiskon}>
-              Diskon Hingga
-            </Text>
-            <Text style={styles.persenDiskon}>
-              60%
-            </Text>
+            <Text style={styles.textDiskon}>Diskon Hingga</Text>
+            <Text style={styles.persenDiskon}>60%</Text>
           </View>
         </View>
-        <Image 
-          source={require('./Ngetes/Hadiah.png')} 
-          style={styles.imageIklan} />
+        <Image
+          source={require('./Ngetes/Hadiah.png')}
+          style={styles.imageIklan}
+        />
       </View>
     </View>
-  )
+  );
 }
 
 function ListSearch() {
   return (
     <TouchableOpacity>
       <View style={styles.searchKategori}>
-        <Icon 
-          name="magnify" 
-          color='#000' 
-          size={25}/>
-        <Text style={{fontSize: 18}}>Semua</Text>
+        <Icon name="search" color={COLORS.gray1} size={20} />
+        <Text style={styles.labelCategory}>Semua</Text>
       </View>
     </TouchableOpacity>
-  )
+  );
 }
 
-function CardProduct() {
+function CardProduct({data, onPress}) {
+  const hargaConvert = `Rp. ${parseFloat(data.base_price).toLocaleString(
+    'id-ID',
+  )}`;
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <View style={styles.cardProduct}>
-        <Image 
-          source={require('./Ngetes/Produk.png')} 
-          style={styles.imageProduk} />
-        <Text 
-          style={styles.textCardProduct} 
-          numberOfLines={1}>
-            Jam Tangan Casio
+        <Image source={{uri: data.image_url}} style={styles.imageProduk} />
+        <Text style={styles.textCardProduct} numberOfLines={1}>
+          {data.name}
         </Text>
-        <Text 
-          style={styles.typeProduct} 
-          numberOfLines={1}>
-            Aksesoris
+        <Text style={styles.typeProduct} numberOfLines={1}>
+          {data.Categories.map(item => item.name).join(', ')}
         </Text>
-        <Text 
-          style={styles.textCardProduct} 
-          numberOfLines={1}>
-            Rp 250.000
+        <Text style={styles.textCardProduct} numberOfLines={1}>
+          {hargaConvert}
         </Text>
       </View>
     </TouchableOpacity>
-  )
+  );
 }
 
 function SearchKategori() {
   return (
     <View>
-      <Text style={styles.telusuriKategori}>
-        Telusuri Kategori
-      </Text>
+      <Text style={styles.telusuriKategori}>Telusuri Kategori</Text>
       <FlatList
-        data='dari sini sampai sini'
-        renderItem={({item}) => <ListSearch />}
+        data="dari sini sampai sini"
+        renderItem={() => <ListSearch />}
         horizontal={true}
+        showsHorizontalScrollIndicator={false}
       />
     </View>
-  )
+  );
 }
 
-function Product() {
+function renderHeader() {
   return (
-    <View style={styles.cardProductWrapper}>
-      <FlatList
-        data='dari sini sampai sini'
-        renderItem={({item}) => <CardProduct />}
-        horizontal={true}
-      />
-    </View>
-  )
+    <LinearGradient colors={['#FFE9C9', '#FFE9CA', '#FFF']}>
+      <Search />
+      <Iklan />
+      <SearchKategori />
+    </LinearGradient>
+  );
 }
 
-export default function Home() {
+export default function Home({navigation}) {
+  const dispatch = useDispatch();
+  const {products, isLoading} = useSelector(state => state.homeReducer);
+
+  useEffect(() => {
+    dispatch(getProduct(''));
+  }, []);
+
   return (
-    <View>
-      <LinearGradient 
-        colors={['#FFE9C9', '#FFE9CA', '#FFF']}> 
-          <Search />
-          <Iklan />
-          <SearchKategori />
-      </LinearGradient>
-      <Product />
-    </View>
+    <>
+      {isLoading ? (
+        <ActivityIndicator style={{flex:1}} size="large" color={COLORS.primary} />
+      ) : (
+        <FlatList
+          ListHeaderComponent={renderHeader}
+          data={products}
+          renderItem={({item}) => <CardProduct data={item} onPress={() => navigation.navigate('DetailProductScreen')}/>}
+          keyExtractor={item => item.id}
+          numColumns={2}
+          showsVerticalScrollIndicator={false}
+          columnWrapperStyle={{
+            marginTop: 10,
+            flex: 1,
+            justifyContent: 'space-between',
+            marginHorizontal: 16,
+          }}
+        />
+      )}
+    </>
   );
 }
