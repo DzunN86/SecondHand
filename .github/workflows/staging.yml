@@ -27,7 +27,9 @@ jobs:
             cd android && chmod +x ./gradlew && ./gradlew assembleRelease
         - name: Send to telegram
           run: |
-            curl -X POST -H 'Content-Type: multipart/form-data' -F text='🍊 App Release! ✅' -F chat_id=${{secrets.TG_CHAT_ID}} ${{secrets.TG_BOT_TOKEN}}/sendMessage && curl -X POST -H 'Content-Type: multipart/form-data' -F document=@app-release.apk -F chat_id=${{secrets.TG_CHAT_ID}} ${{secrets.TG_BOT_TOKEN}}/sendDocument
+            cd app/build/outputs/apk/release/
+            curl -X POST -H 'Content-Type: multipart/form-data' -F text='🍊 App Release! ✅' -F chat_id=${{secrets.TG_CHAT_ID}} ${{secrets.TG_BOT_TOKEN}}/sendMessage
+            curl -X POST -H 'Content-Type: multipart/form-data' -F document=@app-release.apk -F chat_id=${{secrets.TG_CHAT_ID}} ${{secrets.TG_BOT_TOKEN}}/sendDocument
         - name: Upload Artifact
           uses: wzieba/AppCenter-Github-Action@v1
           with:
