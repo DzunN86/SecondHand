@@ -5,7 +5,7 @@ const initialState = {
   isLoading: false,
   isError: false,
   errorMessage: '',
-  products: {},
+  products: [],
 };
 
 export const homeReducer = (state = initialState, action) => {

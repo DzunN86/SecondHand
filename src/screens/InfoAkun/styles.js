@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {COLORS, SIZES} from '../../themes';
+import {COLORS, FONTS, SIZES} from '../../themes';
 
 export default StyleSheet.create({
   icon: {
@@ -17,8 +17,8 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   button: {
-    position: "absolute", 
-    bottom: 10, 
+    position: 'absolute', 
+    bottom: 30, 
     width: SIZES.width * 0.9, 
     alignSelf: "center"
   },
@@ -41,5 +41,34 @@ export default StyleSheet.create({
     fontSize: 16,
     lineHeight: 26,
     marginBottom: 3,
-  }
+  },
+  bSheet: {
+    padding: 20,
+    backgroundColor: COLORS.white,
+    paddingTop: 20,
+  },
+  bSheetContainer: {
+    backgroundColor: COLORS.white,
+    paddingTop: 20,
+    borderTopWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  bSheetHeader: {
+    alignItems: 'center',
+  },
+  bSheetTitle: {
+    ...FONTS.h2,
+    fontSize: 27,
+    height: 35,
+  },
+  bSheetSubtitle: {
+    ...FONTS.body3,
+    fontSize: 14,
+    color: 'gray',
+    height: 30,
+    marginBottom: 10,
+  },
 });
