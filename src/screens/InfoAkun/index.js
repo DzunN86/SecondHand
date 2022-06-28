@@ -107,9 +107,7 @@ export default function InfoAkun({navigation}) {
         type="BackTitle" 
         title="Lengkapi Info Akun" 
         onPress={() => navigation.navigate("MainApp")} />
-      <Animated.View style={{margin: 20,
-        opacity: Animated.add(0.1, Animated.multiply(fall, 1.0)),
-      }}>
+      <Animated.View style={{opacity: Animated.add(0.1, Animated.multiply(fall, 1.0))}}>
         <Upload />
         <View style={styles.menuWrapper}>
           <InputForm 
