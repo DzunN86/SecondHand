@@ -4,12 +4,12 @@ import {COLORS, FONTS, RADIUS, SIZES} from '../../../themes';
 export default StyleSheet.create({
   cardProduct: {
     backgroundColor: COLORS.white,
-    marginTop: 15,
+    marginTop: 5,
     borderRadius: RADIUS.small,
     borderColor: '#E5E5E5',
     borderWidth: 1,
-    height: SIZES.height * 0.26,
-    width: SIZES.width * 0.43,
+    height: SIZES.height * 0.27,
+    width: SIZES.width * 0.44,
     padding: 8,
   },
   textCardProduct: {

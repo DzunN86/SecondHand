@@ -2,9 +2,10 @@ import {Text, View, TouchableOpacity, Image} from 'react-native';
 import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 import styles from './styles';
+import {priceFormater} from '../../../utils';
 
 const CardProduct = ({onPress, name, category, price, image}) => {
-  const hargaConvert = `Rp. ${parseFloat(price).toLocaleString('id-ID')}`;
+  
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.cardProduct}>
@@ -16,7 +17,7 @@ const CardProduct = ({onPress, name, category, price, image}) => {
           {category.map(item => item.name).join(', ')}
         </Text>
         <Text style={styles.textCardProduct} numberOfLines={1}>
-          {hargaConvert}
+          {priceFormater(price)}
         </Text>
       </View>
     </TouchableOpacity>
