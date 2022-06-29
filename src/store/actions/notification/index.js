@@ -1,5 +1,5 @@
 import { showError } from '../../../plugins';
-import { getSellerNotification } from '../../../services/api/notification';
+import { getNotif } from '../../../services/api/notification';
 import {
     GET_NOTIFICATION_FAIL,
     GET_NOTIFICATION_LOADING,
@@ -21,9 +21,9 @@ export const setNotificationFailed = error => ({
     payload: error,
 });
 
-export const getNotification = params => async dispatch => {
+export const getNotification = () => async dispatch => {
     dispatch(setNotificationLoading(true));
-    await getSellerNotification(params)
+    await getNotif()
         .then(res => {
             dispatch(setNotificationSuccess(res.data));
             dispatch(setNotificationLoading(false));

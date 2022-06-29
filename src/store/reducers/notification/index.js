@@ -5,7 +5,7 @@ const initialState = {
   isLoading: false,
   isError: false,
   errorMessage: '',
-  products: {},
+  notif: [],
 };
 
 export const notificationReducer = (state = initialState, action) => {
@@ -20,7 +20,7 @@ export const notificationReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isError: false,
-        products: action.payload,
+        notif: action.payload,
       };
     case GET_NOTIFICATION_FAIL:
       return {
