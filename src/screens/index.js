@@ -11,18 +11,21 @@ import Register from './Auth/Register';
 import Splash from './Splash';
 import Jual from './Jual';
 import Preview from './Preview';
+import SearchProduct from './SearchProduct';
 
-export {DaftarJual, 
-    DetailProduct, 
-    Account, 
-    FormDetail, 
-    Home, 
-    InfoAkun, 
-    InfoPenawaran, 
-    Login, 
-    Notifikasi, 
-    Register,
-    Splash,
-    Jual,
-    Preview
+export {
+  DaftarJual,
+  DetailProduct,
+  Account,
+  FormDetail,
+  Home,
+  InfoAkun,
+  InfoPenawaran,
+  Login,
+  Notifikasi,
+  Register,
+  Splash,
+  Jual,
+  Preview,
+  SearchProduct,
 };
