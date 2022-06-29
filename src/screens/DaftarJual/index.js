@@ -1,9 +1,9 @@
-import { Text, View, ScrollView, Image } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import React from 'react';
 import HeaderTitle from '../../components/atoms/CustomHeader/Title';
-import CardCategory from '../../components/atoms/CustomCard';
 import CardSeller from '../../components/molecules/CardSeller';
 import TabAdd from '../../components/atoms/TabAdd';
+import { CardCategory } from '../../components';
 
 export default function DaftarJual({ navigation }) {
   return (
@@ -16,7 +16,7 @@ export default function DaftarJual({ navigation }) {
       />
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={{ flexDirection: 'row' , marginTop: 10}}>
-          <CardCategory icon='box' title='Produk' />
+          <CardCategory icon='box' active title='Produk' />
           <CardCategory icon='heart' title='Diminati' />
           <CardCategory icon='dollar-sign' title='Terjual' />
         </View>

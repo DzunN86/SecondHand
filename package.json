@@ -22,6 +22,7 @@
     "@react-navigation/native-stack": "^6.6.2",
     "axios": "^0.27.2",
     "formik": "^2.2.9",
+    "prop-types": "^15.8.1",
     "react": "17.0.2",
     "react-native": "0.68.2",
     "react-native-code-push": "^7.0.4",
