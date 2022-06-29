@@ -65,7 +65,7 @@ function Navigation() {
   return (
     <NavigationContainer theme={MyTheme}>
       <Stack.Navigator
-        initialRouteName="InfoAkunScreen"
+        initialRouteName="MainApp"
         screenOptions={{
           gestureEnabled: true,
           gestureDirection: 'horizontal-inverted',

@@ -42,6 +42,11 @@ export default StyleSheet.create({
     lineHeight: 26,
     marginBottom: 3,
   },
+  form: {
+    marginHorizontal: SIZES.padding,
+    marginTop: 24,
+    marginBottom: 30,
+  },
   bSheet: {
     padding: 20,
     backgroundColor: COLORS.white,
@@ -55,6 +60,7 @@ export default StyleSheet.create({
     borderRightWidth: 1,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    borderColor: COLORS.gray1,
   },
   bSheetHeader: {
     alignItems: 'center',
@@ -63,11 +69,13 @@ export default StyleSheet.create({
     ...FONTS.h2,
     fontSize: 27,
     height: 35,
+    color: COLORS.gray1,
   },
+
   bSheetSubtitle: {
     ...FONTS.body3,
     fontSize: 14,
-    color: 'gray',
+    color: COLORS.gray1,
     height: 30,
     marginBottom: 10,
   },

@@ -1,11 +1,11 @@
-import {View, Text, TouchableOpacity, Button} from 'react-native';
-import React from 'react';
+import {View, Text, TouchableOpacity, Button, ImageBackground} from 'react-native';
+import React, {useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {CustomHeader} from '../../components/atoms';
 import styles from './styles';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {COLORS} from '../../themes';
 import {version} from '../../../package.json';
-import {useDispatch, useSelector} from 'react-redux';
 import {logoutUser} from '../../store/actions/auth/logoutUser';
 import {showError, showSuccess} from '../../plugins';
 
@@ -23,12 +23,24 @@ function Menu({name, title, onPress}) {
   );
 }
 
-function Upload() {
+function Upload({source, name}) {
   return (
-    <TouchableOpacity style={styles.container}>
-      <Icon name="camera" size={35} color={COLORS.white} style={styles.icon} />
+    <TouchableOpacity
+      onPress={() => bs.current.snapTo(0)}               
+      style={styles.container}>
+        <ImageBackground
+          source={source}
+          style={styles.container}
+          imageStyle={{borderRadius: 15}}>
+            <Icon
+              name={name}
+              size={35}
+              color={COLORS.white}
+              style={styles.icon}
+            />
+        </ImageBackground>
     </TouchableOpacity>
-  );
+  )
 }
 
 export default function Account({navigation}) {
@@ -44,6 +56,9 @@ export default function Account({navigation}) {
       showError(error);
     }
   };
+
+  const [image, setImage] = useState('https://firebasestorage.googleapis.com/v0/b/market-final-project.appspot.com/o/avatar%2FAV-1655170176102-Cover.png?alt=media');
+
   return (
     <View>
       <CustomHeader
@@ -52,7 +67,7 @@ export default function Account({navigation}) {
       />
       {userData.access_token ? (
         <>
-          <Upload />
+          <Upload source={{uri: image}} />
           <View style={styles.menuWrapper}>
             <Menu
               name="account-edit"

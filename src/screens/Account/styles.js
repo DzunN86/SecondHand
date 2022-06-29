@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import { SIZES } from '../../themes';
+import {FONTS, SIZES, COLORS} from '../../themes';
 
 export default StyleSheet.create({
   icon: {
@@ -38,10 +38,43 @@ export default StyleSheet.create({
   },
   version: {
     marginTop: 20,
+    marginBottom: '80%',
     textAlign: 'center'
   },
   doLogin: {
     marginTop: SIZES.height * 0.3,
     alignSelf: 'center',
-  }
+  },
+  bSheet: {
+    padding: 20,
+    backgroundColor: COLORS.white,
+    paddingTop: 20,
+  },
+  bSheetContainer: {
+    backgroundColor: COLORS.white,
+    paddingTop: 20,
+    borderTopWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    borderColor: COLORS.gray1,
+  },
+  bSheetHeader: {
+    alignItems: 'center',
+  },
+  bSheetTitle: {
+    ...FONTS.h2,
+    fontSize: 27,
+    height: 35,
+    color: COLORS.gray1,
+  },
+
+  bSheetSubtitle: {
+    ...FONTS.body3,
+    fontSize: 14,
+    color: COLORS.gray1,
+    height: 30,
+    marginBottom: 10,
+  },
 });
