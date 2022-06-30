@@ -17,7 +17,8 @@ import {
   Notifikasi,
   Register,
   Splash,
-  Preview
+  Preview,
+  SearchProduct,
 } from '../screens';
 
 const Stack = createNativeStackNavigator();
@@ -80,6 +81,7 @@ function Navigation() {
         <Stack.Screen name="FormDetailScreen" component={FormDetail} />
         <Stack.Screen name="InfoPenawaranScreen" component={InfoPenawaran} />
         <Stack.Screen name="PreviewScreen" component={Preview} />
+        <Stack.Screen name="SearchProductScreen" component={SearchProduct} />
       </Stack.Navigator>
     </NavigationContainer>
   );

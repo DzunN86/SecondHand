@@ -1,28 +1,28 @@
-import { GET_PRODUCT_FAIL, GET_PRODUCT_LOADING, GET_PRODUCT_SUCCESS } from "../../types";
+import { GET_NOTIFICATION_FAIL, GET_NOTIFICATION_LOADING, GET_NOTIFICATION_SUCCESS } from "../../types/notification";
 
 
 const initialState = {
   isLoading: false,
   isError: false,
   errorMessage: '',
-  products: [],
+  notif: [],
 };
 
-export const homeReducer = (state = initialState, action) => {
+export const notificationReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_PRODUCT_LOADING:
+    case GET_NOTIFICATION_LOADING:
       return {
         ...state,
         isLoading: action.payload,
       };
-    case GET_PRODUCT_SUCCESS:
+    case GET_NOTIFICATION_SUCCESS:
       return {
         ...state,
         isLoading: false,
         isError: false,
-        products: action.payload,
+        notif: action.payload,
       };
-    case GET_PRODUCT_FAIL:
+    case GET_NOTIFICATION_FAIL:
       return {
         ...state,
         isLoading: false,

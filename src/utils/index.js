@@ -1,1 +1,2 @@
-export * from './dummyData'
+export * from './dummyData';
+export * from './formatter';
