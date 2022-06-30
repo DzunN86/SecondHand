@@ -40,6 +40,7 @@ export default function InfoAkun({navigation}) {
 
   const dispatch = useDispatch();
   const {isLoading} = useSelector(state => state.commonReducers);
+  const {dataProfile} = useSelector(state => state.updateUserReducer)
 
   const onPressLogin = (data) => {
     const formData = new FormData();
@@ -56,12 +57,7 @@ export default function InfoAkun({navigation}) {
     dispatch(doUpdate(formData, navigation));
   };
 
-  const dataProfile = useSelector(state => state.updateUserReducer)
-  const {image, setImage} = useState(dataProfile);
-
-  useEffect(() => {
-    dispatch(doUpdate([]));
-  }, []);
+  const {image, setImage} = useState(dataProfile.image_url);
 
   const fromCamera = () => (
       ImagePicker.openCamera({

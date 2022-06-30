@@ -13,20 +13,20 @@ export const setUpdateFailed = error => ({
   payload: error,
 });
 
-export const doUpdate = data => async dispatch => {
+export const doUpdate = (data,navigation) => async dispatch => {
   dispatch(setLoading(true));
   await updateProfile(data)
     .then(res => {
       dispatch(setUpdateSuccess(res.data));
       dispatch(setLoading(false));
       showSuccess('Update Success');
+      navigation.goBack()
       console.log('RES UPDATE', res);
     })
     .catch(err => {
       dispatch(setUpdateFailed(err.message));
       dispatch(setLoading(false));
       showError(err.message);
-
       console.log('RES UPDATE FAILED', err);
     });
 };

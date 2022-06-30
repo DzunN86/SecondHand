@@ -13,9 +13,9 @@ export const setGetUserFailed = error => ({
   payload: error,
 });
 
-export const doGetProfile = data => async dispatch => {
+export const doGetProfile = () => async dispatch => {
   dispatch(setLoading(true));
-  await getProfile(data)
+  await getProfile()
   .then(res => {
     dispatch(setGetUserSuccess(res.data));
   })
