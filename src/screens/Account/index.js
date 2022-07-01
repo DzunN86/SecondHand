@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity, Button, ImageBackground} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {CustomHeader} from '../../components/atoms';
@@ -8,6 +8,7 @@ import {COLORS} from '../../themes';
 import {version} from '../../../package.json';
 import {logoutUser} from '../../store/actions/auth/logoutUser';
 import {showError, showSuccess} from '../../plugins';
+import { doGetProfile } from '../../store/actions/akun';
 
 function Menu({name, title, onPress}) {
   return (
@@ -45,7 +46,12 @@ function Upload({source, name}) {
 
 export default function Account({navigation}) {
   const dispatch = useDispatch();
+  const {dataProfile} = useSelector(state => state.getUserReducer);
   const {userData} = useSelector(state => state.loginReducer);
+
+  useEffect(() => {
+    dispatch(doGetProfile());
+  }, []);
 
   const onPressLogout = () => {
     try {
@@ -57,7 +63,7 @@ export default function Account({navigation}) {
     }
   };
 
-  const [image, setImage] = useState('https://firebasestorage.googleapis.com/v0/b/market-final-project.appspot.com/o/avatar%2FAV-1655170176102-Cover.png?alt=media');
+  // console.log(dataProfile.image_url)
 
   return (
     <View>
@@ -67,7 +73,7 @@ export default function Account({navigation}) {
       />
       {userData.access_token ? (
         <>
-          <Upload source={{uri: image}} />
+          <Upload source={{uri: dataProfile?.image_url}} />
           <View style={styles.menuWrapper}>
             <Menu
               name="account-edit"

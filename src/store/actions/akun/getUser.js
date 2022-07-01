@@ -20,7 +20,7 @@ export const doGetProfile = () => async dispatch => {
     dispatch(setGetUserSuccess(res.data));
   })
   .catch(err => {
-    dispatch(setGetUserFailed(err.response.data.message));
-    showError(err.response.data.message);
+    dispatch(setGetUserFailed(err.message));
+    showError(err.message);
   });
 };

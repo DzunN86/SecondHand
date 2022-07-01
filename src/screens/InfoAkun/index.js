@@ -40,7 +40,8 @@ export default function InfoAkun({navigation}) {
 
   const dispatch = useDispatch();
   const {isLoading} = useSelector(state => state.commonReducers);
-  const {dataProfile} = useSelector(state => state.updateUserReducer)
+  // const {dataProfile} = useSelector(state => state.updateUserReducer)
+  const {dataProfile} = useSelector(state => state.getUserReducer);
 
   const onPressLogin = (data) => {
     const formData = new FormData();
@@ -127,10 +128,10 @@ export default function InfoAkun({navigation}) {
         <View style={styles.form}>
           <Formik
             initialValues={{
-              nama: '',
-              phone_number: '',
-              alamat: '',
-              kota: '',
+              nama: dataProfile.full_name,
+              phone_number: dataProfile.phone_number,
+              alamat: dataProfile.address,
+              kota: dataProfile.city,
             }}
             validationSchema={registerSchema}
             onSubmit={values => onPressLogin(values)}>
