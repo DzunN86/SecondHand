@@ -16,32 +16,6 @@ export default StyleSheet.create({
     backgroundColor: '#E2D4F0',
     justifyContent: 'center',
   },
-  button: {
-    position: 'absolute', 
-    bottom: 30, 
-    width: SIZES.width * 0.9, 
-    alignSelf: "center"
-  },
-  menuWrapper: {
-    marginTop: 35,
-    paddingHorizontal: 20,
-  },
-  action: {
-    textAlignVertical: 'top',
-    paddingBottom: 0,
-    paddingVertical: 5,
-    marginBottom: 10,
-    borderRadius: 5,
-    borderWidth: 0.25,
-    borderColor: COLORS.darkGreen,
-    color: COLORS.darkBlue,
-  },
-  textLabel: {
-    fontWeight: '600',
-    fontSize: 16,
-    lineHeight: 26,
-    marginBottom: 3,
-  },
   form: {
     marginHorizontal: SIZES.padding,
     marginTop: 24,
@@ -67,15 +41,10 @@ export default StyleSheet.create({
   },
   bSheetTitle: {
     ...FONTS.h2,
-    fontSize: 27,
     height: 35,
-    color: COLORS.gray1,
   },
-
   bSheetSubtitle: {
-    ...FONTS.body3,
-    fontSize: 14,
-    color: COLORS.gray1,
+    ...FONTS.h4,
     height: 30,
     marginBottom: 10,
   },

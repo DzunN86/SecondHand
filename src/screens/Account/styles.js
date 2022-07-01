@@ -13,7 +13,7 @@ export default StyleSheet.create({
     width: 100,
     borderRadius: 15,
     alignSelf: 'center',
-    backgroundColor: "#E2D4F0",
+    backgroundColor: COLORS.secondary,
     justifyContent: 'center',
   },
   menuWrapper: {
@@ -30,51 +30,18 @@ export default StyleSheet.create({
     backgroundColor: '#c8c8c8'
   },
   menuItemText: {
-    color: '#777777',
+    ...FONTS.h4,
     marginLeft: 20,
-    fontWeight: '600',
-    fontSize: 16,
-    lineHeight: 26,
+    alignSelf: 'center',
   },
   version: {
+    ...FONTS.h4,
     marginTop: 20,
     marginBottom: '80%',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   doLogin: {
     marginTop: SIZES.height * 0.3,
     alignSelf: 'center',
-  },
-  bSheet: {
-    padding: 20,
-    backgroundColor: COLORS.white,
-    paddingTop: 20,
-  },
-  bSheetContainer: {
-    backgroundColor: COLORS.white,
-    paddingTop: 20,
-    borderTopWidth: 1,
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    borderColor: COLORS.gray1,
-  },
-  bSheetHeader: {
-    alignItems: 'center',
-  },
-  bSheetTitle: {
-    ...FONTS.h2,
-    fontSize: 27,
-    height: 35,
-    color: COLORS.gray1,
-  },
-
-  bSheetSubtitle: {
-    ...FONTS.body3,
-    fontSize: 14,
-    color: COLORS.gray1,
-    height: 30,
-    marginBottom: 10,
   },
 });

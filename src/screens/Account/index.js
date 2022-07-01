@@ -2,10 +2,11 @@ import {
   View,
   Text,
   TouchableOpacity,
+  Pressable,
   Button,
   ImageBackground,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {CustomHeader} from '../../components/atoms';
@@ -30,11 +31,11 @@ function Menu({name, title, onPress}) {
   );
 }
 
-function Upload({source, name, onPress}) {
+function Upload({source, name, onPress, disabled}) {
   return (
-    <TouchableOpacity
-      onPress={onPress}               
-      style={styles.container}>
+    <Pressable 
+      onPress={onPress} disabled={disabled} style={({pressed})=>[
+        { opacity: disabled ? 1 : (pressed ? 0.05 : 2) }, styles.container]}>
         <ImageBackground
           source={source}
           style={styles.container}
@@ -46,7 +47,7 @@ function Upload({source, name, onPress}) {
               style={styles.icon}
             />
         </ImageBackground>
-    </TouchableOpacity>
+    </Pressable>
   )
 }
 
@@ -79,7 +80,7 @@ export default function Account({navigation}) {
       />
       {userData.access_token ? (
         <>
-          <Upload source={{uri: userProfile.image_url}} />
+          <Upload source={{uri: userProfile.image_url}} disabled={true} />
           <View style={styles.menuWrapper}>
             <Menu
               name="account-edit"

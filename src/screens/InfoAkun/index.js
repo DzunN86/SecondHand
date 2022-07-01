@@ -1,4 +1,4 @@
-import {View, Text, TouchableOpacity, ScrollView, ImageBackground} from 'react-native';
+import {View, Text, Pressable, ScrollView, ImageBackground} from 'react-native';
 import React, {createRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -16,11 +16,11 @@ import {doUpdate} from '../../store/actions/akun';
 var bs = createRef();
 var fall = new Animated.Value(1);
 
-function Upload({source, name, onPress}) {
+function Upload({source, name, onPress, disabled}) {
   return (
-    <TouchableOpacity
-      onPress={onPress}               
-      style={styles.container}>
+    <Pressable 
+      onPress={onPress} disabled={disabled} style={({pressed})=>[
+        { opacity: disabled ? 1 : (pressed ? 0.05 : 2) }, styles.container]}>
         <ImageBackground
           source={source}
           style={styles.container}
@@ -32,7 +32,7 @@ function Upload({source, name, onPress}) {
               style={styles.icon}
             />
         </ImageBackground>
-    </TouchableOpacity>
+    </Pressable>
   )
 }
 
@@ -115,7 +115,7 @@ export default function InfoAkun({navigation}) {
         onPress={() => navigation.goBack()} />
       <BottomSheet
         ref={bs}
-        snapPoints={[330, 0]}
+        snapPoints={[285, 0]}
         renderContent={BottomSheetContent}
         renderHeader={BottomSheetHeader}
         initialSnap={1}
