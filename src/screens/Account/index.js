@@ -30,17 +30,24 @@ function Menu({name, title, onPress}) {
   );
 }
 
-function Upload({source, name}) {
+function Upload({source, name, onPress}) {
   return (
-    <TouchableOpacity style={styles.container}>
-      <ImageBackground
-        source={source}
-        style={styles.container}
-        imageStyle={{borderRadius: 15}}>
-        <Icon name={name} size={35} color={COLORS.white} style={styles.icon} />
-      </ImageBackground>
+    <TouchableOpacity
+      onPress={onPress}               
+      style={styles.container}>
+        <ImageBackground
+          source={source}
+          style={styles.container}
+          imageStyle={{borderRadius: 15}}>
+            <Icon
+              name={name}
+              size={35}
+              color={COLORS.white}
+              style={styles.icon}
+            />
+        </ImageBackground>
     </TouchableOpacity>
-  );
+  )
 }
 
 export default function Account({navigation}) {
@@ -63,10 +70,6 @@ export default function Account({navigation}) {
       dispatch(doGetProfile());
     }
   }, [dispatch]);
-
-  // const [image, setImage] = useState(
-  //   'https://firebasestorage.googleapis.com/v0/b/market-final-project.appspot.com/o/avatar%2FAV-1655170176102-Cover.png?alt=media',
-  // );
 
   return (
     <View>
