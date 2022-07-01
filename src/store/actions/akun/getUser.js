@@ -16,11 +16,13 @@ export const setGetUserFailed = error => ({
 export const doGetProfile = () => async dispatch => {
   dispatch(setLoading(true));
   await getProfile()
-  .then(res => {
-    dispatch(setGetUserSuccess(res.data));
-  })
-  .catch(err => {
-    dispatch(setGetUserFailed(err.response.data.message));
-    showError(err.response.data.message);
-  });
+    .then(res => {
+      dispatch(setGetUserSuccess(res.data));
+      dispatch(setLoading(false));
+    })
+    .catch(err => {
+      dispatch(setLoading(false));
+      dispatch(setGetUserFailed(err.message));
+      showError(err.message);
+    });
 };

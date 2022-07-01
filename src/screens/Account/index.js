@@ -1,5 +1,11 @@
-import {View, Text, TouchableOpacity, Button, ImageBackground} from 'react-native';
-import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Button,
+  ImageBackground,
+} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {CustomHeader} from '../../components/atoms';
@@ -8,6 +14,7 @@ import {COLORS} from '../../themes';
 import {version} from '../../../package.json';
 import {logoutUser} from '../../store/actions/auth/logoutUser';
 import {showError, showSuccess} from '../../plugins';
+import {doGetProfile} from '../../store/actions/akun';
 
 function Menu({name, title, onPress}) {
   return (
@@ -25,22 +32,15 @@ function Menu({name, title, onPress}) {
 
 function Upload({source, name}) {
   return (
-    <TouchableOpacity
-      onPress={() => bs.current.snapTo(0)}               
-      style={styles.container}>
-        <ImageBackground
-          source={source}
-          style={styles.container}
-          imageStyle={{borderRadius: 15}}>
-            <Icon
-              name={name}
-              size={35}
-              color={COLORS.white}
-              style={styles.icon}
-            />
-        </ImageBackground>
+    <TouchableOpacity style={styles.container}>
+      <ImageBackground
+        source={source}
+        style={styles.container}
+        imageStyle={{borderRadius: 15}}>
+        <Icon name={name} size={35} color={COLORS.white} style={styles.icon} />
+      </ImageBackground>
     </TouchableOpacity>
-  )
+  );
 }
 
 export default function Account({navigation}) {
@@ -57,7 +57,15 @@ export default function Account({navigation}) {
     }
   };
 
-  const [image, setImage] = useState('https://firebasestorage.googleapis.com/v0/b/market-final-project.appspot.com/o/avatar%2FAV-1655170176102-Cover.png?alt=media');
+  useEffect(() => {
+    if (userData.access_token) {
+      dispatch(doGetProfile());
+    }
+  }, [dispatch]);
+
+  const [image, setImage] = useState(
+    'https://firebasestorage.googleapis.com/v0/b/market-final-project.appspot.com/o/avatar%2FAV-1655170176102-Cover.png?alt=media',
+  );
 
   return (
     <View>
