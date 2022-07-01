@@ -1,7 +1,7 @@
 import {GET_USER_SUCCESS, GET_USER_FAILED} from '../../types';
 
 const initialState = {
-  dataProfile: {},
+  userProfile: {},
 };
 
 export const getUserReducer = (state = initialState, action) => {
@@ -9,7 +9,7 @@ export const getUserReducer = (state = initialState, action) => {
     case GET_USER_SUCCESS:
       return {
         ...state,
-        dataProfile: action.payload,
+        userProfile: action.payload,
       };
 
     case GET_USER_FAILED:

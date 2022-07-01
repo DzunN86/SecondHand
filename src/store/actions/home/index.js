@@ -1,7 +1,7 @@
 import {showError} from '../../../plugins';
 import {getBuyerProduct} from '../../../services/api/buyer';
 import {
-  GET_CATEGORY_FAILED,
+  GET_PRODUCT_FAIL,
   GET_PRODUCT_LOADING,
   GET_PRODUCT_SUCCESS,
 } from '../../types';
@@ -17,7 +17,7 @@ export const setProductLoading = loading => ({
 });
 
 export const setProductFailed = error => ({
-  type: GET_CATEGORY_FAILED,
+  type: GET_PRODUCT_FAIL,
   payload: error,
 });
 
@@ -29,8 +29,8 @@ export const getProduct = params => async dispatch => {
       dispatch(setProductLoading(false));
     })
     .catch(err => {
-      dispatch(setProductFailed(err.response.data.message));
+      dispatch(setProductFailed(err.message));
       dispatch(setProductLoading(false));
-      showError(err.response.data.message);
+      showError(err.message);
     });
 };

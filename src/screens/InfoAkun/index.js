@@ -13,8 +13,8 @@ import styles from './styles';
 import {COLORS} from '../../themes';
 import {kota} from '../../utils';
 
-bs = createRef();
-fall = new Animated.Value(1);
+var bs = createRef();
+var fall = new Animated.Value(1);
 
 function Upload({source, name}) {
   return (
