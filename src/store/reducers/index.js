@@ -3,6 +3,7 @@ import {loginReducer, registerReducer} from './auth';
 import {commonReducers} from './common';
 import {homeReducer} from './home'
 import {getUserReducer, updateUserReducer} from './akun'
+import { notificationReducer } from './notification';
 
 const reducer = combineReducers({
   loginReducer,
@@ -11,6 +12,7 @@ const reducer = combineReducers({
   homeReducer,
   getUserReducer,
   updateUserReducer,
+  notificationReducer,
 });
 
 export default reducer;
