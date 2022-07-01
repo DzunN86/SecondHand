@@ -45,12 +45,8 @@ function Upload({source, name}) {
 
 export default function Account({navigation}) {
   const dispatch = useDispatch();
-  const {dataProfile} = useSelector(state => state.getUserReducer);
+  const {userProfile} = useSelector(state => state.getUserReducer);
   const {userData} = useSelector(state => state.loginReducer);
-
-  useEffect(() => {
-    dispatch(doGetProfile());
-  }, []);
 
   const onPressLogout = () => {
     try {
@@ -68,9 +64,9 @@ export default function Account({navigation}) {
     }
   }, [dispatch]);
 
-  const [image, setImage] = useState(
-    'https://firebasestorage.googleapis.com/v0/b/market-final-project.appspot.com/o/avatar%2FAV-1655170176102-Cover.png?alt=media',
-  );
+  // const [image, setImage] = useState(
+  //   'https://firebasestorage.googleapis.com/v0/b/market-final-project.appspot.com/o/avatar%2FAV-1655170176102-Cover.png?alt=media',
+  // );
 
   return (
     <View>
@@ -80,7 +76,7 @@ export default function Account({navigation}) {
       />
       {userData.access_token ? (
         <>
-          <Upload source={{uri: dataProfile?.image_url}} />
+          <Upload source={{uri: userProfile.image_url}} />
           <View style={styles.menuWrapper}>
             <Menu
               name="account-edit"

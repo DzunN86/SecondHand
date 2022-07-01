@@ -1,17 +1,17 @@
 import {View, Text, TouchableOpacity, ScrollView, ImageBackground} from 'react-native';
-import React, {createRef, useState, useEffect} from 'react';
+import React, {createRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ImagePicker from 'react-native-image-crop-picker';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
 import {Formik} from 'formik';
-import {registerSchema} from '../../plugins';
-import {doUpdate} from '../../store/actions/akun';
+import {updateSchema} from '../../plugins';
 import {CustomHeader, CustomButton, CustomSelect, CustomInput} from '../../components/atoms';
 import styles from './styles';
 import {COLORS} from '../../themes';
 import {kota} from '../../utils';
+import {doUpdate} from '../../store/actions/akun';
 
 var bs = createRef();
 var fall = new Animated.Value(1);
@@ -40,25 +40,24 @@ export default function InfoAkun({navigation}) {
 
   const dispatch = useDispatch();
   const {isLoading} = useSelector(state => state.commonReducers);
-  // const {dataProfile} = useSelector(state => state.updateUserReducer)
-  const {dataProfile} = useSelector(state => state.getUserReducer);
+  const {userProfile} = useSelector(state => state.getUserReducer);
 
-  const onPressLogin = (data) => {
+  const onPressUpdate = (data) => {
     const formData = new FormData();
 
     formData.append('full_name', data.nama);
     formData.append('city', data.kota);
     formData.append('address', data.alamat);
     formData.append('phone_number', data.phone_number);
-    formData.append('image', {
-      uri: `https://ui-avatars.com/api/?name=${data.nama}`,
-      type: 'image/jpeg',
-      name: 'image.jpg',
-    });
+    // formData.append('image', {
+    //   uri: `https://ui-avatars.com/api/?name=${data.nama}`,
+    //   type: 'image/jpeg',
+    //   name: 'image.jpg',
+    // });
     dispatch(doUpdate(formData, navigation));
   };
 
-  const {image, setImage} = useState(dataProfile.image_url);
+  const {image, setImage} = useState(userProfile.image_url);
 
   const fromCamera = () => (
       ImagePicker.openCamera({
@@ -113,7 +112,7 @@ export default function InfoAkun({navigation}) {
       <CustomHeader 
         type="BackTitle" 
         title="Lengkapi Info Akun" 
-        onPress={() => navigation.navigate("MainApp")} />
+        onPress={() => navigation.goBack()} />
       <BottomSheet
         ref={bs}
         snapPoints={[330, 0]}
@@ -128,13 +127,13 @@ export default function InfoAkun({navigation}) {
         <View style={styles.form}>
           <Formik
             initialValues={{
-              nama: dataProfile.full_name,
-              phone_number: dataProfile.phone_number,
-              alamat: dataProfile.address,
-              kota: dataProfile.city,
+              nama: userProfile.full_name,
+              phone_number: userProfile.phone_number,
+              alamat: userProfile.address,
+              kota: userProfile.city,
             }}
-            validationSchema={registerSchema}
-            onSubmit={values => onPressLogin(values)}>
+            validationSchema={updateSchema}
+            onSubmit={values => onPressUpdate(values)}>
             {({handleChange, handleSubmit, values, errors, isValid, dirty}) => (
               <>
                 <CustomInput
