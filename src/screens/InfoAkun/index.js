@@ -1,18 +1,16 @@
-import {View, Text, ScrollView} from 'react-native';
+import {View, ScrollView} from 'react-native';
 import React, {createRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import ImagePicker from 'react-native-image-crop-picker';
-import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
 import {Formik} from 'formik';
 import styles from './styles';
 import {updateSchema} from '../../plugins';
-import {CustomHeader, CustomButton, CustomSelect, CustomInput, Upload} from '../../components';
+import {CustomHeader, CustomButton, CustomSelect, CustomInput, Upload, BottomUpload} from '../../components';
 import {kota} from '../../utils';
 import {doUpdate} from '../../store/actions/akun';
 
-const bs = createRef();
-const fall = new Animated.Value(1);
+const thisRef = createRef();
+const anim = new Animated.Value(1);
 
 export default function InfoAkun({navigation}) {
 
@@ -28,61 +26,15 @@ export default function InfoAkun({navigation}) {
     formData.append('city', data.kota);
     formData.append('address', data.alamat);
     formData.append('phone_number', data.phone_number);
-    formData.append('image', {
-      uri: `https://ui-avatars.com/api/?name=${data.nama}`,
-      type: 'image/jpeg',
-      name: 'image.jpg',
-    });
+    // formData.append('image', {
+    //   uri: `https://ui-avatars.com/api/?name=${data.nama}`,
+    //   type: 'image/jpeg',
+    //   name: 'image.jpg',
+    // });
     dispatch(doUpdate(formData, update, navigation));
   };
 
-  const [image, setImage] = useState(userProfile.image_url);
-
-  const fromCamera = () => (
-      ImagePicker.openCamera({
-        compressImageMaxWidth: 300,
-        compressImageMaxHeight: 300,
-        cropping: true,
-        compressImageQuality: 0.7
-      }).then(image => {
-        setImage(image.path);
-        bs.current.snapTo(1);
-      })
-  )
-  
-  const fromLibrary = () => (
-      ImagePicker.openPicker({
-        width: 300,
-        height: 300,
-        cropping: true,
-        compressImageQuality: 0.7
-      }).then(image => {
-        setImage(image.path);
-        bs.current.snapTo(1);
-      })
-    )
-  
-  const BottomSheetContent = () => (
-      <View style={styles.bSheet}>
-        <View style={{alignItems: 'center'}}>
-          <Text style={styles.bSheetTitle}>
-            Upload Photo
-          </Text>
-          <Text style={styles.bSheetSubtitle}>
-            Choose your avatar
-          </Text>
-        </View>
-        <CustomButton primary title="Take photo" onPress={fromCamera} />
-        <CustomButton primary title="Choose from gallery" onPress={fromLibrary} />
-        <CustomButton primary title="Cancel" onPress={() => bs.current.snapTo(1)} />
-      </View>
-    );
-  
-  const BottomSheetHeader = () => (
-      <View style={styles.bSheetContainer}>
-        <View style={styles.bSheetHeader} />
-      </View>
-    );
+  const [image, setAvatar] = useState(userProfile.image_url);
 
   return (
     <ScrollView style={{height: "100%"}}>
@@ -90,20 +42,12 @@ export default function InfoAkun({navigation}) {
         type="BackTitle" 
         title="Lengkapi Info Akun" 
         onPress={() => navigation.goBack()} />
-      <BottomSheet
-        ref={bs}
-        snapPoints={[285, 0]}
-        renderContent={BottomSheetContent}
-        renderHeader={BottomSheetHeader}
-        initialSnap={1}
-        callbackNode={fall}
-        enabledGestureInteraction={true}
-      />
-      <Animated.View style={{opacity: Animated.add(0.1, Animated.multiply(fall, 1.0))}}>  
+      <BottomUpload image={image} setAvatar={setAvatar} thisRef={thisRef} anim={anim} />
+      <Animated.View style={{opacity: Animated.add(0.1, Animated.multiply(anim, 1.0))}}>  
         <View style={styles.form}>
           <Formik
             initialValues={{
-              image: userProfile.image_url,
+              // image: userProfile.image_url,
               nama: userProfile.full_name,
               phone_number: userProfile.phone_number,
               alamat: userProfile.address,
@@ -113,7 +57,7 @@ export default function InfoAkun({navigation}) {
             onSubmit={values => onPressUpdate(values)}>
             {({handleChange, handleSubmit, values, errors, isValid, dirty}) => (
               <>
-                <Upload source={{uri: image}} onPress={() => bs.current.snapTo(0)} name="camera" />
+                {/* <Upload source={{uri: image}} onPress={() => thisRef.current.snapTo(0)} name="camera" /> */}
                 <CustomInput
                   testID="input-nama"
                   label="Nama"
