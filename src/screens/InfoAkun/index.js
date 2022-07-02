@@ -26,11 +26,11 @@ export default function InfoAkun({navigation}) {
     formData.append('city', data.kota);
     formData.append('address', data.alamat);
     formData.append('phone_number', data.phone_number);
-    // formData.append('image', {
-    //   uri: `https://ui-avatars.com/api/?name=${data.nama}`,
-    //   type: 'image/jpeg',
-    //   name: 'image.jpg',
-    // });
+    formData.append('image', {
+      uri: `https://ui-avatars.com/api/?name=${data.nama}`,
+      type: 'image/jpeg',
+      name: 'image.jpg',
+    });
     dispatch(doUpdate(formData, update, navigation));
   };
 
@@ -47,7 +47,7 @@ export default function InfoAkun({navigation}) {
         <View style={styles.form}>
           <Formik
             initialValues={{
-              // image: userProfile.image_url,
+              image: userProfile.image_url,
               nama: userProfile.full_name,
               phone_number: userProfile.phone_number,
               alamat: userProfile.address,
@@ -57,7 +57,7 @@ export default function InfoAkun({navigation}) {
             onSubmit={values => onPressUpdate(values)}>
             {({handleChange, handleSubmit, values, errors, isValid, dirty}) => (
               <>
-                {/* <Upload source={{uri: image}} onPress={() => thisRef.current.snapTo(0)} name="camera" /> */}
+                <Upload source={{uri: image}} onPress={() => thisRef.current.snapTo(0)} name="camera" />
                 <CustomInput
                   testID="input-nama"
                   label="Nama"
