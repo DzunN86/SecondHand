@@ -30,3 +30,15 @@ export const registerSchema = Yup.object().shape({
     .required('Silahkan masukan nama email'),
   password: Fpassword,
 });
+
+export const updateSchema = Yup.object().shape({
+  nama: Yup.string()
+    .min(2, 'Terlalu pendek!!')
+    .max(50, 'Too Long!')
+    .required('Silahkan masukan nama anda'),
+  alamat: Yup.string()
+    .min(2, 'Terlalu pendek!!')
+    .required('Silahkan masukan alamat'),
+  kota: Yup.string().required('Silahkan pilih kota'),
+  phone_number: Yup.string().required('Silahkan masukan Nomor Telepon'),
+});
