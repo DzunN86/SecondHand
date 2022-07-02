@@ -1,0 +1,19 @@
+import {StyleSheet} from 'react-native';
+import {FONTS} from '../../../themes';
+
+export default StyleSheet.create({
+  menuItem: {
+    flexDirection: 'row',
+    paddingVertical: 15,
+  },
+  separator : {
+    height: 0.5, 
+    width: '100%', 
+    backgroundColor: '#c8c8c8'
+  },
+  menuItemText: {
+    ...FONTS.h4,
+    marginLeft: 20,
+    alignSelf: 'center',
+  },
+});

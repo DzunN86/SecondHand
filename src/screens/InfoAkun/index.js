@@ -1,40 +1,18 @@
-import {View, Text, Pressable, ScrollView, ImageBackground} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import React, {createRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ImagePicker from 'react-native-image-crop-picker';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
 import {Formik} from 'formik';
-import {updateSchema} from '../../plugins';
-import {CustomHeader, CustomButton, CustomSelect, CustomInput} from '../../components/atoms';
 import styles from './styles';
-import {COLORS} from '../../themes';
+import {updateSchema} from '../../plugins';
+import {CustomHeader, CustomButton, CustomSelect, CustomInput, Upload} from '../../components';
 import {kota} from '../../utils';
 import {doUpdate} from '../../store/actions/akun';
 
-var bs = createRef();
-var fall = new Animated.Value(1);
-
-function Upload({source, name, onPress, disabled}) {
-  return (
-    <Pressable 
-      onPress={onPress} disabled={disabled} style={({pressed})=>[
-        { opacity: disabled ? 1 : (pressed ? 0.05 : 2) }, styles.container]}>
-        <ImageBackground
-          source={source}
-          style={styles.container}
-          imageStyle={{borderRadius: 15}}>
-            <Icon
-              name={name}
-              size={35}
-              color={COLORS.white}
-              style={styles.icon}
-            />
-        </ImageBackground>
-    </Pressable>
-  )
-}
+const bs = createRef();
+const fall = new Animated.Value(1);
 
 export default function InfoAkun({navigation}) {
 
@@ -44,6 +22,7 @@ export default function InfoAkun({navigation}) {
 
   const onPressUpdate = (data) => {
     const formData = new FormData();
+    const update = update
 
     formData.append('full_name', data.nama);
     formData.append('city', data.kota);
@@ -54,7 +33,7 @@ export default function InfoAkun({navigation}) {
       type: 'image/jpeg',
       name: 'image.jpg',
     });
-    dispatch(doUpdate(formData, navigation));
+    dispatch(doUpdate(formData, update, navigation));
   };
 
   const [image, setImage] = useState(userProfile.image_url);
@@ -66,7 +45,6 @@ export default function InfoAkun({navigation}) {
         cropping: true,
         compressImageQuality: 0.7
       }).then(image => {
-        console.log(image);
         setImage(image.path);
         bs.current.snapTo(1);
       })
@@ -79,7 +57,6 @@ export default function InfoAkun({navigation}) {
         cropping: true,
         compressImageQuality: 0.7
       }).then(image => {
-        console.log(image);
         setImage(image.path);
         bs.current.snapTo(1);
       })

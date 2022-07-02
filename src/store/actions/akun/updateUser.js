@@ -2,6 +2,7 @@ import { showError, showSuccess } from '../../../plugins';
 import {updateProfile} from '../../../services/api/auth';
 import {UPDATE_USER_SUCCESS, UPDATE_USER_FAILED} from '../../types';
 import {setLoading} from '../common';
+import { doGetProfile } from './getUser';
 
 export const setUpdateSuccess = data => ({
   type: UPDATE_USER_SUCCESS,
@@ -13,13 +14,14 @@ export const setUpdateFailed = error => ({
   payload: error,
 });
 
-export const doUpdate = (data, navigation) => async dispatch => {
+export const doUpdate = (data, update, navigation) => async dispatch => {
   dispatch(setLoading(true));
   await updateProfile(data)
     .then(res => {
       dispatch(setUpdateSuccess(res.data));
       dispatch(setLoading(false));
       showSuccess('Update Success');
+      update = dispatch(doGetProfile());
       navigation.goBack();
       console.log('RES UPDATE', res);
     })

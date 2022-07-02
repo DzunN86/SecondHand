@@ -1,55 +1,11 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Pressable,
-  Button,
-  ImageBackground,
-} from 'react-native';
+import {View, Text, Button} from 'react-native';
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {CustomHeader} from '../../components/atoms';
 import styles from './styles';
-import {COLORS} from '../../themes';
-import {version} from '../../../package.json';
-import {logoutUser} from '../../store/actions/auth/logoutUser';
+import {CustomHeader, Upload, Menu} from '../../components';
+import {logoutUser, doGetProfile} from '../../store/actions';
 import {showError, showSuccess} from '../../plugins';
-import {doGetProfile} from '../../store/actions/akun';
-
-function Menu({name, title, onPress}) {
-  return (
-    <View>
-      <TouchableOpacity onPress={onPress}>
-        <View style={styles.menuItem}>
-          <Icon name={name} color={COLORS.primary} size={25} />
-          <Text style={styles.menuItemText}>{title}</Text>
-        </View>
-      </TouchableOpacity>
-      <View style={styles.separator} />
-    </View>
-  );
-}
-
-function Upload({source, name, onPress, disabled}) {
-  return (
-    <Pressable 
-      onPress={onPress} disabled={disabled} style={({pressed})=>[
-        { opacity: disabled ? 1 : (pressed ? 0.05 : 2) }, styles.container]}>
-        <ImageBackground
-          source={source}
-          style={styles.container}
-          imageStyle={{borderRadius: 15}}>
-            <Icon
-              name={name}
-              size={35}
-              color={COLORS.white}
-              style={styles.icon}
-            />
-        </ImageBackground>
-    </Pressable>
-  )
-}
+import {version} from '../../../package.json';
 
 export default function Account({navigation}) {
   const dispatch = useDispatch();
@@ -76,7 +32,7 @@ export default function Account({navigation}) {
     <View>
       <CustomHeader
         type="HeaderTitle"
-        title={userData.access_token ? userData.name : 'Akun'}
+        title={userData.access_token ? userProfile.full_name || userData.name : 'Akun'}
       />
       {userData.access_token ? (
         <>
