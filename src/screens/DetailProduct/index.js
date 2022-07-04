@@ -1,9 +1,8 @@
-import { StyleSheet, Text, View, ImageBackground, Image, ScrollView } from 'react-native';
+import { Text, View, ImageBackground, Image, ScrollView } from 'react-native';
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from './styles';
 import BackHeader from '../../components/atoms/CustomHeader/BackHeader';
-import CardSeller from '../../components/molecules/CardSeller';
 import { COLORS, FONTS } from '../../themes';
 import { getDetail } from '../../store/actions'
 
@@ -11,18 +10,16 @@ const CardPenjual = ({ name, city, source }) => {
     return (
         <View style={styles.container}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <View style={styles.subCard}>
-                    <Image
-                        resizeMode="contain"
-                        style={{
-                            borderRadius: 15,
-                            height: 50,
-                            width: 50,
-                        }}
-                        source={source}
-                    />
-                </View>
-                <View style={{ marginLeft: 12 }}>
+                <Image
+                    resizeMode="contain"
+                    style={{
+                        borderRadius: 15,
+                        height: 50,
+                        width: 50,
+                    }}
+                    source={source}
+                />
+                <View style={{ marginLeft: 16 }}>
                     <Text
                         style={{
                             ...FONTS.h4,
@@ -34,6 +31,7 @@ const CardPenjual = ({ name, city, source }) => {
                     <Text
                         style={{
                             ...FONTS.body5,
+                            marginTop: 4,
                         }}>
                         {city}
                     </Text>
@@ -57,6 +55,8 @@ const CardProduk = ({ nameProduk, kategori, price }) => {
                     </Text>
                     <Text
                         style={{
+                            marginTop: 4,
+                            marginBottom: 8,
                             ...FONTS.body5
                         }}>
                         {kategori}
@@ -80,7 +80,8 @@ const CardDeskripsi = ({ title, deskripsi }) => {
                 <View style={{ marginLeft: 12 }}>
                     <Text
                         style={{
-                            marginTop:10,
+                            marginTop: 16,
+                            marginBottom: 8,
                             ...FONTS.h4,
                             color: COLORS.black,
                             textTransform: 'capitalize',
@@ -90,7 +91,6 @@ const CardDeskripsi = ({ title, deskripsi }) => {
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <View
                             style={{
-                                marginTop:10,
                                 width: '100%',
                             }}>
                             <Text
