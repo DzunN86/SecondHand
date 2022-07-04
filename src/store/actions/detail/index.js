@@ -17,9 +17,9 @@ export const setDetailFailed = error => ({
   payload: error,
 });
 
-export const getDetail = () => async dispatch => {
-  dispatch(setProductLoading(true));
-  await detailBuyerProduct()
+export const getDetail = (id) => async dispatch => {
+  dispatch(setDetailLoading(true));
+  await detailBuyerProduct(id)
     .then(res => {
       dispatch(setDetailSuccess(res.data));
       dispatch(setDetailLoading(false));
