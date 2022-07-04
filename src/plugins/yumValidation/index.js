@@ -30,3 +30,13 @@ export const registerSchema = Yup.object().shape({
     .required('Silahkan masukan nama email'),
   password: Fpassword,
 });
+export const formDetailSchema = Yup.object().shape({
+  name_product: Yup.string()
+  .required('Silahkan masukan nama produk'),
+  base_price: Yup.string()
+  .required('Silahkan masukan harga produk'),
+  category_ids: Yup.string()
+  .required('Silahkan pilih kategori'),
+  description: Yup.string()
+  .required('Silahkan masukan deskripsi'),
+})

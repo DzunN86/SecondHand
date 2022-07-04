@@ -17,7 +17,7 @@ const CardProduct = ({onPress, name, category, price, image}) => {
           {category.map(item => item.name).join(', ')}
         </Text>
         <Text style={styles.textCardProduct} numberOfLines={1}>
-          {priceFormater(price)}
+          {price}
         </Text>
       </View>
     </TouchableOpacity>

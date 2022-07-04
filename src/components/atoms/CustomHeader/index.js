@@ -1,7 +1,6 @@
 import { View } from 'react-native';
 import React from 'react';
 import styles from './style';
-// import Back from './Back'
 import BackTitle from './BackTitle';
 import Title from './Title';
 import BackHeader from './BackHeader';

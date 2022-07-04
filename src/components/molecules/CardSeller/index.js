@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { COLORS } from '../../../themes';
+import { COLORS, FONTS } from '../../../themes';
 import styles from './styles';
 
 const CardSeller = ({ name, city, title, onPress }) => {
@@ -21,10 +21,8 @@ const CardSeller = ({ name, city, title, onPress }) => {
                     <Text
                         style={{
                             color: COLORS.black,
-                            fontWeight: 'bold',
-                            fontFamily: 'Poppins-SemiBold',
-                            fontSize: 22,
                             textTransform: 'capitalize',
+                            ...FONTS.body4,
                         }}>
                         {name}
                     </Text>
@@ -37,15 +35,14 @@ const CardSeller = ({ name, city, title, onPress }) => {
                         <Text
                             style={{
                                 color: COLORS.gray,
-                                fontFamily: 'Poppins-Regular',
-                                fontSize: 14
+                                ...FONTS.body6,
                             }}>
                             {city}
                         </Text>
                     </View>
                 </View>
             </View>
-            <View style={{ alignContent: 'flex-end' }}>
+            <View style={{ alignContent: 'flex-end'}}>
                 <TouchableOpacity
                     onPress={onPress}
                     style={styles.button}

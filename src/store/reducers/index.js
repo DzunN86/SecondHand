@@ -3,6 +3,8 @@ import {loginReducer, registerReducer} from './auth';
 import {commonReducers} from './common';
 import {homeReducer} from './home';
 import { notificationReducer } from './notification';
+import {categoryReducer} from './kategori';
+import {addProductReducer} from './seller/addProduct';
 
 const reducer = combineReducers({
   loginReducer,
@@ -10,6 +12,8 @@ const reducer = combineReducers({
   commonReducers,
   homeReducer,
   notificationReducer,
+  categoryReducer,
+  addProductReducer
 });
 
 export default reducer;

@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { COLORS } from '../../../themes';
+import { COLORS, FONTS, RADIUS } from '../../../themes';
 export default StyleSheet.create({
     container: {
         alignItems: 'center',
         height: 90,
         backgroundColor: COLORS.white,
-        borderRadius: 15,
+        borderRadius: RADIUS.medium,
         shadowColor: COLORS.black,
         shadowOffset: { width: 0, height: 0 },
         shadowOpacity: 0.5,
@@ -23,7 +23,7 @@ export default StyleSheet.create({
     subCard: {
         height: 50,
         width: 50,
-        borderRadius: 15,
+        borderRadius: RADIUS.medium,
         backgroundColor: COLORS.black,
         borderColor: COLORS.black,
         borderWidth: 1,
@@ -32,19 +32,18 @@ export default StyleSheet.create({
         justifyContent: 'center',
     },
     button: {
-        height: 35,
-        width: 60,
+        height: 26,
+        width: 47,
         borderRadius: 10,
         borderColor: 'purple',
         borderWidth: 1,
-        borderStyle: 'solid'
+        borderStyle: 'solid',
+        alignContent: 'center'
     },
     textButton: {
-        color: COLORS.gray,
-        fontFamily: 'Poppins-Regular',
-        fontSize: 20,
+        color: COLORS.black,
+        ...FONTS.body5,
         alignSelf: 'center',
-        marginTop: 6,
-        fontWeight: 'bold'
+        marginVertical: 2,
     }
 })
