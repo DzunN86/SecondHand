@@ -144,8 +144,6 @@ const Preview = ({ route, navigation }) => {
       dispatch(getDetail(id_product));
     }, []);
 
-    console.log(dataProduk.Categories[0]?.name)
-
     return (
         <View>
             <ImageBackground source={{uri: dataProduk.image_url}} style={styles.bgProduk}>
@@ -153,7 +151,7 @@ const Preview = ({ route, navigation }) => {
                 <View style={{ marginTop: 250, }}>
                     <CardProduk 
                         nameProduk={dataProduk.name} 
-                        kategori={dataProduk.Categories[0]?.name} 
+                        kategori={dataProduk['Categories']?.[0]?.name} 
                         price={dataProduk.base_price} />
                     <CardPenjual 
                         name={dataProduk['User']?.full_name} 
