@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import styles from './styles';
 import BackHeader from '../../components/atoms/CustomHeader/BackHeader';
 import CardSeller from '../../components/molecules/CardSeller';
-import { COLORS } from '../../themes';
+import { COLORS, FONTS } from '../../themes';
 import { getDetail } from '../../store/actions'
 
 const CardPenjual = ({ name, city, source }) => {
@@ -25,28 +25,18 @@ const CardPenjual = ({ name, city, source }) => {
                 <View style={{ marginLeft: 12 }}>
                     <Text
                         style={{
+                            ...FONTS.h4,
                             color: COLORS.black,
-                            fontFamily: 'Poppins',
-                            fontSize: 20,
                             textTransform: 'capitalize',
                         }}>
                         {name}
                     </Text>
-                    <View
+                    <Text
                         style={{
-                            marginTop: 10,
-                            borderWidth: 0,
-                            width: '85%',
+                            ...FONTS.body5,
                         }}>
-                        <Text
-                            style={{
-                                color: COLORS.gray,
-                                fontFamily: 'Poppins-Regular',
-                                fontSize: 14
-                            }}>
-                            {city}
-                        </Text>
-                    </View>
+                        {city}
+                    </Text>
                 </View>
             </View>
         </View>
@@ -55,45 +45,29 @@ const CardPenjual = ({ name, city, source }) => {
 const CardProduk = ({ nameProduk, kategori, price }) => {
     return (
         <View style={styles.produk}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', width: '100%' }}>
                 <View style={{ marginLeft: 12 }}>
                     <Text
                         style={{
                             color: COLORS.black,
-                            fontFamily: 'Poppins',
-                            fontSize: 20,
+                            ...FONTS.h4,
                             textTransform: 'capitalize',
                         }}>
                         {nameProduk}
                     </Text>
-                    <View
+                    <Text
                         style={{
-                            borderWidth: 0,
-                            width: '85%',
+                            ...FONTS.body5
                         }}>
-                        <Text
-                            style={{
-                                color: COLORS.gray,
-                                fontFamily: 'Poppins-Regular',
-                                fontSize: 14
-                            }}>
-                            {kategori}
-                        </Text>
-                    </View>
-                    <View
+                        {kategori}
+                    </Text>
+                    <Text
                         style={{
-                            borderWidth: 0,
-                            width: '85%',
+                            ...FONTS.h4,
+                            color: COLORS.black,
                         }}>
-                        <Text
-                            style={{
-                                color: COLORS.black,
-                                fontFamily: 'Poppins',
-                                fontSize: 20
-                            }}>
-                            {price}
-                        </Text>
-                    </View>
+                        {price}
+                    </Text>
                 </View>
             </View>
         </View>
@@ -107,9 +81,8 @@ const CardDeskripsi = ({ title, deskripsi }) => {
                     <Text
                         style={{
                             marginTop:10,
+                            ...FONTS.h4,
                             color: COLORS.black,
-                            fontFamily: 'Poppins',
-                            fontSize: 20,
                             textTransform: 'capitalize',
                         }}>
                         {title}
@@ -118,14 +91,11 @@ const CardDeskripsi = ({ title, deskripsi }) => {
                         <View
                             style={{
                                 marginTop:10,
-                                borderWidth: 0,
                                 width: '100%',
                             }}>
                             <Text
                                 style={{
-                                    color: COLORS.gray,
-                                    fontFamily: 'Poppins-Regular',
-                                    fontSize: 14
+                                    ...FONTS.body4
                                 }}>
                                 {deskripsi}
                             </Text>
@@ -140,6 +110,7 @@ const Preview = ({ route, navigation }) => {
     const dispatch = useDispatch();
     const {dataProduk} = useSelector(state => state.detailReducer);
     const {id_product} = route.params
+
     useEffect(() => {
       dispatch(getDetail(id_product));
     }, []);
@@ -152,7 +123,7 @@ const Preview = ({ route, navigation }) => {
                     <CardProduk 
                         nameProduk={dataProduk.name} 
                         kategori={dataProduk['Categories']?.[0]?.name} 
-                        price={dataProduk.base_price} />
+                        price={`Rp ${dataProduk.base_price}`} />
                     <CardPenjual 
                         name={dataProduk['User']?.full_name} 
                         city={dataProduk.location} 
