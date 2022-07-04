@@ -2,7 +2,6 @@ import {Text, View, TouchableOpacity, Image} from 'react-native';
 import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 import styles from './styles';
-import {priceFormater} from '../../../utils';
 
 const CardProduct = ({onPress, name, category, price, image}) => {
   

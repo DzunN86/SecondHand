@@ -1,38 +1,15 @@
-import {View, Text, TouchableOpacity, Button} from 'react-native';
-import React from 'react';
-import {CustomHeader} from '../../components/atoms';
-import styles from './styles';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {COLORS} from '../../themes';
-import {version} from '../../../package.json';
+import {View, Text, Button} from 'react-native';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {logoutUser} from '../../store/actions/auth/logoutUser';
+import styles from './styles';
+import {CustomHeader, Upload, Menu} from '../../components';
+import {logoutUser, doGetProfile} from '../../store/actions';
 import {showError, showSuccess} from '../../plugins';
-
-function Menu({name, title, onPress}) {
-  return (
-    <View>
-      <TouchableOpacity onPress={onPress}>
-        <View style={styles.menuItem}>
-          <Icon name={name} color={COLORS.primary} size={25} />
-          <Text style={styles.menuItemText}>{title}</Text>
-        </View>
-      </TouchableOpacity>
-      <View style={styles.separator} />
-    </View>
-  );
-}
-
-function Upload() {
-  return (
-    <TouchableOpacity style={styles.container}>
-      <Icon name="camera" size={35} color={COLORS.white} style={styles.icon} />
-    </TouchableOpacity>
-  );
-}
+import {version} from '../../../package.json';
 
 export default function Account({navigation}) {
   const dispatch = useDispatch();
+  const {userProfile} = useSelector(state => state.getUserReducer);
   const {userData} = useSelector(state => state.loginReducer);
 
   const onPressLogout = () => {
@@ -44,15 +21,22 @@ export default function Account({navigation}) {
       showError(error);
     }
   };
+
+  useEffect(() => {
+    if (userData.access_token) {
+      dispatch(doGetProfile());
+    }
+  }, [dispatch]);
+
   return (
     <View>
       <CustomHeader
         type="HeaderTitle"
-        title={userData.access_token ? userData.name : 'Akun'}
+        title={userData.access_token ? userProfile.full_name || userData.name : 'Akun'}
       />
       {userData.access_token ? (
         <>
-          <Upload />
+          <Upload source={{uri: userProfile.image_url}} disabled={true} />
           <View style={styles.menuWrapper}>
             <Menu
               name="account-edit"

@@ -1,66 +1,116 @@
-import {View, Text, TouchableOpacity, TextInput} from 'react-native';
-import React from 'react';
-import {CustomHeader, CustomButton} from '../../components/atoms';
+import {View, ScrollView} from 'react-native';
+import React, {createRef, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import Animated from 'react-native-reanimated';
+import {Formik} from 'formik';
 import styles from './styles';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {COLORS} from '../../themes';
+import {updateSchema} from '../../plugins';
+import {CustomHeader, CustomButton, CustomSelect, CustomInput, Upload, BottomUpload} from '../../components';
+import {kota} from '../../utils';
+import {doUpdate} from '../../store/actions/akun';
 
-function Upload() {
-  return (
-    <TouchableOpacity               
-      style={styles.container}>
-        <Icon
-          name="camera"
-          size={35}
-          color={COLORS.white}
-          style={styles.icon}
-        />
-      </TouchableOpacity>
-  )
-}
-
-function InputForm({title, keyboardType, placeholder, multiline, numberOfLines, maxLength}) {
-  return (
-    <View>
-    <Text style={styles.textLabel}>{title}</Text>
-        <TextInput 
-          style={styles.action}
-          placeholder={placeholder}
-          placeholderTextColor={COLORS.lightGray1}
-          keyboardType={keyboardType}
-          autoCorrect={false}
-          multiline={multiline}
-          numberOfLines={numberOfLines}
-          maxLength={maxLength}
-        />
-   </View>   
-  )
-}
+const thisRef = createRef();
+const anim = new Animated.Value(1);
 
 export default function InfoAkun({navigation}) {
+
+  const dispatch = useDispatch();
+  const {isLoading} = useSelector(state => state.commonReducers);
+  const {userProfile} = useSelector(state => state.getUserReducer);
+
+  const onPressUpdate = (data) => {
+    const formData = new FormData();
+    const update = update
+
+    formData.append('full_name', data.nama);
+    formData.append('city', data.kota);
+    formData.append('address', data.alamat);
+    formData.append('phone_number', data.phone_number);
+    formData.append('image', {
+      uri: `https://ui-avatars.com/api/?name=${data.nama}`,
+      type: 'image/jpeg',
+      name: 'image.jpg',
+    });
+    dispatch(doUpdate(formData, update, navigation));
+  };
+
+  const [image, setAvatar] = useState(userProfile.image_url);
+
   return (
-    <View style={{height: "100%"}}>
+    <ScrollView style={{height: "100%"}}>
       <CustomHeader 
         type="BackTitle" 
         title="Lengkapi Info Akun" 
-        onPress={() => navigation.navigate("MainApp")} />
-      <Upload />
-      <View style={styles.menuWrapper}>
-        <InputForm 
-          title="Alamat*" 
-          placeholder="Contoh: Jalan Daendles 55"
-          multiline={true}
-          numberOfLines={4}
-        />
-        <InputForm 
-          title="No Handphone*" 
-          placeholder="Contoh: 088980623792"
-          keyboardType="numeric"
-          numberOfLines={1}
-          maxLength={13}
-        />
-    </View>
-      <CustomButton primary title="Simpan" style={styles.button} />
-    </View>
+        onPress={() => navigation.goBack()} />
+      <BottomUpload image={image} setAvatar={setAvatar} thisRef={thisRef} anim={anim} />
+      <Animated.View style={{opacity: Animated.add(0.1, Animated.multiply(anim, 1.0))}}>  
+        <View style={styles.form}>
+          <Formik
+            initialValues={{
+              image: userProfile.image_url,
+              nama: userProfile.full_name,
+              phone_number: userProfile.phone_number,
+              alamat: userProfile.address,
+              kota: userProfile.city,
+            }}
+            validationSchema={updateSchema}
+            onSubmit={values => onPressUpdate(values)}>
+            {({handleChange, handleSubmit, values, errors, isValid, dirty}) => (
+              <>
+                <Upload source={{uri: image}} onPress={() => thisRef.current.snapTo(0)} name="camera" />
+                <CustomInput
+                  testID="input-nama"
+                  label="Nama"
+                  name="nama"
+                  onChangeText={handleChange('nama')}
+                  value={values.nama}
+                  error={errors.nama}
+                  iconPosition="right"
+                  placeholder="Nama Lengkap"
+                />
+                <CustomInput
+                  testID="input-phone_number"
+                  label="Nomor Telepon"
+                  name="phone_number"
+                  onChangeText={handleChange('phone_number')}
+                  value={values.phone_number}
+                  error={errors.phone_number}
+                  iconPosition="right"
+                  placeholder="+62 xx xxx xxx xxx"
+                />
+                <CustomInput
+                  testID="input-alamat"
+                  label="Alamat"
+                  name="alamat"
+                  onChangeText={handleChange('alamat')}
+                  value={values.alamat}
+                  error={errors.alamat}
+                  iconPosition="right"
+                  placeholder="Alamat Lengkap"
+                />
+                <CustomSelect
+                  label="Kota"
+                  name="kota"
+                  onSelectChange={handleChange('kota')}
+                  value={values.kota}
+                  error={errors.kota}
+                  iconPosition="left"
+                  selectData={kota}
+                />
+                <CustomButton
+                  testID="btn-login"
+                  loading={isLoading}
+                  disabled={isLoading}
+                  primary
+                  title="Simpan"
+                  disable={!(dirty && isValid)}
+                  onPress={handleSubmit}
+                />
+              </>
+            )}
+          </Formik>
+        </View>
+      </Animated.View>
+    </ScrollView>
   );
 }

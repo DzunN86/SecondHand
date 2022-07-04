@@ -1,7 +1,6 @@
 import axios from 'axios';
 import config from '../../config';
 import {Store} from '../../store';
-import {LOGOUT} from '../../store/types';
 
 const stores = Store.getState();
 
@@ -30,27 +29,8 @@ instance.interceptors.request.use(
 );
 
 instance.interceptors.response.use(
-  response =>
-    new Promise(resolve => {
-      resolve(response);
-    }),
-  error => {
-    if (!error.response) {
-      return new Promise((resolve, reject) => {
-        reject(error);
-      });
-    }
-
-    if (error.response.status === 403) {
-      Store.dispatch({type: LOGOUT});
-    } else if (error.response.status === 401) {
-      Store.dispatch({type: LOGOUT});
-    } else {
-      return new Promise((resolve, reject) => {
-        reject(error);
-      });
-    }
-  },
+  (response) => response,
+  (error) => Promise.reject(error),
 );
 
 export default instance;

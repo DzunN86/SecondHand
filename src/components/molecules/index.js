@@ -4,8 +4,14 @@ import CardProduct from './CardProduct';
 import SearchBar from './SearchBar';
 import DefaultAds from './DefaultAds';
 import CardCategory from './CardCategory';
+import Upload from './UploadFoto';
+import Menu from './MenuAkun'
+import BottomUpload from './BottomSheetUpload';
 
 export {
+  Upload,
+  BottomUpload,
+  Menu,
   ButtonNavigatior,
   CardSeller,
   CardProduct,
