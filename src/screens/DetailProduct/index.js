@@ -140,18 +140,25 @@ const Preview = ({ route, navigation }) => {
     const dispatch = useDispatch();
     const {dataProduk} = useSelector(state => state.detailReducer);
     const {id_product} = route.params
-
     useEffect(() => {
       dispatch(getDetail(id_product));
     }, []);
+
+    console.log(dataProduk.Categories[0]?.name)
 
     return (
         <View>
             <ImageBackground source={{uri: dataProduk.image_url}} style={styles.bgProduk}>
                 <BackHeader onPress={() => navigation.navigate('MainApp')} />
                 <View style={{ marginTop: 250, }}>
-                    <CardProduk nameProduk={dataProduk.name} kategori='Aksesoris' price={dataProduk.base_price} />
-                    <CardPenjual name={dataProduk.User.full_name} city={dataProduk.location} />
+                    <CardProduk 
+                        nameProduk={dataProduk.name} 
+                        kategori={dataProduk.Categories[0]?.name} 
+                        price={dataProduk.base_price} />
+                    <CardPenjual 
+                        name={dataProduk['User']?.full_name} 
+                        city={dataProduk.location} 
+                        source={{uri: dataProduk['User']?.image_url}} />
                     <CardDeskripsi title='Deskripsi' deskripsi={dataProduk.description} />
                 </View>
             </ImageBackground>
