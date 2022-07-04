@@ -2,136 +2,81 @@ import { Text, View, ImageBackground, Image, ScrollView } from 'react-native';
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from './styles';
-import BackHeader from '../../components/atoms/CustomHeader/BackHeader';
-import { COLORS, FONTS } from '../../themes';
+import Header from '../../components/atoms/CustomHeader';
 import { getDetail } from '../../store/actions'
 
 const CardPenjual = ({ name, city, source }) => {
-    return (
-        <View style={styles.container}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Image
-                    resizeMode="contain"
-                    style={{
-                        borderRadius: 15,
-                        height: 50,
-                        width: 50,
-                    }}
-                    source={source}
-                />
-                <View style={{ marginLeft: 16 }}>
-                    <Text
-                        style={{
-                            ...FONTS.h4,
-                            color: COLORS.black,
-                            textTransform: 'capitalize',
-                        }}>
-                        {name}
-                    </Text>
-                    <Text
-                        style={{
-                            ...FONTS.body5,
-                            marginTop: 4,
-                        }}>
-                        {city}
-                    </Text>
-                </View>
-            </View>
+  return (
+    <View style={styles.container}>
+      <View style={styles.wrapperPenjual}>
+        <Image
+          resizeMode="contain"
+          style={styles.imagePenjual}
+          source={source}
+        />
+        <View>
+          <Text style={styles.namaPenjual}>{name}</Text>
+          <Text style={styles.namaKota}>{city}</Text>
         </View>
-    );
+      </View>
+    </View>
+  );
 }
 const CardProduk = ({ nameProduk, kategori, price }) => {
-    return (
-        <View style={styles.produk}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', width: '100%' }}>
-                <View style={{ marginLeft: 12 }}>
-                    <Text
-                        style={{
-                            color: COLORS.black,
-                            ...FONTS.h4,
-                            textTransform: 'capitalize',
-                        }}>
-                        {nameProduk}
-                    </Text>
-                    <Text
-                        style={{
-                            marginTop: 4,
-                            marginBottom: 8,
-                            ...FONTS.body5
-                        }}>
-                        {kategori}
-                    </Text>
-                    <Text
-                        style={{
-                            ...FONTS.h4,
-                            color: COLORS.black,
-                        }}>
-                        {price}
-                    </Text>
-                </View>
-            </View>
+  return (
+    <View style={styles.produk}>
+      <View style={styles.wrapperProduk}>
+        <View>
+          <Text style={styles.namaProduk}>{nameProduk}</Text>
+          <Text style={styles.kategori}>{kategori}</Text>
+          <Text style={styles.price}>{price}</Text>
         </View>
-    );
+      </View>
+    </View>
+  );
 }
 const CardDeskripsi = ({ title, deskripsi }) => {
-    return (
-        <View style={styles.deskripsi}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <View style={{ marginLeft: 12 }}>
-                    <Text
-                        style={{
-                            marginTop: 16,
-                            marginBottom: 8,
-                            ...FONTS.h4,
-                            color: COLORS.black,
-                            textTransform: 'capitalize',
-                        }}>
-                        {title}
-                    </Text>
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        <View
-                            style={{
-                                width: '100%',
-                            }}>
-                            <Text
-                                style={{
-                                    ...FONTS.body4
-                                }}>
-                                {deskripsi}
-                            </Text>
-                        </View>
-                    </ScrollView>
-                </View>
+  return (
+    <View style={styles.deskripsi}>
+      <View style={styles.wrapperDeskripsi}>
+        <View>
+          <Text style={styles.title}>{title}</Text>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <View>
+              <Text style={styles.deskripsiText}>{deskripsi}</Text>
             </View>
+          </ScrollView>
         </View>
-    );
+      </View>
+    </View>
+  );
 }
 const Preview = ({ route, navigation }) => {
-    const dispatch = useDispatch();
-    const {dataProduk} = useSelector(state => state.detailReducer);
-    const {id_product} = route.params
+  const dispatch = useDispatch();
+  const {dataProduk} = useSelector(state => state.detailReducer);
+  const {id_product} = route.params
 
-    useEffect(() => {
-      dispatch(getDetail(id_product));
-    }, []);
+  useEffect(() => {
+    dispatch(getDetail(id_product));
+  }, []);
 
-    return (
-        <View>
-            <ImageBackground source={{uri: dataProduk.image_url}} style={styles.bgProduk}>
-                <BackHeader onPress={() => navigation.navigate('MainApp')} />
-                <View style={{ marginTop: 250, }}>
-                    <CardProduk 
-                        nameProduk={dataProduk.name} 
-                        kategori={dataProduk['Categories']?.[0]?.name} 
-                        price={`Rp ${dataProduk.base_price}`} />
-                    <CardPenjual 
-                        name={dataProduk['User']?.full_name} 
-                        city={dataProduk.location} 
-                        source={{uri: dataProduk['User']?.image_url}} />
-                    <CardDeskripsi title='Deskripsi' deskripsi={dataProduk.description} />
-                </View>
-            </ImageBackground>
+  return (
+    <View>
+      <ImageBackground source={{uri: dataProduk.image_url}} style={styles.bgProduk}>
+        <Header type="BackHeader" onPress={() => navigation.navigate('MainApp')} />
+        <View style={styles.containerKeterangan}>
+          <CardProduk 
+            nameProduk={dataProduk.name} 
+            kategori={dataProduk['Categories']?.[0]?.name} 
+            price={`Rp ${dataProduk.base_price}`} />
+          <CardPenjual 
+            name={dataProduk['User']?.full_name} 
+            city={dataProduk.location} 
+            source={{uri: dataProduk['User']?.image_url}} />
+          <CardDeskripsi title='Deskripsi' deskripsi={dataProduk.description} />
         </View>
+      </ImageBackground>
+    </View>
     )
 }
 
