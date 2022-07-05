@@ -85,31 +85,31 @@ const Preview = ({ route, navigation }) => {
           style={{...FONTS.h4, color: COLORS.black}} />
       </View>
       <Formik
-              initialValues={{harga: ''}}
-              validationSchema={tawarSchema}
-              onSubmit={values => onPressLogin(values)}>
-              {({handleChange, handleSubmit, values, errors, isValid, dirty}) => (
-                <>
-                  <CustomInput
-                    testID="input-harga"
-                    label="Harga Tawar"
-                    name="harga"
-                    onChangeText={handleChange('harga')}
-                    value={values.harga}
-                    error={errors.harga}
-                    iconPosition="right"
-                    placeholder="Rp 0,00"
-                  />
-                  <CustomButton
-                    testID="btn-login"
-                    primary
-                    title="Kirim"
-                    disable={!(dirty && isValid)}
-                    onPress={handleSubmit}
-                  />
-                </>
-              )}
-            </Formik>
+        initialValues={{harga: ''}}
+        validationSchema={tawarSchema}
+        onSubmit={values => onPressLogin(values)}>
+        {({handleChange, handleSubmit, values, errors, isValid, dirty}) => (
+          <>
+            <CustomInput
+              testID="input-harga"
+              label="Harga Tawar"
+              name="harga"
+              onChangeText={handleChange('harga')}
+              value={values.harga}
+              error={errors.harga}
+              iconPosition="right"
+              placeholder="Rp 0,00"
+            />
+            <CustomButton
+              testID="btn-login"
+              primary
+              title="Kirim"
+              disable={!(dirty && isValid)}
+              onPress={handleSubmit}
+            />
+          </>
+        )}
+      </Formik>
       <CustomButton primary style={{}} title="Cancel" onPress={() => thisRef.current.snapTo(1)} />
     </View>
   );
