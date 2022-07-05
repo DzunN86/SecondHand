@@ -3,12 +3,13 @@ import React from 'react';
 import { COLORS, FONTS } from '../../../themes';
 import styles from './styles';
 
-const CardSeller = ({ name, city, title, onPress }) => {
+const CardSeller = ({ name, city, title, onPress, source }) => {
     return (
         <View style={styles.container}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <View style={styles.subCard}>
                     <Image
+                        source={source}
                         resizeMode="contain"
                         style={{
                             borderRadius: 15,
@@ -42,7 +43,7 @@ const CardSeller = ({ name, city, title, onPress }) => {
                     </View>
                 </View>
             </View>
-            <View style={{ alignContent: 'flex-end'}}>
+            <View style={{ alignContent: 'flex-end' }}>
                 <TouchableOpacity
                     onPress={onPress}
                     style={styles.button}

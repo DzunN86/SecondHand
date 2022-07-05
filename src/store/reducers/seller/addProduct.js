@@ -2,7 +2,7 @@ import {ADD_PRODUCT_SUCCESS, ADD_PRODUCT_FAILED} from '../../types';
 
 const initialState = {
   isLoading: true,
-  dataProduk: [],
+  dataProduk: {},
 };
 
 export const addProductReducer = (state = initialState, action = {}) => {

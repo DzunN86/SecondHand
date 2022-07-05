@@ -12,7 +12,6 @@ const TabProduk = ({ title, icon, onPress }) => {
                 <Text style={styles.textButton}>{title}</Text>
             </View>
         </TouchableOpacity>
-
     )
 }
 
