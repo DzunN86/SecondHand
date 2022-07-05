@@ -1,154 +1,159 @@
-import { StyleSheet, Text, View, ImageBackground, Image, ScrollView } from 'react-native';
-import React from 'react';
-import BackHeader from '../../components/atoms/CustomHeader/BackHeader';
+import { Text, View, ImageBackground, Image, ScrollView } from 'react-native';
+import React, {useEffect, createRef} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import Animated from 'react-native-reanimated';
+import BottomSheet from 'reanimated-bottom-sheet';
+import {Formik} from 'formik';
 import styles from './styles';
-import CardSeller from '../../components/molecules/CardSeller';
-import { COLORS } from '../../themes';
+import { CustomHeader, CustomButton, CustomInput } from '../../components';
+import { getDetail } from '../../store/actions'
+import { COLORS, FONTS, SIZES } from '../../themes';
+import { tawarSchema } from '../../plugins';
 
-
-const CardPenjual = ({ name, city, source }) => {
-    return (
-        <View style={styles.container}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <View style={styles.subCard}>
-                    <Image
-                        resizeMode="contain"
-                        style={{
-                            borderRadius: 15,
-                            height: 50,
-                            width: 50,
-                        }}
-                        source={source}
-                    />
-                </View>
-                <View style={{ marginLeft: 12 }}>
-                    <Text
-                        style={{
-                            color: COLORS.black,
-                            fontFamily: 'Poppins',
-                            fontSize: 20,
-                            textTransform: 'capitalize',
-                        }}>
-                        {name}
-                    </Text>
-                    <View
-                        style={{
-                            marginTop: 10,
-                            borderWidth: 0,
-                            width: '85%',
-                        }}>
-                        <Text
-                            style={{
-                                color: COLORS.gray,
-                                fontFamily: 'Poppins-Regular',
-                                fontSize: 14
-                            }}>
-                            {city}
-                        </Text>
-                    </View>
-                </View>
-            </View>
+const CardFoto = ({ text1, text2, source, style }) => {
+  return (
+    <View style={styles.container}>
+      <View style={styles.wrapperPenjual}>
+        <Image
+          resizeMode="contain"
+          style={styles.imagePenjual}
+          source={source}
+        />
+        <View>
+          <Text style={styles.namaPenjual}>{text1}</Text>
+          <Text style={[styles.namaKota, style]}>{text2}</Text>
         </View>
-    );
+      </View>
+    </View>
+  );
 }
 const CardProduk = ({ nameProduk, kategori, price }) => {
-    return (
-        <View style={styles.produk}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <View style={{ marginLeft: 12 }}>
-                    <Text
-                        style={{
-                            color: COLORS.black,
-                            fontFamily: 'Poppins',
-                            fontSize: 20,
-                            textTransform: 'capitalize',
-                        }}>
-                        {nameProduk}
-                    </Text>
-                    <View
-                        style={{
-                            borderWidth: 0,
-                            width: '85%',
-                        }}>
-                        <Text
-                            style={{
-                                color: COLORS.gray,
-                                fontFamily: 'Poppins-Regular',
-                                fontSize: 14
-                            }}>
-                            {kategori}
-                        </Text>
-                    </View>
-                    <View
-                        style={{
-                            borderWidth: 0,
-                            width: '85%',
-                        }}>
-                        <Text
-                            style={{
-                                color: COLORS.black,
-                                fontFamily: 'Poppins',
-                                fontSize: 20
-                            }}>
-                            {price}
-                        </Text>
-                    </View>
-                </View>
-            </View>
+  return (
+    <View style={styles.produk}>
+      <View style={styles.wrapperProduk}>
+        <View>
+          <Text style={styles.namaProduk}>{nameProduk}</Text>
+          <Text style={styles.kategori}>{kategori}</Text>
+          <Text style={styles.price}>{price}</Text>
         </View>
-    );
+      </View>
+    </View>
+  );
 }
 const CardDeskripsi = ({ title, deskripsi }) => {
-    return (
-        <View style={styles.deskripsi}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <View style={{ marginLeft: 12 }}>
-                    <Text
-                        style={{
-                            marginTop:10,
-                            color: COLORS.black,
-                            fontFamily: 'Poppins',
-                            fontSize: 20,
-                            textTransform: 'capitalize',
-                        }}>
-                        {title}
-                    </Text>
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        <View
-                            style={{
-                                marginTop:10,
-                                borderWidth: 0,
-                                width: '100%',
-                            }}>
-                            <Text
-                                style={{
-                                    color: COLORS.gray,
-                                    fontFamily: 'Poppins-Regular',
-                                    fontSize: 14
-                                }}>
-                                {deskripsi}
-                            </Text>
-                        </View>
-                    </ScrollView>
-                </View>
-            </View>
-        </View>
-    );
-}
-const Preview = ({ navigation }) => {
-    return (
+  return (
+    <View style={styles.deskripsi}>
+      <View style={styles.wrapperDeskripsi}>
         <View>
-            <ImageBackground source={require('./bg.png')} style={styles.bgProduk}>
-                <BackHeader onPress={() => navigation.navigate('MainApp')} />
-                <View style={{ marginTop: 250, }}>
-                    <CardProduk nameProduk='Jam Tangan Casio' kategori='Aksesoris' price='Rp 250.000' />
-                    <CardPenjual name='Nama Penjual' city='Kota' />
-                    <CardDeskripsi title='Deskripsi' deskripsi='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'/>
-                </View>
-            </ImageBackground>
+          <Text style={styles.title}>{title}</Text>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <View>
+              <Text style={styles.deskripsiText}>{deskripsi}</Text>
+            </View>
+          </ScrollView>
         </View>
+      </View>
+    </View>
+  );
+}
+
+const thisRef = createRef();
+const anim = new Animated.Value(1);
+
+const Preview = ({ route, navigation }) => {
+  const dispatch = useDispatch();
+  const {dataProduk} = useSelector(state => state.detailReducer);
+  const {id_product} = route.params
+
+  useEffect(() => {
+    dispatch(getDetail(id_product));
+  }, []);
+
+  const BottomSheetContent = () => (
+    <View style={styles.bSheet}>
+      <View>
+        <Text style={styles.bSheetTitle}>
+          Masukkan Harga Tawarmu
+        </Text>
+        <Text style={styles.bSheetSubtitle}>
+          Harga tawaranmu akan diketahui penjual, jika penjual cocok kamu akan segera dihubungi penjual.
+        </Text>
+        <CardFoto  
+          text1={dataProduk.name} 
+          text2={`Rp ${dataProduk.base_price}`}
+          source={{uri: dataProduk.image_url}}
+          style={{...FONTS.h4, color: COLORS.black}} />
+      </View>
+      <Formik
+        initialValues={{harga: ''}}
+        validationSchema={tawarSchema}
+        onSubmit={values => onPressLogin(values)}>
+        {({handleChange, handleSubmit, values, errors, isValid, dirty}) => (
+          <>
+            <CustomInput
+              testID="input-harga"
+              label="Harga Tawar"
+              name="harga"
+              onChangeText={handleChange('harga')}
+              value={values.harga}
+              error={errors.harga}
+              iconPosition="right"
+              placeholder="Rp 0,00"
+            />
+            <CustomButton
+              testID="btn-login"
+              primary
+              title="Kirim"
+              disable={!(dirty && isValid)}
+              onPress={handleSubmit}
+            />
+          </>
+        )}
+      </Formik>
+    </View>
+  );
+  
+  const BottomSheetHeader = () => (
+    <View style={styles.bSheetContainer}>
+      <View style={styles.bSheetHeader}>
+      <Text style={styles.close} onPress={() => thisRef.current.snapTo(1)}>X</Text>
+      </View>
+    </View>
+  );
+
+  return (
+    <View>
+      <Animated.View style={{opacity: Animated.add(0.1, Animated.multiply(anim, 1.0))}}>
+      <ImageBackground source={{uri: dataProduk.image_url}} style={styles.bgProduk}>
+        <CustomHeader type="BackHeader" onPress={() => navigation.navigate('MainApp')} />
+        <View style={styles.containerKeterangan}>
+          <CardProduk 
+            nameProduk={dataProduk.name} 
+            kategori={dataProduk['Categories']?.[0]?.name} 
+            price={`Rp ${dataProduk.base_price}`} />
+          <CardFoto 
+            text1={dataProduk['User']?.full_name} 
+            text2={dataProduk.location} 
+            source={{uri: dataProduk['User']?.image_url}} />
+          <CardDeskripsi title='Deskripsi' deskripsi={dataProduk.description} />
+        </View>
+      </ImageBackground>
+      <View style={{height: SIZES.height * 0.7}}>
+      </View>
+      <View style={styles.button} >
+        <CustomButton primary title="Saya Tertarik dan ingin Nego" onPress={() => thisRef.current.snapTo(0)} />
+      </View>
+    </Animated.View>
+    <BottomSheet
+        ref={thisRef}
+        snapPoints={[535, 0]}
+        renderContent={BottomSheetContent}
+        renderHeader={BottomSheetHeader}
+        initialSnap={1}
+        callbackNode={anim}
+        enabledGestureInteraction={true}
+    />  
+    </View>
     )
 }
 

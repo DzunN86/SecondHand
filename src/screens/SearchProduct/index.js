@@ -68,7 +68,7 @@ const SearchProduct = ({navigation}) => {
                 category={item.Categories}
                 price={item.base_price}
                 image={item.image_url}
-                onPress={() => navigation.navigate('DetailProductScreen')}
+                onPress={() => navigation.navigate('DetailProductScreen', {id_product: item.id})}
               />
             )}
             keyExtractor={item => item.id}

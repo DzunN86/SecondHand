@@ -42,3 +42,7 @@ export const updateSchema = Yup.object().shape({
   kota: Yup.string().required('Silahkan pilih kota'),
   phone_number: Yup.string().required('Silahkan masukan Nomor Telepon'),
 });
+
+export const tawarSchema = Yup.object().shape({
+  harga: Yup.string().required('Silahkan masukan harga tawaran'),
+});
