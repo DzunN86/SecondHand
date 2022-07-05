@@ -13,6 +13,7 @@ export default StyleSheet.create({
     },
     containerKeterangan: {
         marginTop: SIZES.height * 0.27,
+        marginHorizontal: 16,
     },
     container: {
         alignItems: 'center',
@@ -25,7 +26,6 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
         paddingHorizontal: 16,
         marginBottom: 19,
-        marginHorizontal: 16,
     },
     wrapperPenjual: {
         flexDirection: 'row', 
@@ -57,7 +57,6 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
         paddingHorizontal: 16,
         marginBottom: 19,
-        marginHorizontal: 16,
     },
     wrapperDeskripsi: {
         flexDirection: 'row', 
@@ -84,7 +83,6 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
         paddingHorizontal: 16,
         marginBottom: 19,
-        marginHorizontal: 16,
     },
     wrapperProduk: {
         flexDirection: 'row', 
@@ -104,5 +102,32 @@ export default StyleSheet.create({
     price: {
         ...FONTS.h4,
         color: COLORS.black,
-    }
+    },
+    bSheet: {
+        paddingHorizontal: 32,
+        backgroundColor: COLORS.white,
+        paddingTop: 20,
+    },
+    bSheetContainer: {
+        backgroundColor: COLORS.white,
+        paddingTop: 20,
+        borderTopWidth: 1,
+        borderLeftWidth: 1,
+        borderRightWidth: 1,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        borderColor: COLORS.gray1,
+    },
+    bSheetHeader: {
+        alignItems: 'center',
+    },
+    bSheetTitle: {
+        ...FONTS.h4,
+        color: COLORS.black,
+        marginBottom: 16,
+    },
+    bSheetSubtitle: {
+        ...FONTS.h4,
+        marginBottom: 10,
+    },
 })
