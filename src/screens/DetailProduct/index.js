@@ -10,7 +10,7 @@ import { getDetail } from '../../store/actions'
 import { COLORS, FONTS, SIZES } from '../../themes';
 import { tawarSchema } from '../../plugins';
 
-const CardPenjual = ({ name, city, source, style }) => {
+const CardFoto = ({ text1, text2, source, style }) => {
   return (
     <View style={styles.container}>
       <View style={styles.wrapperPenjual}>
@@ -20,8 +20,8 @@ const CardPenjual = ({ name, city, source, style }) => {
           source={source}
         />
         <View>
-          <Text style={styles.namaPenjual}>{name}</Text>
-          <Text style={[styles.namaKota, style]}>{city}</Text>
+          <Text style={styles.namaPenjual}>{text1}</Text>
+          <Text style={[styles.namaKota, style]}>{text2}</Text>
         </View>
       </View>
     </View>
@@ -78,9 +78,9 @@ const Preview = ({ route, navigation }) => {
         <Text style={styles.bSheetSubtitle}>
           Harga tawaranmu akan diketahui penjual, jika penjual cocok kamu akan segera dihubungi penjual.
         </Text>
-        <CardPenjual  
-          name={dataProduk.name} 
-          city={`Rp ${dataProduk.base_price}`}
+        <CardFoto  
+          text1={dataProduk.name} 
+          text2={`Rp ${dataProduk.base_price}`}
           source={{uri: dataProduk.image_url}}
           style={{...FONTS.h4, color: COLORS.black}} />
       </View>
@@ -110,13 +110,14 @@ const Preview = ({ route, navigation }) => {
           </>
         )}
       </Formik>
-      <CustomButton primary style={{}} title="Cancel" onPress={() => thisRef.current.snapTo(1)} />
     </View>
   );
   
   const BottomSheetHeader = () => (
     <View style={styles.bSheetContainer}>
-      <View style={styles.bSheetHeader} />
+      <View style={styles.bSheetHeader}>
+      <Text style={styles.close} onPress={() => thisRef.current.snapTo(1)}>X</Text>
+      </View>
     </View>
   );
 
@@ -130,9 +131,9 @@ const Preview = ({ route, navigation }) => {
             nameProduk={dataProduk.name} 
             kategori={dataProduk['Categories']?.[0]?.name} 
             price={`Rp ${dataProduk.base_price}`} />
-          <CardPenjual 
-            name={dataProduk['User']?.full_name} 
-            city={dataProduk.location} 
+          <CardFoto 
+            text1={dataProduk['User']?.full_name} 
+            text2={dataProduk.location} 
             source={{uri: dataProduk['User']?.image_url}} />
           <CardDeskripsi title='Deskripsi' deskripsi={dataProduk.description} />
         </View>
@@ -145,7 +146,7 @@ const Preview = ({ route, navigation }) => {
     </Animated.View>
     <BottomSheet
         ref={thisRef}
-        snapPoints={[570, 0]}
+        snapPoints={[530, 0]}
         renderContent={BottomSheetContent}
         renderHeader={BottomSheetHeader}
         initialSnap={1}
