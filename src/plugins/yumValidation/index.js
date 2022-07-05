@@ -43,6 +43,17 @@ export const updateSchema = Yup.object().shape({
   phone_number: Yup.string().required('Silahkan masukan Nomor Telepon'),
 });
 
+export const formDetailSchema = Yup.object().shape({
+  name_product: Yup.string()
+  .required('Silahkan masukan nama produk'),
+  base_price: Yup.string()
+  .required('Silahkan masukan harga produk'),
+  category_ids: Yup.string()
+  .required('Silahkan pilih kategori'),
+  description: Yup.string()
+  .required('Silahkan masukan deskripsi'),
+})
+
 export const tawarSchema = Yup.object().shape({
   harga: Yup.string().required('Silahkan masukan harga tawaran'),
 });
