@@ -146,7 +146,7 @@ const Preview = ({ route, navigation }) => {
     </Animated.View>
     <BottomSheet
         ref={thisRef}
-        snapPoints={[530, 0]}
+        snapPoints={[535, 0]}
         renderContent={BottomSheetContent}
         renderHeader={BottomSheetHeader}
         initialSnap={1}

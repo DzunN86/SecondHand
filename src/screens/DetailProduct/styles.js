@@ -8,7 +8,7 @@ export default StyleSheet.create({
     button: {
         paddingHorizontal: 16,
         width: '100%', 
-        marginTop: SIZES.height * 0.9,
+        marginTop: SIZES.height * 0.89,
         position: 'absolute',
     },
     containerKeterangan: {
@@ -132,7 +132,7 @@ export default StyleSheet.create({
         marginBottom: 16,
     },
     bSheetSubtitle: {
-        ...FONTS.h4,
+        ...FONTS.body4,
         marginBottom: 10,
     },
 })
