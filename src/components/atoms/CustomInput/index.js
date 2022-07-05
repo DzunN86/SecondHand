@@ -33,7 +33,7 @@ const Input = ({
     if (focused) {
       return COLORS.primary;
     } else {
-      return COLORS.gray;
+      return COLORS.grey3;
     }
   };
   return (

@@ -4,21 +4,17 @@ import {commonReducers} from './common';
 import {homeReducer} from './home'
 import {getUserReducer, updateUserReducer} from './akun'
 import { notificationReducer } from './notification';
-import {categoryReducer} from './kategori';
-import {addProductReducer, productSellerReducers} from './seller';
-
+import { detailReducer } from './detail';
 
 const reducer = combineReducers({
   loginReducer,
   registerReducer,
   commonReducers,
   homeReducer,
+  detailReducer,
   getUserReducer,
   updateUserReducer,
   notificationReducer,
-  categoryReducer,
-  addProductReducer,
-  productSellerReducers,
 });
 
 export default reducer;
