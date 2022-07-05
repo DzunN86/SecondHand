@@ -2,7 +2,7 @@ import { Text, View, ImageBackground, Image, ScrollView } from 'react-native';
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from './styles';
-import Header from '../../components/atoms/CustomHeader';
+import { CustomHeader, CustomButton } from '../../components';
 import { getDetail } from '../../store/actions'
 
 const CardPenjual = ({ name, city, source }) => {
@@ -63,7 +63,7 @@ const Preview = ({ route, navigation }) => {
   return (
     <View>
       <ImageBackground source={{uri: dataProduk.image_url}} style={styles.bgProduk}>
-        <Header type="BackHeader" onPress={() => navigation.navigate('MainApp')} />
+        <CustomHeader type="BackHeader" onPress={() => navigation.navigate('MainApp')} />
         <View style={styles.containerKeterangan}>
           <CardProduk 
             nameProduk={dataProduk.name} 
@@ -76,6 +76,9 @@ const Preview = ({ route, navigation }) => {
           <CardDeskripsi title='Deskripsi' deskripsi={dataProduk.description} />
         </View>
       </ImageBackground>
+      <View style={styles.button} >
+        <CustomButton primary title="Saya Tertarik dan ingin Nego" />
+      </View>
     </View>
     )
 }

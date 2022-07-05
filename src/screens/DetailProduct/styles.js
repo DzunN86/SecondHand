@@ -1,12 +1,18 @@
 import {StyleSheet} from 'react-native';
-import {COLORS, RADIUS, FONTS} from '../../themes';
+import {COLORS, RADIUS, FONTS, SIZES} from '../../themes';
 
 export default StyleSheet.create({
     bgProduk:{
-        height:360,
+        height:300,
+    },
+    button: {
+        paddingHorizontal: 16,
+        width: '100%', 
+        marginTop: SIZES.height * 0.9,
+        position: 'absolute',
     },
     containerKeterangan: {
-        marginTop: 250,
+        marginTop: SIZES.height * 0.27,
     },
     container: {
         alignItems: 'center',
