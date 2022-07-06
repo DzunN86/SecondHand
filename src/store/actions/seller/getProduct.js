@@ -21,9 +21,9 @@ export const setProductSellerFailed = error => ({
     payload: error,
 });
 
-export const getProductSeller = params => async dispatch => {
+export const getProductSeller = () => async dispatch => {
     dispatch(setProductSellerLoading(true));
-    await getProduct(params)
+    await getProduct()
     .then(res => {
         dispatch(setProductSellerSuccess(res.data));
         dispatch(setProductSellerLoading(false));
