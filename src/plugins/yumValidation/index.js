@@ -48,7 +48,8 @@ export const formDetailSchema = Yup.object().shape({
   .required('Silahkan masukan nama produk'),
   base_price: Yup.string()
   .required('Silahkan masukan harga produk'),
-  category_ids: Yup.string()
+  category_ids: Yup.array()
+  .min(1, 'Silahkan pilih kategori')
   .required('Silahkan pilih kategori'),
   description: Yup.string()
   .required('Silahkan masukan deskripsi'),
