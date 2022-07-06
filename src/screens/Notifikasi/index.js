@@ -1,10 +1,11 @@
-import { Text, View, Image, TouchableOpacity, FlatList } from 'react-native';
+import { Text, View, Image, TouchableOpacity, FlatList, ActivityIndicator } from 'react-native';
 import React, { useEffect } from 'react';
 import styles from './style';
 import { product } from '../../assets'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getNotification } from '../../store/actions/notification';
 import { CustomHeader } from '../../components/atoms';
+import { COLORS } from '../../themes';
 
 function CardNotif() {
   return (
@@ -31,7 +32,7 @@ function CardNotif() {
 
 export default function Notifikasi() {
 
-  // const { notif, isLoading } = useSelector(state => state.notificationReducer);
+  const { notif, isLoading } = useSelector(state => state.notificationReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -42,8 +43,15 @@ export default function Notifikasi() {
     <View style={styles.container}>
         
         {/* product 1 */}
+        {isLoading ? (
+          <ActivityIndicator
+            style={{ flex: 1 }}
+            size="large"
+            color={COLORS.primary}
+          />
+        ) : (
         <FlatList
-          data="notif"
+          data={notif}
           renderItem={() => <CardNotif />}
           keyExtractor={item => item.id}
           showsVerticalScrollIndicator={false}
@@ -52,6 +60,7 @@ export default function Notifikasi() {
             title="Notifikasi"
           />}
         />
+        )}
     </View>
   );
 }

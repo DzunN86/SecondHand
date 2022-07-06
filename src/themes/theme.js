@@ -25,6 +25,7 @@ export const COLORS = {
   grey5: '#B1B7C2',
   grey6: '#B0B0B0',
   grey7: '#F0F0F0',
+  grey8: '#D0D0D0',
 
   transparent: 'rgba(30, 27, 38, 0.8)',
 };
