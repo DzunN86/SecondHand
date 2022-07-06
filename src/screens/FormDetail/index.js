@@ -1,54 +1,67 @@
-import { Text, View, TouchableOpacity } from 'react-native';
-import React, { createRef, useState } from 'react';
+import {View} from 'react-native';
+import React, {createRef, useState} from 'react';
 import BackTitle from '../../components/atoms/CustomHeader/BackTitle';
-import { CustomInput, CustomButton, MultipleSelect } from '../../components/atoms/';
-import { BottomUpload } from '../../components/molecules'
+import {
+  CustomInput,
+  CustomButton,
+  MultipleSelect,
+} from '../../components/atoms/';
+import {BottomUpload} from '../../components/molecules';
 import styles from './styles';
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Formik } from 'formik';
-import { formDetailSchema } from '../../plugins';
-import { doProduct } from '../../store/actions/seller/addProduct';
+import {useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {Formik} from 'formik';
+import {formDetailSchema} from '../../plugins';
+import {doProduct} from '../../store/actions/seller/addProduct';
 import TabAdd from '../../components/atoms/TabAdd';
-import { getKategori } from '../../store/actions/kategori';
+import {getKategori} from '../../store/actions/kategori';
 import Animated from 'react-native-reanimated';
-
 
 const thisRef = createRef();
 const anim = new Animated.Value(1);
 
-export default function FormDetail({ navigation }) {
+export default function FormDetail({navigation}) {
   const dispatch = useDispatch();
-  const { category } = useSelector(state => state.categoryReducer)
-  const { userData } = useSelector(state => state.loginReducer);
-  const { userProfile } = useSelector(state => state.getUserReducer);
+  const {category} = useSelector(state => state.categoryReducer);
+  const {userData} = useSelector(state => state.loginReducer);
+  const {userProfile} = useSelector(state => state.getUserReducer);
 
   useEffect(() => {
     dispatch(getKategori());
-  }, [])
+  }, [dispatch]);
 
-  const onPressTerbit = (data) => {
+  const onPressTerbit = data => {
     const formData = new FormData();
 
-    formData.append('name_product', data.name_product);
+    formData.append('name', data.name_product);
     formData.append('description', data.description);
     formData.append('base_price', data.base_price);
     formData.append('category_ids', data.category_ids.toString());
+    formData.append('location', userProfile.city);
     formData.append('image', {
       uri: `https://ui-avatars.com/api/?name=${data.nama}`,
       type: 'image/jpeg',
       name: 'image.jpg',
     });
-    dispatch(doProduct(userData, formData));
-    console.log(formData)
+    dispatch(doProduct(formData));
+    console.log(formData);
   };
 
   const [image, setAvatar] = useState(userData.image_url);
   return (
     <>
-      <BackTitle title='Lengkapi Detail Produk' onPress={() => navigation.goBack()} />
-      <BottomUpload image={image} setAvatar={setAvatar} thisRef={thisRef} anim={anim} />
-      <Animated.View style={{ opacity: Animated.add(0.1, Animated.multiply(anim, 1.0)) }}>
+      <BackTitle
+        title="Lengkapi Detail Produk"
+        onPress={() => navigation.goBack()}
+      />
+      <BottomUpload
+        image={image}
+        setAvatar={setAvatar}
+        thisRef={thisRef}
+        anim={anim}
+      />
+      <Animated.View
+        style={{opacity: Animated.add(0.1, Animated.multiply(anim, 1.0))}}>
         <Formik
           initialValues={{
             name_product: '',
@@ -58,30 +71,38 @@ export default function FormDetail({ navigation }) {
           }}
           validationSchema={formDetailSchema}
           onSubmit={values => onPressTerbit(values)}>
-          {({ handleChange, handleSubmit, setFieldValue, values, errors, isValid, dirty }) => (
+          {({
+            handleChange,
+            handleSubmit,
+            setFieldValue,
+            values,
+            errors,
+            isValid,
+            dirty,
+          }) => (
             <>
-              <View style={{ marginVertical: 10, marginHorizontal: 25 }}>
+              <View style={{marginVertical: 10, marginHorizontal: 25}}>
                 <CustomInput
                   label="Nama Produk"
                   placeholder="Nama Produk"
-                  name='name_product'
+                  name="name_product"
                   onChangeText={handleChange('name_product')}
                   value={values.name_product}
                   error={errors.name_product}
                 />
                 <CustomInput
                   label="Harga Produk"
-                  placeholder='Rp 0,00'
-                  name='base_price'
+                  placeholder="Rp 0,00"
+                  name="base_price"
                   onChangeText={handleChange('base_price')}
                   value={values.base_price}
                   error={errors.base_price}
                 />
                 <MultipleSelect
-                  label='Kategori'
-                  placeholder='Kategori'
-                  name='category_ids'
-                  mode='BADGE'
+                  label="Kategori"
+                  placeholder="Kategori"
+                  name="category_ids"
+                  mode="BADGE"
                   multiple
                   schema={{
                     label: 'name',
@@ -95,34 +116,39 @@ export default function FormDetail({ navigation }) {
                 />
                 <CustomInput
                   label="Deskripsi"
-                  placeholder='Contoh: Jalan Ikan Kerapu 21'
-                  name='description'
+                  placeholder="Contoh: Jalan Ikan Kerapu 21"
+                  name="description"
                   onChangeText={handleChange('description')}
                   value={values.description}
                   error={errors.description}
                 />
                 <TabAdd
-                  type='TabPicture'
-                  label='Foto Produk'
-                  icon='plus'
+                  type="TabPicture"
+                  label="Foto Produk"
+                  icon="plus"
                   onPress={() => thisRef.current.snapTo(0)}
                 />
               </View>
-              <View style={{ marginVertical: 90, marginHorizontal: 25, flexDirection: 'column' }}>
+              <View
+                style={{
+                  marginVertical: 90,
+                  marginHorizontal: 25,
+                  flexDirection: 'column',
+                }}>
                 <CustomButton
                   primary
-                  title='Preview'
+                  title="Preview"
                   style={styles.button1}
-                  onPress={() => navigation.navigate('PreviewScreen', { values })}
+                  onPress={() => navigation.navigate('PreviewScreen', {values})}
                   disable={!(dirty && isValid)}
                 />
                 <CustomButton
                   primary
-                  title='Terbitkan'
+                  title="Terbitkan"
                   style={styles.button2}
                   // onPress={() => navigation.navigate('Daftar Jual')}
                   disable={!(dirty && isValid)}
-                  onPress={() => onPressTerbit(values)}
+                  onPress={handleSubmit}
                 />
               </View>
             </>
