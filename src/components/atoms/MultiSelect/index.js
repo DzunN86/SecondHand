@@ -14,11 +14,11 @@ function MultipleSelect({
       return COLORS.danger;
     }
     if (value == null || value.length === 0) {
-      return COLORS.gray;
+      return COLORS.grey3;
     } if (value) {
-      return COLORS.gray;
+      return COLORS.grey3;
     }
-    return COLORS.gray;
+    return COLORS.grey3;
   };
 
   return (
@@ -61,7 +61,7 @@ export default MultipleSelect;
 
 const styles = StyleSheet.create({
   placeholderStyle: {
-    color: COLORS.grey5,
+    color: COLORS.black,
   },
   textStyle: {
     color: COLORS.black,
@@ -69,5 +69,6 @@ const styles = StyleSheet.create({
   label: {
     color: COLORS.black,
     ...FONTS.tabBarLabel,
+    marginBottom: 5,
   },
 });
