@@ -21,11 +21,11 @@ export const getKategori = () => async dispatch => {
   await getCategory()
     .then(res => {
       dispatch(setCategorySuccess(res.data));
-      dispatch(setLoading(true));
+      dispatch(setLoading(false));
     })
     .catch(err => {
       dispatch(setCategoryFailed(err.response.data.message));
-      dispatch(setLoading(true));
+      dispatch(setLoading(false));
       showError(err.response.data.message);
     });
 };
