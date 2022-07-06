@@ -19,12 +19,10 @@ export default function DaftarJual({ navigation }) {
   useEffect(() => {
     if (userData.access_token) {
       dispatch(doGetProfile());
+    dispatch(getProductSeller());
+
     }
   }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(getProductSeller(''));
-  }, []);
 
   return (
     <View>
@@ -41,14 +39,14 @@ export default function DaftarJual({ navigation }) {
         <CardCategory icon='heart' title='Diminati' />
         <CardCategory icon='dollar-sign' title='Terjual' />
       </View>
-      <View style={{ marginTop: 15, flexDirection: 'column', flex: 1 }}>
-        <TabAdd
+      <View>
+        {/* <TabAdd
           type='TabProduk'
           title='Tambah Produk'
           icon='plus'
           onPress={() => navigation.navigate('FormDetailScreen')}
-        />
-        {/* {isLoading ? (
+        /> */}
+        {isLoading ? (
           <ActivityIndicator
             style={{ flex: 1 }}
             size="large"
@@ -63,14 +61,15 @@ export default function DaftarJual({ navigation }) {
             keyExtractor={item => item.id}
             renderItem={({ item }) => (
               <CardProduct
-                name={item.name_product}
+                name={item.name}
                 price={item.base_price}
+                category={item.Categories}
                 image={item.image_url}
                 onPress={() => navigation.navigate('DetailProductScreen', { id_product: item.id })}
               />
             )}
           />
-          )} */}
+          )}
       </View>
     </View>
   );
