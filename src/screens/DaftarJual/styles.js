@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, FONTS } from '../../themes';
 
 export default StyleSheet.create({
     cardProductWrapper: {
