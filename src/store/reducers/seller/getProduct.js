@@ -8,7 +8,7 @@ const initialState = {
     isLoading: false,
     isError: false,
     erroeMessage: '',
-    productSeller: {},
+    productSeller: [],
 };
 
 export const productSellerReducers = (state = initialState, action) => {
