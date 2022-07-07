@@ -5,3 +5,4 @@ export * from './home';
 export * from './notification';
 export * from './seller';
 export * from './detail';
+export * from './tawar';
