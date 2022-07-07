@@ -7,6 +7,7 @@ import CardCategory from './CardCategory';
 import Upload from './UploadFoto';
 import Menu from './MenuAkun'
 import BottomUpload from './BottomSheetUpload';
+import CardBuyer from './CardBuyer';
 
 export {
   Upload,
@@ -18,4 +19,5 @@ export {
   SearchBar,
   DefaultAds,
   CardCategory,
+  CardBuyer,
 };
