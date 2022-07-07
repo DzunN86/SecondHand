@@ -27,7 +27,7 @@ export default function InfoAkun({navigation}) {
     formData.append('address', data.alamat);
     formData.append('phone_number', data.phone_number);
     formData.append('image', {
-      uri: `https://ui-avatars.com/api/?name=${data.nama}`,
+      uri: image,
       type: 'image/jpeg',
       name: 'image.jpg',
     });
