@@ -1,13 +1,13 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {memo} from 'react';
-import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import {COLORS, FONTS} from '../../../themes';
 import PropTypes from 'prop-types';
 
-function CardCategory({icon, title, onPress, active}) {
+function CardCategory({icon, title, onPress, active, style}) {
   return (
     <TouchableOpacity onPress={onPress}>
-      <View style={styles.searchKategori(active)}>
+      <View style={[styles.searchKategori(active), style]}>
         <Icon
           name={icon}
           color={active ? COLORS.white : COLORS.lightGray}
@@ -35,7 +35,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 12,
     marginTop: 6,
-    marginLeft: 16,
+    // marginLeft: 16,
+    marginRight: 16,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

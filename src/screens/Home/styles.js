@@ -30,4 +30,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     marginHorizontal: 16,
   },
+  categoryList: {
+    flexDirection: 'row',
+  }
 });
