@@ -39,7 +39,7 @@ export default function FormDetail({navigation}) {
     formData.append('category_ids', data.category_ids.toString());
     formData.append('location', userProfile.city);
     formData.append('image', {
-      uri: `https://ui-avatars.com/api/?name=${data.nama}`,
+      uri: image,
       type: 'image/jpeg',
       name: 'image.jpg',
     });
