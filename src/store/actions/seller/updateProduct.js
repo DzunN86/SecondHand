@@ -1,10 +1,10 @@
-import { showError, showSuccess } from "../../../plugins";
-import { updateProduct } from "../../../services/api/seller";
-import { UPDATE_PRODUCT_SUCCESS, UPDATE_PRODUCT_FAILED } from "../../types";
-import { setLoading } from "../common";
-import { getProductSeller } from "./getProduct";
+import {showError, showSuccess} from '../../../plugins';
+import {updateProduct} from '../../../services/api/seller';
+import {UPDATE_PRODUCT_SUCCESS, UPDATE_PRODUCT_FAILED} from '../../types';
+import {setLoading} from '../common';
+import {getProductSeller} from './getProduct';
 
-export const successUpdateProduct = (value) => ({
+export const successUpdateProduct = value => ({
   type: UPDATE_PRODUCT_SUCCESS,
   payload: value,
 });
@@ -13,10 +13,10 @@ export const failedUpdateProduct = () => ({
   type: UPDATE_PRODUCT_FAILED,
 });
 
-export const upDataProduct = (access_token, payload, id) => async dispatch => {
+export const upDataProduct = (payload, id) => async dispatch => {
   dispatch(setLoading(true));
-  console.log("Kirim Data Product",payload);
-  await updateProduct(access_token, payload, id)
+  console.log('Kirim Data Product', payload);
+  await updateProduct(payload, id)
     .then(res => {
       dispatch(successUpdateProduct(res.data));
       dispatch(setLoading(false));
@@ -30,4 +30,4 @@ export const upDataProduct = (access_token, payload, id) => async dispatch => {
 
       console.log('UPDATE PRODUK FAILED', err);
     });
-}
+};

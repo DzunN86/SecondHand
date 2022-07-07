@@ -1,5 +1,5 @@
-import { View } from 'react-native';
-import React, { createRef, useState } from 'react';
+import {View} from 'react-native';
+import React, {createRef, useState} from 'react';
 import BackTitle from '../../components/atoms/CustomHeader/BackTitle';
 import {
   CustomInput,
@@ -7,36 +7,45 @@ import {
   MultipleSelect,
 } from '../../components/atoms/';
 import styles from './styles';
-import { BottomUpload } from '../../components/molecules';
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Formik } from 'formik';
-import { formDetailSchema } from '../../plugins';
-import { doProduct } from '../../store/actions/seller/addProduct';
-import { upDataProduct } from '../../store/actions';
-import { getKategori } from '../../store/actions/kategori';
+import {BottomUpload} from '../../components/molecules';
+import {useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {Formik} from 'formik';
+import {formDetailSchema} from '../../plugins';
+import {doProduct} from '../../store/actions/seller/addProduct';
+import {upDataProduct} from '../../store/actions';
+import {getKategori} from '../../store/actions/kategori';
 import TabAdd from '../../components/atoms/TabAdd';
 import Animated from 'react-native-reanimated';
 
 const thisRef = createRef();
 const anim = new Animated.Value(1);
 
-export default function FormDetail({ navigation, route }) {
+export default function FormDetail({navigation, route}) {
   const dispatch = useDispatch();
-  const { data } = route.params;
 
-  const { category } = useSelector(state => state.categoryReducer);
-  const { userData } = useSelector(state => state.loginReducer);
-  const { userProfile } = useSelector(state => state.getUserReducer);
-  const { productSeller } = useSelector(state => state.productSellerReducers)
+  let data = {}
+
+  if (route.params) {
+    data = route.params;
+  }
+
+  const {category} = useSelector(state => state.categoryReducer);
+  const {userData} = useSelector(state => state.loginReducer);
+  const {userProfile} = useSelector(state => state.getUserReducer);
+  const {productSeller} = useSelector(state => state.productSellerReducers);
 
   useEffect(() => {
     dispatch(getKategori());
   }, [dispatch]);
 
+  const testPayload = value => {
+    console.log("Payload Data",value);
+  }
+
   const onPressTerbit = value => {
     const formData = new FormData();
-    const update = update
+    const update = update;
 
     formData.append('name', value.name_product);
     formData.append('description', value.description);
@@ -51,8 +60,8 @@ export default function FormDetail({ navigation, route }) {
           name: data.image.fileName,
         });
       }
-      dispatch(upDataProduct(access_token, data.id, formData));
-    }else {
+      dispatch(upDataProduct(data.id, formData));
+    } else {
       formData.append('image', {
         uri: value.image.uri, //`https://ui-avatars.com/api/?name=${value.nama}`//
         type: 'image/jpeg',
@@ -60,7 +69,7 @@ export default function FormDetail({ navigation, route }) {
       });
       dispatch(doProduct(formData));
     }
-  }
+  };
   const [image, setAvatar] = useState(userData.image_url);
   return (
     <>
@@ -75,16 +84,18 @@ export default function FormDetail({ navigation, route }) {
         anim={anim}
       />
       <Animated.View
-        style={{ opacity: Animated.add(0.1, Animated.multiply(anim, 1.0)) }}>
+        style={{opacity: Animated.add(0.1, Animated.multiply(anim, 1.0))}}>
         <Formik
           initialValues={{
             name_product: data.name_product ? data.name_product : '',
             base_price: data.base_price ? data.base_price : '',
-            category_ids:data.category_ids ? data.category_ids.map((item) => item.id): [],
-            description: data.description ? data.description: '',
+            category_ids: data.category_ids
+              ? data.category_ids.map(item => item.id)
+              : [],
+            description: data.description ? data.description : '',
           }}
           validationSchema={formDetailSchema}
-          onSubmit={values => onPressTerbit(values)}>
+          onSubmit={values => testPayload(values)}>
           {({
             handleChange,
             handleSubmit,
@@ -95,7 +106,7 @@ export default function FormDetail({ navigation, route }) {
             dirty,
           }) => (
             <>
-              <View style={{ marginVertical: 10, marginHorizontal: 25 }}>
+              <View style={{marginVertical: 10, marginHorizontal: 25}}>
                 <CustomInput
                   label="Nama Produk"
                   placeholder="Nama Produk"
@@ -153,7 +164,7 @@ export default function FormDetail({ navigation, route }) {
                   primary
                   title="Preview"
                   style={styles.button1}
-                  onPress={() => navigation.navigate('PreviewScreen', { values })}
+                  onPress={() => navigation.navigate('PreviewScreen', {values})}
                   disable={!(dirty && isValid)}
                 />
                 <CustomButton
@@ -171,4 +182,4 @@ export default function FormDetail({ navigation, route }) {
       </Animated.View>
     </>
   );
-};
+}
