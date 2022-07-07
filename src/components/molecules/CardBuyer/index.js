@@ -1,9 +1,9 @@
-import { Text, View, Image, TouchableOpacity } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import React from 'react';
 import { COLORS, FONTS } from '../../../themes';
-import styles from './styles';
+import styles from './style';
 
-const CardSeller = ({ name, city, title, onPress, source }) => {
+const CardBuyer = ({ name, city, source }) => {
     return (
         <View style={styles.container}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -37,25 +37,15 @@ const CardSeller = ({ name, city, title, onPress, source }) => {
                             style={{
                                 color: COLORS.gray,
                                 ...FONTS.body6,
+                                width: 100
                             }}>
                             {city}
                         </Text>
                     </View>
                 </View>
             </View>
-            <View style={{ alignContent: 'flex-end' }}>
-                <TouchableOpacity
-                    onPress={onPress}
-                    style={styles.button}
-                >
-                    <Text
-                        style={styles.textButton}>
-                        {title}
-                    </Text>
-                </TouchableOpacity>
-            </View>
         </View>
     )
 }
 
-export default CardSeller
+export default CardBuyer
