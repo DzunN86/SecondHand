@@ -9,6 +9,7 @@ import { CustomHeader, CustomButton, CustomInput } from '../../components';
 import { getDetail, doBid } from '../../store/actions'
 import { COLORS, FONTS, SIZES } from '../../themes';
 import { tawarSchema } from '../../plugins';
+import { formatRupiah } from '../../utils';
 
 const CardFoto = ({ text1, text2, source, style }) => {
   return (
@@ -34,7 +35,7 @@ const CardProduk = ({ nameProduk, kategori, price }) => {
         <View>
           <Text style={styles.namaProduk}>{nameProduk}</Text>
           <Text style={styles.kategori}>{kategori}</Text>
-          <Text style={styles.price}>{price}</Text>
+          <Text style={styles.price}>{formatRupiah(price)}</Text>
         </View>
       </View>
     </View>
@@ -85,7 +86,7 @@ const Preview = ({ route, navigation }) => {
         </Text>
         <CardFoto  
           text1={dataProduk.name} 
-          text2={`Rp ${dataProduk.base_price}`}
+          text2={formatRupiah(dataProduk.base_price)}
           source={{uri: dataProduk.image_url}}
           style={{...FONTS.h4, color: COLORS.black}} />
       </View>
@@ -135,7 +136,7 @@ const Preview = ({ route, navigation }) => {
           <CardProduk 
             nameProduk={dataProduk.name} 
             kategori={dataProduk['Categories']?.[0]?.name} 
-            price={`Rp ${dataProduk.base_price}`} />
+            price={dataProduk.base_price} />
           <CardFoto 
             text1={dataProduk['User']?.full_name} 
             text2={dataProduk.location} 
