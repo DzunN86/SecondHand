@@ -14,13 +14,13 @@ export const setBidFailed = error => ({
   payload: error,
 });
 
-export const doBid = (product_id, bid_price, notif) => async dispatch => {
+export const doBid = (product_id, bid_price) => async dispatch => {
   dispatch(setLoading(true));
   await addBuyerOrder(product_id, bid_price)
     .then(res => {
       dispatch(setBidSuccess(res.data));
       dispatch(setLoading(false));
-      notif = dispatch(getNotification());
+      dispatch(getNotification());
       showSuccess('Bid Success');
       console.log('RES BID', res);
     })

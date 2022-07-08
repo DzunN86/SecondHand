@@ -20,7 +20,6 @@ export default function InfoAkun({navigation}) {
 
   const onPressUpdate = (data) => {
     const formData = new FormData();
-    const update = update
 
     formData.append('full_name', data.nama);
     formData.append('city', data.kota);
@@ -31,7 +30,7 @@ export default function InfoAkun({navigation}) {
       type: 'image/jpeg',
       name: 'image.jpg',
     });
-    dispatch(doUpdate(formData, update, navigation));
+    dispatch(doUpdate(formData, navigation));
   };
 
   const [image, setAvatar] = useState(userProfile.image_url);
