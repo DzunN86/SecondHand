@@ -4,7 +4,7 @@ const initialState = {
   dataBid: {},
 };
 
-export const BidReducer = (state = initialState, action) => {
+export const bidReducer = (state = initialState, action) => {
   switch (action.type) {
     case BID_SUCCESS:
       return {

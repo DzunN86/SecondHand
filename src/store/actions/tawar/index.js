@@ -13,9 +13,9 @@ export const setBidFailed = error => ({
   payload: error,
 });
 
-export const doBid = (id, bid) => async dispatch => {
+export const doBid = (product_id, bid_price) => async dispatch => {
   dispatch(setLoading(true));
-  await addBuyerOrder(id, bid)
+  await addBuyerOrder(product_id, bid_price)
     .then(res => {
       dispatch(setBidSuccess(res.data));
       dispatch(setLoading(false));

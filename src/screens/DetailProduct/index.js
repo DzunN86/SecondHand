@@ -6,7 +6,7 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import {Formik} from 'formik';
 import styles from './styles';
 import { CustomHeader, CustomButton, CustomInput } from '../../components';
-import { getDetail } from '../../store/actions'
+import { getDetail, doBid } from '../../store/actions'
 import { COLORS, FONTS, SIZES } from '../../themes';
 import { tawarSchema } from '../../plugins';
 
@@ -64,11 +64,17 @@ const Preview = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const {dataProduk} = useSelector(state => state.detailReducer);
   const {id_product} = route.params
+  const {isLoading} = useSelector(state => state.commonReducers);
 
   useEffect(() => {
     dispatch(getDetail(id_product));
   }, []);
 
+  const onPressBid = ({id_product, bid_price}) => {
+    console.log(bid_price)
+    dispatch(doBid(id_product, bid_price));
+  };
+  console.log(id_product)
   const BottomSheetContent = () => (
     <View style={styles.bSheet}>
       <View>
@@ -85,23 +91,25 @@ const Preview = ({ route, navigation }) => {
           style={{...FONTS.h4, color: COLORS.black}} />
       </View>
       <Formik
-        initialValues={{harga: ''}}
+        initialValues={{bid_price: ''}}
         validationSchema={tawarSchema}
-        onSubmit={values => onPressLogin(values)}>
+        onSubmit={values => onPressBid(values)}>
         {({handleChange, handleSubmit, values, errors, isValid, dirty}) => (
           <>
             <CustomInput
-              testID="input-harga"
+              testID="input-bid"
               label="Harga Tawar"
-              name="harga"
-              onChangeText={handleChange('harga')}
-              value={values.harga}
-              error={errors.harga}
+              name="bid_price"
+              onChangeText={handleChange('bid_price')}
+              value={values.bid_price}
+              error={errors.bid_price}
               iconPosition="right"
               placeholder="Rp 0,00"
             />
             <CustomButton
               testID="btn-login"
+              loading={isLoading}
+              disabled={isLoading}
               primary
               title="Kirim"
               disable={!(dirty && isValid)}
