@@ -117,20 +117,18 @@ const Preview = ({ route, navigation }) => {
           </>
         )}
       </Formik>
-    </View>
-  );
-  
-  const BottomSheetHeader = () => (
-    <View style={styles.bSheetContainer}>
-      <View style={styles.bSheetHeader}>
-      <Text style={styles.close} onPress={() => thisRef.current.snapTo(1)}>X</Text>
-      </View>
+      <CustomButton
+        primary
+        title="Cancel"
+        onPress={() => thisRef.current.snapTo(1)}
+        style={{marginBottom: 50}}
+      />
     </View>
   );
 
   return (
     <View>
-      <Animated.View style={{opacity: Animated.add(0.1, Animated.multiply(anim, 1.0))}}>
+      <Animated.View style={{opacity: Animated.add(0.3, Animated.multiply(anim, 1.0))}}>
       <ImageBackground source={{uri: dataProduk.image_url}} style={styles.bgProduk}>
         <CustomHeader type="BackHeader" onPress={() => navigation.navigate('MainApp')} />
         <View style={styles.containerKeterangan}>
@@ -153,9 +151,8 @@ const Preview = ({ route, navigation }) => {
     </Animated.View>
     <BottomSheet
         ref={thisRef}
-        snapPoints={[535, 0]}
+        snapPoints={[550, 0]}
         renderContent={BottomSheetContent}
-        renderHeader={BottomSheetHeader}
         initialSnap={1}
         callbackNode={anim}
         enabledGestureInteraction={true}
