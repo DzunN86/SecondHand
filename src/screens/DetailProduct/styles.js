@@ -29,6 +29,7 @@ export default StyleSheet.create({
     wrapperPenjual: {
         flexDirection: 'row', 
         alignItems: 'center',
+        width: '100%',
     },
     imagePenjual: {
         borderRadius: 15,
@@ -40,6 +41,7 @@ export default StyleSheet.create({
         ...FONTS.h4,
         color: COLORS.black,
         textTransform: 'capitalize',
+        width: 194,
     },
     namaKota: {
         ...FONTS.body5,
