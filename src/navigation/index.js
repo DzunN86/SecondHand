@@ -19,6 +19,7 @@ import {
   Splash,
   Preview,
   SearchProduct,
+  DetailProductSeller
 } from '../screens';
 
 const Stack = createNativeStackNavigator();
@@ -82,6 +83,7 @@ function Navigation() {
         <Stack.Screen name="InfoPenawaranScreen" component={InfoPenawaran} />
         <Stack.Screen name="PreviewScreen" component={Preview} />
         <Stack.Screen name="SearchProductScreen" component={SearchProduct} />
+        <Stack.Screen name="DetailProductSeller" component={DetailProductSeller} />
       </Stack.Navigator>
     </NavigationContainer>
   );
