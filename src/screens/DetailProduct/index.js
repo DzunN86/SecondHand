@@ -71,7 +71,8 @@ const Preview = ({ route, navigation }) => {
   }, []);
 
   const onPressBid = ({bid_price}) => {
-    dispatch(doBid(id_product, bid_price));
+    const notif = notif
+    dispatch(doBid(id_product, bid_price, notif));
   };
   const BottomSheetContent = () => (
     <View style={styles.bSheet}>
