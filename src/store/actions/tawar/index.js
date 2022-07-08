@@ -23,9 +23,9 @@ export const doBid = (product_id, bid_price) => async dispatch => {
       console.log('RES BID', res);
     })
     .catch(err => {
-      dispatch(setBidFailed(err.message));
+      dispatch(setBidFailed(err.response.data.message));
       dispatch(setLoading(false));
-      showError(err.message);
+      showError(err.response.data.message);
       console.log('RES BID FAILED', err);
     });
 };
