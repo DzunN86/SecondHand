@@ -70,11 +70,9 @@ const Preview = ({ route, navigation }) => {
     dispatch(getDetail(id_product));
   }, []);
 
-  const onPressBid = ({id_product, bid_price}) => {
-    console.log(bid_price)
+  const onPressBid = ({bid_price}) => {
     dispatch(doBid(id_product, bid_price));
   };
-  console.log(id_product)
   const BottomSheetContent = () => (
     <View style={styles.bSheet}>
       <View>
