@@ -18,7 +18,7 @@ function CustomButton({
 }) {
   const getBgColor = () => {
     if (disabled) {
-      return COLORS.lightGray3;
+      return COLORS.grey8;
     }
     if (primary) {
       return COLORS.primary;
@@ -45,7 +45,7 @@ function CustomButton({
         {title && (
           <Text
             style={{
-              color: disabled ? 'black' : COLORS.white,
+              color: disabled ? COLORS.lightGray3 : COLORS.white,
               ...FONTS.h4,
               paddingLeft: loading || icon ? 10 : 0,
             }}>

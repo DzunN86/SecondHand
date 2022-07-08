@@ -2,9 +2,9 @@ import {Text, View, TouchableOpacity, Image} from 'react-native';
 import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 import styles from './styles';
+import {formatRupiah} from '../../../utils';
 
 const CardProduct = ({onPress, name, category, price, image}) => {
-  
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.cardProduct}>
@@ -13,10 +13,12 @@ const CardProduct = ({onPress, name, category, price, image}) => {
           {name}
         </Text>
         <Text style={styles.typeProduct} numberOfLines={1}>
-          {category.map(item => item.name).join(', ')}
+          {category.length > 0
+            ? category.map(item => item.name).join(', ')
+            : '-'}
         </Text>
         <Text style={styles.textCardProduct} numberOfLines={1}>
-          {price}
+          {formatRupiah(price)}
         </Text>
       </View>
     </TouchableOpacity>

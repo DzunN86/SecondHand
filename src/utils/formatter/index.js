@@ -1,12 +1,13 @@
-export const priceFormater = price => {
-  var number_string = price.toString(),
-    sisa = number_string.length % 3,
-    rupiah = number_string.substr(0, sisa),
-    ribuan = number_string.substr(sisa).match(/\d{3}/g);
+export const formatRupiah = (angka) => {
+  if (angka) {
+    const format = angka.toString().split('').reverse().join('');
+    const convert = format.match(/\d{1,3}/g);
+    const rupiah = `Rp ${convert.join('.').split('').reverse().join('')}`;
 
-  if (ribuan) {
-    let separator = sisa ? '.' : '';
-    rupiah += separator + ribuan.join('.');
+    return rupiah;
   }
-  return 'Rp ' + rupiah;
+
+  return angka;
 };
+
+export default formatRupiah;

@@ -20,10 +20,7 @@ export default function Login({navigation}) {
   return (
     <ScrollView contentContainerStyle={styles.scroll} testID="LoginScreen">
       <View style={styles.container}>
-        <CustomHeader
-          type="BackTitle"
-          onPress={() => navigation.goBack()}
-        />
+        <CustomHeader type="BackTitle" onPress={() => navigation.goBack()} />
         <View style={styles.masuk}>
           <Text style={styles.label}>Masuk</Text>
         </View>
@@ -32,7 +29,15 @@ export default function Login({navigation}) {
             initialValues={{email: '', password: ''}}
             validationSchema={loginSchema}
             onSubmit={values => onPressLogin(values)}>
-            {({handleChange, handleSubmit, values, errors, isValid, dirty}) => (
+            {({
+              handleChange,
+              handleSubmit,
+              values,
+              errors,
+              touched,
+              isValid,
+              dirty,
+            }) => (
               <>
                 <CustomInput
                   testID="input-email"
@@ -40,7 +45,7 @@ export default function Login({navigation}) {
                   name="email"
                   onChangeText={handleChange('email')}
                   value={values.email}
-                  error={errors.email}
+                  error={touched.email && errors.email}
                   iconPosition="right"
                   placeholder="Enter Email"
                 />
@@ -53,7 +58,7 @@ export default function Login({navigation}) {
                   placeholder="Enter Password"
                   onChangeText={handleChange('password')}
                   value={values.password}
-                  error={errors.password}
+                  error={touched.password && errors.password}
                   icon={
                     <TouchableOpacity
                       onPress={() => {
@@ -70,10 +75,9 @@ export default function Login({navigation}) {
                 <CustomButton
                   testID="btn-login"
                   loading={isLoading}
-                  disabled={isLoading}
                   primary
                   title="Login"
-                  disable={!(dirty && isValid)}
+                  disabled={!(dirty && isValid) || isLoading}
                   onPress={handleSubmit}
                 />
               </>
