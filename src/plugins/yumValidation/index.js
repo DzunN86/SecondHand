@@ -56,5 +56,5 @@ export const formDetailSchema = Yup.object().shape({
 })
 
 export const tawarSchema = Yup.object().shape({
-  harga: Yup.string().required('Silahkan masukan harga tawaran'),
+  bid_price: Yup.string().required('Silahkan masukan harga tawaran'),
 });

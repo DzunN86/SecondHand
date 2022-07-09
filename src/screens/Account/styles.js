@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {FONTS, SIZES} from '../../themes';
+import {COLORS, FONTS, SIZES} from '../../themes';
 
 export default StyleSheet.create({
   menuWrapper: {
@@ -7,7 +7,7 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
   },
   version: {
-    ...FONTS.h4,
+    ...FONTS.body4,
     marginTop: 20,
     marginBottom: '80%',
     textAlign: 'center',

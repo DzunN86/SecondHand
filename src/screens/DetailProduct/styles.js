@@ -25,11 +25,11 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 16,
-        marginBottom: 19,
     },
     wrapperPenjual: {
         flexDirection: 'row', 
         alignItems: 'center',
+        width: '100%',
     },
     imagePenjual: {
         borderRadius: 15,
@@ -41,6 +41,7 @@ export default StyleSheet.create({
         ...FONTS.h4,
         color: COLORS.black,
         textTransform: 'capitalize',
+        width: 194,
     },
     namaKota: {
         ...FONTS.body5,
@@ -56,7 +57,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 16,
-        marginBottom: 19,
+        marginVertical: 16,
     },
     wrapperDeskripsi: {
         flexDirection: 'row', 
@@ -106,29 +107,16 @@ export default StyleSheet.create({
     bSheet: {
         paddingHorizontal: 32,
         backgroundColor: COLORS.white,
+        borderWidth: 1,
+        borderColor: COLORS.grey3,
         paddingTop: 20,
-    },
-    bSheetContainer: {
-        backgroundColor: COLORS.white,
-        borderTopWidth: 1,
-        borderLeftWidth: 1,
-        borderRightWidth: 1,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
-        borderColor: COLORS.gray1,
-    },
-    bSheetHeader: {
-        flexDirection: 'row-reverse',
-    },
-    close: {
-        paddingTop: 10,
-        paddingRight: 20,
-        fontWeight: 'bold',
-        fontSize: 18,
     },
     bSheetTitle: {
         ...FONTS.h4,
         color: COLORS.black,
+        marginTop: 10,
         marginBottom: 16,
     },
     bSheetSubtitle: {

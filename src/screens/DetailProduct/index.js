@@ -6,9 +6,10 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import {Formik} from 'formik';
 import styles from './styles';
 import { CustomHeader, CustomButton, CustomInput } from '../../components';
-import { getDetail } from '../../store/actions'
+import { getDetail, doBid } from '../../store/actions'
 import { COLORS, FONTS, SIZES } from '../../themes';
 import { tawarSchema } from '../../plugins';
+import { formatRupiah } from '../../utils';
 
 const CardFoto = ({ text1, text2, source, style }) => {
   return (
@@ -34,7 +35,7 @@ const CardProduk = ({ nameProduk, kategori, price }) => {
         <View>
           <Text style={styles.namaProduk}>{nameProduk}</Text>
           <Text style={styles.kategori}>{kategori}</Text>
-          <Text style={styles.price}>{price}</Text>
+          <Text style={styles.price}>{formatRupiah(price)}</Text>
         </View>
       </View>
     </View>
@@ -64,11 +65,16 @@ const Preview = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const {dataProduk} = useSelector(state => state.detailReducer);
   const {id_product} = route.params
+  const {isLoading} = useSelector(state => state.commonReducers);
 
   useEffect(() => {
     dispatch(getDetail(id_product));
   }, []);
 
+  const onPressBid = ({bid_price}) => {
+    const notif = notif
+    dispatch(doBid(id_product, bid_price));
+  };
   const BottomSheetContent = () => (
     <View style={styles.bSheet}>
       <View>
@@ -80,28 +86,30 @@ const Preview = ({ route, navigation }) => {
         </Text>
         <CardFoto  
           text1={dataProduk.name} 
-          text2={`Rp ${dataProduk.base_price}`}
+          text2={formatRupiah(dataProduk.base_price)}
           source={{uri: dataProduk.image_url}}
           style={{...FONTS.h4, color: COLORS.black}} />
       </View>
       <Formik
-        initialValues={{harga: ''}}
+        initialValues={{bid_price: ''}}
         validationSchema={tawarSchema}
-        onSubmit={values => onPressLogin(values)}>
+        onSubmit={values => onPressBid(values)}>
         {({handleChange, handleSubmit, values, errors, isValid, dirty}) => (
           <>
             <CustomInput
-              testID="input-harga"
+              testID="input-bid"
               label="Harga Tawar"
-              name="harga"
-              onChangeText={handleChange('harga')}
-              value={values.harga}
-              error={errors.harga}
+              name="bid_price"
+              onChangeText={handleChange('bid_price')}
+              value={values.bid_price}
+              error={errors.bid_price}
               iconPosition="right"
               placeholder="Rp 0,00"
             />
             <CustomButton
               testID="btn-login"
+              loading={isLoading}
+              disabled={isLoading}
               primary
               title="Kirim"
               disable={!(dirty && isValid)}
@@ -110,27 +118,25 @@ const Preview = ({ route, navigation }) => {
           </>
         )}
       </Formik>
-    </View>
-  );
-  
-  const BottomSheetHeader = () => (
-    <View style={styles.bSheetContainer}>
-      <View style={styles.bSheetHeader}>
-      <Text style={styles.close} onPress={() => thisRef.current.snapTo(1)}>X</Text>
-      </View>
+      <CustomButton
+        primary
+        title="Cancel"
+        onPress={() => thisRef.current.snapTo(1)}
+        style={{marginBottom: 50}}
+      />
     </View>
   );
 
   return (
     <View>
-      <Animated.View style={{opacity: Animated.add(0.1, Animated.multiply(anim, 1.0))}}>
+      <Animated.View style={{opacity: Animated.add(0.3, Animated.multiply(anim, 1.0))}}>
       <ImageBackground source={{uri: dataProduk.image_url}} style={styles.bgProduk}>
         <CustomHeader type="BackHeader" onPress={() => navigation.navigate('MainApp')} />
         <View style={styles.containerKeterangan}>
           <CardProduk 
             nameProduk={dataProduk.name} 
             kategori={dataProduk['Categories']?.[0]?.name} 
-            price={`Rp ${dataProduk.base_price}`} />
+            price={dataProduk.base_price} />
           <CardFoto 
             text1={dataProduk['User']?.full_name} 
             text2={dataProduk.location} 
@@ -146,9 +152,8 @@ const Preview = ({ route, navigation }) => {
     </Animated.View>
     <BottomSheet
         ref={thisRef}
-        snapPoints={[535, 0]}
+        snapPoints={[550, 0]}
         renderContent={BottomSheetContent}
-        renderHeader={BottomSheetHeader}
         initialSnap={1}
         callbackNode={anim}
         enabledGestureInteraction={true}

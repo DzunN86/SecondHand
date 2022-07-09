@@ -7,6 +7,7 @@ import { notificationReducer } from './notification';
 import {categoryReducer} from './kategori';
 import {addProductReducer, productSellerReducers} from './seller';
 import { detailReducer } from './detail';
+import { bidReducer } from './tawar';
 
 const reducer = combineReducers({
   loginReducer,
@@ -20,6 +21,7 @@ const reducer = combineReducers({
   categoryReducer,
   addProductReducer,
   productSellerReducers,
+  bidReducer,
 });
 
 export default reducer;
