@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getNotification} from '../../store/actions/notification';
 import {CustomHeader} from '../../components/atoms';
 import {formatDateTime, formatRupiah} from '../../utils';
+import { useIsFocused } from '@react-navigation/native';
 
 function CardNotif({
   navigation,
@@ -61,10 +62,11 @@ function CardNotif({
 export default function Notifikasi({navigation}) {
   const {notif} = useSelector(state => state.notificationReducer);
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     dispatch(getNotification());
-  }, []);
+  }, [isFocused]);
 
   return (
     <View style={styles.container}>
