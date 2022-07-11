@@ -12,7 +12,6 @@ export default StyleSheet.create({
     height: 100,
     width: 100,
     borderRadius: 15,
-    alignSelf: 'center',
     backgroundColor: COLORS.secondary,
     justifyContent: 'center',
   },

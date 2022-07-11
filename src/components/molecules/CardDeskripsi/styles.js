@@ -4,7 +4,7 @@ import { COLORS } from '../../../themes';
 export default StyleSheet.create({
   deskripsi: {
     alignItems: 'center',
-    height: 295,
+    // height: 295,
     backgroundColor: COLORS.white,
     borderRadius: 15,
     shadowColor: COLORS.black,
@@ -13,7 +13,7 @@ export default StyleSheet.create({
     shadowRadius: 4,
     elevation: 4,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     paddingLeft: 16,
     paddingRight: 14,
     marginTop: 6,
