@@ -5,9 +5,9 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import {CustomButton} from '../../atoms';
 import styles from './styles';
 
-export default function BottomUpload({image, setAvatar, thisRef, anim}) {
+export default function BottomUpload({setAvatar, thisRef, anim}) {
 
-  image = {image}
+  // let image = {image}
 
   const fromCamera = () => (
     ImagePicker.openCamera({
