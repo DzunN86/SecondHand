@@ -1,4 +1,5 @@
 import ButtonNavigatior from './BottomNavigator';
+import BottomSheetComponent from './BottomSheet';
 import CardSeller from './CardSeller';
 import CardProduct from './CardProduct';
 import SearchBar from './SearchBar';
@@ -19,5 +20,6 @@ export {
   SearchBar,
   CardAds,
   CardCategory,
+  BottomSheetComponent,
   CardBuyer,
 };
