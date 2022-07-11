@@ -107,7 +107,7 @@ export default StyleSheet.create({
   bSheet: {
     paddingHorizontal: 32,
     backgroundColor: COLORS.white,
-    paddingTop: 20,
+    paddingTop: 10,
   },
   bSheetTitle: {
     ...FONTS.h3,
@@ -117,6 +117,6 @@ export default StyleSheet.create({
   },
   bSheetSubtitle: {
     ...FONTS.body4,
-    marginBottom: 10,
+    marginBottom: 16,
   },
 });

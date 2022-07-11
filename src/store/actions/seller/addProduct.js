@@ -12,14 +12,15 @@ export const setAddProductFailed = () => ({
   type: ADD_PRODUCT_FAILED,
 });
 
-export const doProduct = (access_token, payload) => async dispatch => {
+export const doProduct = (payload, navigation) => async dispatch => {
   dispatch(setLoading(true));
   console.log("Kirim Data Product",payload);
-  await addProduct(access_token, payload)
+  await addProduct(payload)
     .then(res => {
       dispatch(setAddProductSuccess(res.data));
       dispatch(setLoading(false));
       showSuccess('Tambah Produk Success');
+      navigation.navigate('Daftar Jual');
       console.log('ADD PRODUK', res);
     })
     .catch(err => {

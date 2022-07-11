@@ -4,7 +4,7 @@ import { COLORS } from '../../../themes';
 
 function BottomSheetComponent({ sheetRef, component }) {
   // variables
-  const snapPoints = useMemo(() => ['1%', '1%', '50%'], []);
+  const snapPoints = useMemo(() => ['1%', '1%', '65%'], []);
 
   // callbacks
   const handleSheetChanges = useCallback((index) => {

@@ -1,10 +1,11 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {FlatList, Text, View} from 'react-native';
+import {FlatList, Text, View, ScrollView} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {useDispatch, useSelector} from 'react-redux';
 import {CardAds, CardCategory, CardProduct, SearchBar} from '../../components';
 import {getBanners, getProduct} from '../../store/actions/home';
 import {getKategori} from '../../store/actions/kategori';
+import { SIZES } from '../../themes';
 import styles from './styles';
 
 export default function Home({navigation}) {
@@ -17,13 +18,13 @@ export default function Home({navigation}) {
   useEffect(() => {
     dispatch(getProduct(''));
     dispatch(getKategori());
-    dispatch(getBanners())
+    dispatch(getBanners());
   }, []);
 
   const getProductByCategory = useCallback(
     categoryId => {
-      setBtnActive(categoryId);
       setBtnAllActive(false);
+      setBtnActive(categoryId);
       dispatch(getProduct(`?category_id=${categoryId}`));
     },
     [dispatch, btnActive],
@@ -42,29 +43,23 @@ export default function Home({navigation}) {
       <View>
         <Text style={styles.telusuriKategori}>Telusuri Kategori</Text>
         <View style={styles.categoryList}>
-          <View style={{paddingLeft: 16}}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{paddingLeft: SIZES.base}}>
             <CardCategory
               title="Semua"
               icon="search"
               active={btnAllActive}
               onPress={() => getAllProduct()}
             />
-          </View>
-          <FlatList
-            data={category}
-            decelerationRate="fast"
-            renderItem={({item}) => (
+            {category.map(item => (
               <CardCategory
                 title={item.name}
+                key={item.id}
                 icon="box"
                 active={btnActive === item.id}
                 onPress={() => getProductByCategory(item.id)}
               />
-            )}
-            horizontal={true}
-            keyExtractor={item => item.id}
-            showsHorizontalScrollIndicator={false}
-          />
+            ))}
+          </ScrollView>
         </View>
       </View>
     </LinearGradient>

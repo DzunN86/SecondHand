@@ -8,7 +8,7 @@ import CardDeskripsi from '../../components/molecules/CardDeskripsi';
 import ProductSeller from '../../components/molecules/ProdutSeller';
 import {CustomButton} from '../../components';
 import {SIZES} from '../../themes';
-import {getDetailSeller, deleteProductSeller} from '../../store/actions';
+import {getDetailSeller, deleteProductSeller, getProductSeller} from '../../store/actions';
 import {useDispatch, useSelector} from 'react-redux';
 
 const thisRef = createRef();
@@ -25,6 +25,7 @@ const DetailProductSeller = ({navigation, route}) => {
 
   const Delete = useCallback(() => {
     dispatch(deleteProductSeller(id, navigation));
+    dispatch(getProductSeller());
   }, [dispatch, id]);
 
   return (

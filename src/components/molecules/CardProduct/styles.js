@@ -22,7 +22,7 @@ export default StyleSheet.create({
     marginTop: 4,
   },
   imageProduk: {
-    resizeMode: 'stretch',
+    resizeMode: 'cover',
     borderRadius: RADIUS.small,
     height: 100,
     width: '100%',

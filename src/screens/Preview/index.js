@@ -1,50 +1,64 @@
-import {View, ImageBackground, ScrollView} from 'react-native';
 import React from 'react';
-import BackHeader from '../../components/atoms/CustomHeader/BackHeader';
-import styles from './styles';
+import {ImageBackground, ScrollView, View} from 'react-native';
 import Animated from 'react-native-reanimated';
-import Seller from '../../components/molecules/Seller';
+import {useDispatch, useSelector} from 'react-redux';
+import {CustomButton} from '../../components';
+import BackHeader from '../../components/atoms/CustomHeader/BackHeader';
 import CardDeskripsi from '../../components/molecules/CardDeskripsi';
 import ProductSeller from '../../components/molecules/ProdutSeller';
-import {CustomButton} from '../../components';
-import {SIZES} from '../../themes';
-import {useDispatch, useSelector} from 'react-redux';
+import Seller from '../../components/molecules/Seller';
 import {doProduct} from '../../store/actions';
+import {SIZES} from '../../themes';
+import styles from './styles';
 
 const anim = new Animated.Value(1);
 const Preview = ({navigation, route}) => {
   const {values, image} = route.params;
   const {userProfile} = useSelector(state => state.getUserReducer);
   const {category} = useSelector(state => state.categoryReducer);
-  const {userData} = useSelector(state => state.loginReducer);
   const dispatch = useDispatch();
+  
+  // Ambil Label Kategori by Id Kategori :)
+  var arrCategory = values.category_ids;
+  var arrCategoryName = [];
+  for (var i = 0; i < arrCategory.length; i++) {
+    for (var j = 0; j < category.length; j++) {
+      if (arrCategory[i] == category[j].id) {
+        arrCategoryName.push(category[j].name);
+      }
+    }
+  }
 
-  const onPressTerbit = value => {
+  const onPressTerbit = () => {
     const formData = new FormData();
 
-    formData.append('name', value.name_product);
-    formData.append('description', value.description);
-    formData.append('base_price', value.base_price);
-    formData.append('category_ids', value.category_ids.toString());
+    formData.append('name', values.name_product);
+    formData.append('description', values.description);
+    formData.append('base_price', values.base_price);
+    formData.append('category_ids', values.category_ids.toString());
     formData.append('location', userProfile.city);
     formData.append('image', {
-      uri: `https://ui-avatars.com/api/?name=${data.nama}`,
+      uri: image,
       type: 'image/jpeg',
       name: 'image.jpg',
     });
-    dispatch(doProduct(formData));
+    dispatch(doProduct(formData, navigation));
   };
   return (
     <View>
       <ScrollView>
         <Animated.View
           style={{opacity: Animated.add(0.1, Animated.multiply(anim, 1.0))}}>
-          <ImageBackground source={{uri: values.image}} style={styles.bgProduk}>
+          <ImageBackground source={{uri: image}} style={styles.bgProduk}>
             <BackHeader onPress={() => navigation.goBack()} />
             <View style={styles.containerKeterangan}>
               <ProductSeller
                 nameProduk={values.name_product}
-                kategori={values.category_ids}
+                kategori={
+                  arrCategoryName?.length > 0
+                    ? arrCategoryName.map(item => item).join(', ')
+                    : '-'
+                }
                 price={`Rp ${values.base_price}`}
               />
               <Seller
@@ -65,7 +79,7 @@ const Preview = ({navigation, route}) => {
             primary
             type="daftarjual"
             title="Terbitkan"
-            onPress={() => onPressTerbit(values)}
+            onPress={onPressTerbit}
           />
         </View>
       </ScrollView>
