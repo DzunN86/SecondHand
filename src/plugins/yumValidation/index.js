@@ -43,7 +43,7 @@ export const updateSchema = Yup.object().shape({
   phone_number: Yup.string().required('Silahkan masukan Nomor Telepon'),
 });
 
-export const formDetailSchema = Yup.object().shape({
+export const formProductSchema = Yup.object().shape({
   name_product: Yup.string()
   .required('Silahkan masukan nama produk'),
   base_price: Yup.string()
