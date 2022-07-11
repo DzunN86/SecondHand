@@ -1,5 +1,5 @@
 import { View, ImageBackground, ScrollView } from 'react-native';
-import React, { useEffect, createRef,useCallback, } from 'react';
+import React, { useEffect, createRef, useCallback, } from 'react';
 import BackHeader from '../../components/atoms/CustomHeader/BackHeader';
 import styles from './styles';
 import Animated from 'react-native-reanimated';
@@ -8,7 +8,7 @@ import CardDeskripsi from '../../components/molecules/CardDeskripsi';
 import ProductSeller from '../../components/molecules/ProdutSeller';
 import { CustomButton } from '../../components';
 import { SIZES } from '../../themes';
-import { getDetailSeller,deleteProductSeller } from '../../store/actions';
+import { getDetailSeller, deleteProductSeller } from '../../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const thisRef = createRef();
@@ -72,6 +72,6 @@ const DetailProductSeller = ({ navigation, route }) => {
             </ScrollView>
         </View>
     )
-}
+};
 
-export default DetailProductSeller
+export default DetailProductSeller;

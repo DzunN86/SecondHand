@@ -12,10 +12,10 @@ export const setAddProductFailed = () => ({
   type: ADD_PRODUCT_FAILED,
 });
 
-export const doProduct = (payload) => async dispatch => {
+export const doProduct = (access_token, payload) => async dispatch => {
   dispatch(setLoading(true));
   console.log("Kirim Data Product",payload);
-  await addProduct(payload)
+  await addProduct(access_token, payload)
     .then(res => {
       dispatch(setAddProductSuccess(res.data));
       dispatch(setLoading(false));

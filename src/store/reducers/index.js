@@ -5,7 +5,7 @@ import {homeReducer} from './home'
 import {getUserReducer, updateUserReducer} from './akun'
 import { notificationReducer } from './notification';
 import {categoryReducer} from './kategori';
-import {addProductReducer, productSellerReducers, upProductReducers} from './seller';
+import {addProductReducer, productSellerReducers, upProductReducers, detailSellerReducer, deleteProductReducers} from './seller';
 import { detailReducer } from './detail';
 
 const reducer = combineReducers({
@@ -21,6 +21,8 @@ const reducer = combineReducers({
   addProductReducer,
   productSellerReducers,
   upProductReducers,
+  detailSellerReducer,
+  deleteProductReducers,
 });
 
 export default reducer;

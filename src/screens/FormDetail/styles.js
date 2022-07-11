@@ -14,4 +14,5 @@ export default StyleSheet.create({
         width: SIZES.width * 0.4,
         alignSelf: "flex-end"
     },
+    scroll: {flexGrow: 1, backgroundColor: COLORS.white},
 })

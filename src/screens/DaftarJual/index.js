@@ -3,23 +3,22 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import HeaderTitle from '../../components/atoms/CustomHeader/Title';
 import CardSeller from '../../components/molecules/CardSeller';
-import TabAdd from '../../components/atoms/TabAdd'
 import { CardCategory, CardProduct } from '../../components';
 import { getProductSeller } from '../../store/actions/seller/getProduct';
 import styles from './styles';
-import {COLORS} from '../../themes';
-import {doGetProfile} from '../../store/actions';
+import { COLORS } from '../../themes';
+import { doGetProfile } from '../../store/actions';
 
 export default function DaftarJual({ navigation }) {
   const dispatch = useDispatch();
   const { productSeller, isLoading } = useSelector(state => state.productSellerReducers)
-  const {userProfile} = useSelector(state => state.getUserReducer);
-  const {userData} = useSelector(state => state.loginReducer);
+  const { userProfile } = useSelector(state => state.getUserReducer);
+  const { userData } = useSelector(state => state.loginReducer);
 
   useEffect(() => {
     if (userData.access_token) {
       dispatch(doGetProfile());
-    dispatch(getProductSeller());
+      dispatch(getProductSeller());
 
     }
   }, [dispatch]);
@@ -32,7 +31,7 @@ export default function DaftarJual({ navigation }) {
         city={userData.access_token ? userProfile.city || userData.name : 'Akun'}
         title='Edit'
         onPress={() => navigation.navigate('InfoAkunScreen')}
-        source={{uri: userProfile.image_url}}
+        source={{ uri: userProfile.image_url }}
       />
       <View style={{ flexDirection: 'row', marginTop: 10, marginHorizontal: 15 }}>
         <CardCategory icon='box' active title='Produk' />
@@ -65,12 +64,12 @@ export default function DaftarJual({ navigation }) {
                 price={item.base_price}
                 category={item.Categories}
                 image={item.image_url}
-                onPress={() => navigation.navigate('DetailProductScreen', { id_product: item.id })}
+                onPress={() => navigation.navigate('DetailProductSeller', { id: item.id })}
               />
             )}
           />
-          )}
+        )}
       </View>
     </View>
   );
-}
+};
