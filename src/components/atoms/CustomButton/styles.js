@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {COLORS} from '../../../themes';
+import {COLORS, RADIUS} from '../../../themes';
 
 export default StyleSheet.create({
   wrapper: {
@@ -8,7 +8,7 @@ export default StyleSheet.create({
     paddingHorizontal: 5,
 
     marginVertical: 5,
-    borderRadius: 7,
+    borderRadius: RADIUS.large,
     alignItems: 'center',
     justifyContent: 'space-evenly',
   },
