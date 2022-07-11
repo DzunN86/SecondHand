@@ -6,11 +6,13 @@ import {CustomHeader, Upload, Menu} from '../../components';
 import {logoutUser, doGetProfile} from '../../store/actions';
 import {showError, showSuccess} from '../../plugins';
 import {version} from '../../../package.json';
+import { useIsFocused } from '@react-navigation/native';
 
 export default function Account({navigation}) {
   const dispatch = useDispatch();
   const {userProfile} = useSelector(state => state.getUserReducer);
   const {userData} = useSelector(state => state.loginReducer);
+  const isFocused = useIsFocused();
 
   const onPressLogout = () => {
     try {
@@ -26,7 +28,7 @@ export default function Account({navigation}) {
     if (userData.access_token) {
       dispatch(doGetProfile());
     }
-  }, [dispatch]);
+  }, [dispatch, isFocused]);
 
   return (
     <View>
@@ -41,7 +43,7 @@ export default function Account({navigation}) {
       {userData.access_token ? (
         <>
           <Upload
-            source={{uri: userProfile.image_url}}
+            source={userProfile.image_url}
             style={{
               alignSelf: 'center',
             }}
