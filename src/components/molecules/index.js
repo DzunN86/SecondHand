@@ -2,7 +2,7 @@ import ButtonNavigatior from './BottomNavigator';
 import CardSeller from './CardSeller';
 import CardProduct from './CardProduct';
 import SearchBar from './SearchBar';
-import DefaultAds from './DefaultAds';
+import CardAds from './CardAds';
 import CardCategory from './CardCategory';
 import Upload from './UploadFoto';
 import Menu from './MenuAkun'
@@ -17,7 +17,7 @@ export {
   CardSeller,
   CardProduct,
   SearchBar,
-  DefaultAds,
+  CardAds,
   CardCategory,
   CardBuyer,
 };

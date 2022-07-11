@@ -38,3 +38,7 @@ export const GET_PRODUCTSELLER_LOADING = '@GET_PRODUCTSELLER_LOADING';
 // Buyer
 export const BID_SUCCESS = '@BID_SUCCESS';
 export const BID_FAILED = '@BID_FAILED';
+
+// Banner
+export const SET_BANNER = '@@@SET_BANNER';
+

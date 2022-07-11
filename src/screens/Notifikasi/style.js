@@ -1,51 +1,53 @@
-import { StyleSheet } from 'react-native'
-import { COLORS, RADIUS } from '../../themes/theme'
+import {StyleSheet} from 'react-native';
+import {COLORS, FONTS, RADIUS, SIZES} from '../../themes/theme';
 
 export default StyleSheet.create({
-    container : {
-        flex: 1,
-    },
-    notifikasi: {
-        fontWeight: 'bold',
-        fontSize: 25,
-        color: 'black'
-    },
-    wrapper: {
-        marginLeft: 20,
-        marginTop: 20
-    },
-    productImage: {
-        width: 58,
-        height: 58,
-        marginLeft: 22,
-        flex: 1.6,
-        borderRadius: RADIUS.small
-    },
-    productNotification: {
-        flexDirection: 'row',
-        marginTop: 25,
-    },
-    date: {
-        marginLeft: -90,
-        flex: 3
-    },
-    productInfo: {
-        marginLeft: 15,
-        flex: 8
-    },
-    labelText: {
-        fontSize: 16,
-        fontWeight: '400',
-        color: 'black'
-    },
-    label: {
-        fontSize: 14
-    },
-    border: {
-        backgroundColor: COLORS.lightGray2,
-        height: 1,
-        width: 350,
-        alignSelf: 'center',
-        marginTop: 15
-    },
-})
+  container: {
+    flex: 1,
+  },
+  productImage: {
+    width: 58,
+    height: 58,
+    backgroundColor: COLORS.primary,
+    borderRadius: RADIUS.small,
+  },
+  productNotification: {
+    flexDirection: 'row',
+    marginTop: 16,
+    marginHorizontal: SIZES.base,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.lightGray2,
+    paddingBottom: 16
+  },
+  wrapperDate: {
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+  productInfo: {
+    marginLeft: 16,
+    flex: 1,
+  },
+  labelText: {
+    ...FONTS.body4,
+    color: COLORS.black,
+  },
+  strike_through: {
+    textDecorationLine: 'line-through',
+    textDecorationStyle: 'solid',
+  },
+  label: {
+    ...FONTS.body5,
+  },
+  isRead: {
+    width: 8,
+    height: 8,
+    backgroundColor: COLORS.danger,
+    borderRadius: RADIUS.xLarge,
+    marginTop: 5,
+    marginLeft: 8,
+  },
+  wrapper: {
+    flexDirection: 'row',
+  },
+});

@@ -1,16 +1,11 @@
-import {Text, View, FlatList} from 'react-native';
-import React, {useEffect, useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
+import {FlatList, Text, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import styles from './styles';
 import {useDispatch, useSelector} from 'react-redux';
-import {getProduct} from '../../store/actions/home';
-import {
-  CardCategory,
-  CardProduct,
-  DefaultAds,
-  SearchBar,
-} from '../../components';
+import {CardAds, CardCategory, CardProduct, SearchBar} from '../../components';
+import {getBanners, getProduct} from '../../store/actions/home';
 import {getKategori} from '../../store/actions/kategori';
+import styles from './styles';
 
 export default function Home({navigation}) {
   const [btnActive, setBtnActive] = useState('');
@@ -22,6 +17,7 @@ export default function Home({navigation}) {
   useEffect(() => {
     dispatch(getProduct(''));
     dispatch(getKategori());
+    dispatch(getBanners())
   }, []);
 
   const getProductByCategory = useCallback(
@@ -42,7 +38,7 @@ export default function Home({navigation}) {
   const renderHeader = () => (
     <LinearGradient colors={['#FFE9C9', '#FFE9CA', '#FFF']}>
       <SearchBar onPress={() => navigation.navigate('SearchProductScreen')} />
-      <DefaultAds />
+      <CardAds />
       <View>
         <Text style={styles.telusuriKategori}>Telusuri Kategori</Text>
         <View style={styles.categoryList}>
@@ -56,6 +52,7 @@ export default function Home({navigation}) {
           </View>
           <FlatList
             data={category}
+            decelerationRate="fast"
             renderItem={({item}) => (
               <CardCategory
                 title={item.name}
@@ -118,7 +115,7 @@ export default function Home({navigation}) {
         maxToRenderPerBatch={1000}
         windowSize={60}
         updateCellsBatchingPeriod={50}
-        initialNumToRender={50}
+        initialNumToRender={7}
       />
     </>
   );
