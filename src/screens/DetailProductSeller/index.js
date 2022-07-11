@@ -1,5 +1,5 @@
 import {View, ImageBackground, ScrollView} from 'react-native';
-import React from 'react';
+import React, {useEffect, createRef, useCallback} from 'react';
 import BackHeader from '../../components/atoms/CustomHeader/BackHeader';
 import styles from './styles';
 import Animated from 'react-native-reanimated';
@@ -8,44 +8,39 @@ import CardDeskripsi from '../../components/molecules/CardDeskripsi';
 import ProductSeller from '../../components/molecules/ProdutSeller';
 import {CustomButton} from '../../components';
 import {SIZES} from '../../themes';
+import {getDetailSeller, deleteProductSeller} from '../../store/actions';
 import {useDispatch, useSelector} from 'react-redux';
-import {doProduct} from '../../store/actions';
 
+const thisRef = createRef();
 const anim = new Animated.Value(1);
-const Preview = ({navigation, route}) => {
-  const {values, image} = route.params;
-  const {userProfile} = useSelector(state => state.getUserReducer);
-  const {category} = useSelector(state => state.categoryReducer);
-  const {userData} = useSelector(state => state.loginReducer);
+const DetailProductSeller = ({navigation, route}) => {
   const dispatch = useDispatch();
+  const {id} = route.params;
+  const {userProfile} = useSelector(state => state.getUserReducer);
+  const {detailProduk} = useSelector(state => state.detailSellerReducer);
 
-  const onPressTerbit = value => {
-    const formData = new FormData();
+  useEffect(() => {
+    dispatch(getDetailSeller(id));
+  }, [id]);
 
-    formData.append('name', value.name_product);
-    formData.append('description', value.description);
-    formData.append('base_price', value.base_price);
-    formData.append('category_ids', value.category_ids.toString());
-    formData.append('location', userProfile.city);
-    formData.append('image', {
-      uri: `https://ui-avatars.com/api/?name=${data.nama}`,
-      type: 'image/jpeg',
-      name: 'image.jpg',
-    });
-    dispatch(doProduct(formData));
-  };
+  const Delete = useCallback(() => {
+    dispatch(deleteProductSeller(id, navigation));
+  }, [dispatch, id]);
+
   return (
     <View>
       <ScrollView>
         <Animated.View
           style={{opacity: Animated.add(0.1, Animated.multiply(anim, 1.0))}}>
-          <ImageBackground source={{uri: values.image}} style={styles.bgProduk}>
+          <ImageBackground
+            source={{uri: detailProduk.image_url}}
+            style={styles.bgProduk}>
             <BackHeader onPress={() => navigation.goBack()} />
             <View style={styles.containerKeterangan}>
               <ProductSeller
-                nameProduk={values.name_product}
-                kategori={values.category_ids}
-                price={`Rp ${values.base_price}`}
+                nameProduk={detailProduk.name}
+                kategori={detailProduk?.categories}
+                price={`Rp ${detailProduk.base_price}`}
               />
               <Seller
                 source={{uri: userProfile.image_url}}
@@ -54,7 +49,7 @@ const Preview = ({navigation, route}) => {
               />
               <CardDeskripsi
                 title_des="Deskripsi"
-                deskripsi={values.description}
+                deskripsi={detailProduk.description}
               />
             </View>
           </ImageBackground>
@@ -62,14 +57,23 @@ const Preview = ({navigation, route}) => {
         <View style={{height: SIZES.height * 0.7}}></View>
         <View style={styles.button}>
           <CustomButton
+            style={styles.button1}
             primary
             type="daftarjual"
-            title="Terbitkan"
+            title="Edit"
             onPress={() => onPressTerbit(values)}
+          />
+          <CustomButton
+            style={styles.button2}
+            danger
+            type="daftarjual"
+            title="Hapus"
+            onPress={() => Delete()}
           />
         </View>
       </ScrollView>
     </View>
   );
 };
-export default Preview;
+
+export default DetailProductSeller;

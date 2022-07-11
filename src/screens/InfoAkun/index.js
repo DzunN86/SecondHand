@@ -5,7 +5,14 @@ import Animated from 'react-native-reanimated';
 import {Formik} from 'formik';
 import styles from './styles';
 import {updateSchema} from '../../plugins';
-import {CustomHeader, CustomButton, CustomSelect, CustomInput, Upload, BottomUpload} from '../../components';
+import {
+  CustomHeader,
+  CustomButton,
+  CustomSelect,
+  CustomInput,
+  Upload,
+  BottomUpload,
+} from '../../components';
 import {kota} from '../../utils';
 import {doUpdate} from '../../store/actions/akun';
 
@@ -13,12 +20,11 @@ const thisRef = createRef();
 const anim = new Animated.Value(1);
 
 export default function InfoAkun({navigation}) {
-
   const dispatch = useDispatch();
   const {isLoading} = useSelector(state => state.commonReducers);
   const {userProfile} = useSelector(state => state.getUserReducer);
 
-  const onPressUpdate = (data) => {
+  const onPressUpdate = data => {
     const formData = new FormData();
 
     formData.append('full_name', data.nama);
@@ -36,13 +42,20 @@ export default function InfoAkun({navigation}) {
   const [image, setAvatar] = useState(userProfile.image_url);
 
   return (
-    <ScrollView style={{height: "100%"}}>
-      <CustomHeader 
-        type="BackTitle" 
-        title="Lengkapi Info Akun" 
-        onPress={() => navigation.goBack()} />
-      <BottomUpload image={image} setAvatar={setAvatar} thisRef={thisRef} anim={anim} />
-      <Animated.View style={{opacity: Animated.add(0.1, Animated.multiply(anim, 1.0))}}>  
+    <ScrollView style={{height: '100%'}}>
+      <CustomHeader
+        type="BackTitle"
+        title="Lengkapi Info Akun"
+        onPress={() => navigation.goBack()}
+      />
+      <BottomUpload
+        image={image}
+        setAvatar={setAvatar}
+        thisRef={thisRef}
+        anim={anim}
+      />
+      <Animated.View
+        style={{opacity: Animated.add(0.1, Animated.multiply(anim, 1.0))}}>
         <View style={styles.form}>
           <Formik
             initialValues={{
@@ -56,7 +69,14 @@ export default function InfoAkun({navigation}) {
             onSubmit={values => onPressUpdate(values)}>
             {({handleChange, handleSubmit, values, errors, isValid, dirty}) => (
               <>
-                <Upload source={{uri: image}} onPress={() => thisRef.current.snapTo(0)} name="camera" />
+                <Upload
+                  source={{uri: image}}
+                  style={{
+                    alignSelf: 'center',
+                  }}
+                  onPress={() => thisRef.current.snapTo(0)}
+                  name="camera"
+                />
                 <CustomInput
                   testID="input-nama"
                   label="Nama"

@@ -12,6 +12,7 @@ import Splash from './Splash';
 import Jual from './Jual';
 import Preview from './Preview';
 import SearchProduct from './SearchProduct';
+import DetailProductSeller from './DetailProductSeller';
 
 export {
   DaftarJual,
@@ -28,4 +29,5 @@ export {
   Jual,
   Preview,
   SearchProduct,
+  DetailProductSeller,
 };

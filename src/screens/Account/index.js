@@ -32,11 +32,21 @@ export default function Account({navigation}) {
     <View>
       <CustomHeader
         type="HeaderTitle"
-        title={userData.access_token ? userProfile.full_name || userData.name : 'Akun'}
+        title={
+          userData.access_token
+            ? userProfile.full_name || userData.name
+            : 'Akun'
+        }
       />
       {userData.access_token ? (
         <>
-          <Upload source={{uri: userProfile.image_url}} disabled={true} />
+          <Upload
+            source={{uri: userProfile.image_url}}
+            style={{
+              alignSelf: 'center',
+            }}
+            disabled={true}
+          />
           <View style={styles.menuWrapper}>
             <Menu
               name="account-edit"

@@ -2,6 +2,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import {
   DetailProduct,
+  DetailProductSeller,
   FormDetail,
   InfoAkun,
   InfoPenawaran,
@@ -31,6 +32,7 @@ function Navigation() {
       <Stack.Screen name="InfoAkunScreen" component={InfoAkun} />
       <Stack.Screen name="DetailProductScreen" component={DetailProduct} />
       <Stack.Screen name="FormDetailScreen" component={FormDetail} />
+      <Stack.Screen name="DetailProductSeller" component={DetailProductSeller} />
       <Stack.Screen name="InfoPenawaranScreen" component={InfoPenawaran} />
       <Stack.Screen name="PreviewScreen" component={Preview} />
       <Stack.Screen name="SearchProductScreen" component={SearchProduct} />

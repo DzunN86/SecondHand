@@ -1,15 +1,18 @@
-import {Text, View, ImageBackground, Image, ScrollView} from 'react-native';
-import React, {useEffect, createRef} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import Animated from 'react-native-reanimated';
-import BottomSheet from 'reanimated-bottom-sheet';
 import {Formik} from 'formik';
-import styles from './styles';
-import {CustomHeader, CustomButton, CustomInput} from '../../components';
-import {getDetail, doBid} from '../../store/actions';
-import {COLORS, FONTS, SIZES} from '../../themes';
+import React, {useCallback, useEffect, useRef} from 'react';
+import {Image, ImageBackground, ScrollView, Text, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  BottomSheetComponent,
+  CustomButton,
+  CustomHeader,
+  CustomInput,
+} from '../../components';
 import {tawarSchema} from '../../plugins';
+import {doBid, getDetail} from '../../store/actions';
+import {COLORS, FONTS} from '../../themes';
 import {formatRupiah} from '../../utils';
+import styles from './styles';
 
 const CardFoto = ({text1, text2, source, style}) => {
   return (
@@ -35,7 +38,7 @@ const CardProduk = ({nameProduk, kategori, price}) => {
         <View>
           <Text style={styles.namaProduk}>{nameProduk}</Text>
           <Text style={styles.kategori}>
-            {kategori.length > 0
+            {kategori?.length > 0
               ? kategori.map(item => item.name).join(', ')
               : '-'}
           </Text>
@@ -62,14 +65,17 @@ const CardDeskripsi = ({title, deskripsi}) => {
   );
 };
 
-const thisRef = createRef();
-const anim = new Animated.Value(1);
-
 const Preview = ({route, navigation}) => {
   const dispatch = useDispatch();
   const {dataProduk} = useSelector(state => state.detailReducer);
   const {id_product} = route.params;
   const {isLoading} = useSelector(state => state.commonReducers);
+  const {userData} = useSelector(state => state.loginReducer);
+  const sheetRef = useRef(null);
+
+  const handleSnapPress = useCallback(index => {
+    sheetRef.current?.snapToIndex(index);
+  }, []);
 
   useEffect(() => {
     dispatch(getDetail(id_product));
@@ -88,17 +94,25 @@ const Preview = ({route, navigation}) => {
           segera dihubungi penjual.
         </Text>
         <CardFoto
-          text1={dataProduk.name}
-          text2={formatRupiah(dataProduk.base_price)}
-          source={{uri: dataProduk.image_url}}
-          style={{...FONTS.h4, color: COLORS.black}}
+          text1={dataProduk?.name}
+          text2={formatRupiah(dataProduk?.base_price)}
+          source={{uri: dataProduk?.image_url}}
+          style={{...FONTS.body3, color: COLORS.black}}
         />
       </View>
       <Formik
         initialValues={{bid_price: ''}}
         validationSchema={tawarSchema}
         onSubmit={values => onPressBid(values)}>
-        {({handleChange, handleSubmit, values, errors, isValid, dirty}) => (
+        {({
+          handleChange,
+          handleSubmit,
+          values,
+          touched,
+          errors,
+          isValid,
+          dirty,
+        }) => (
           <>
             <CustomInput
               testID="input-bid"
@@ -106,78 +120,73 @@ const Preview = ({route, navigation}) => {
               name="bid_price"
               onChangeText={handleChange('bid_price')}
               value={values.bid_price}
-              error={errors.bid_price}
+              error={touched.bid_price && errors.bid_price}
               iconPosition="right"
               placeholder="Rp 0,00"
             />
             <CustomButton
               testID="btn-login"
               loading={isLoading}
-              disabled={isLoading}
               primary
               title="Kirim"
-              disable={!(dirty && isValid)}
+              disabled={!(dirty && isValid) || isLoading}
               onPress={handleSubmit}
             />
           </>
         )}
       </Formik>
-      <CustomButton
-        primary
-        title="Cancel"
-        onPress={() => thisRef.current.snapTo(1)}
-        style={{marginBottom: 50}}
-      />
     </View>
   );
 
   return (
-    <View>
-      <Animated.View
-        style={{opacity: Animated.add(0.3, Animated.multiply(anim, 1.0))}}>
-        <ImageBackground
-          source={{uri: dataProduk.image_url}}
-          style={styles.bgProduk}>
-          <CustomHeader
-            type="BackHeader"
-            onPress={() => navigation.navigate('MainApp')}
-          />
+    <>
+      <ScrollView>
+        <View>
+          <ImageBackground
+            source={{uri: dataProduk?.image_url}}
+            style={styles.bgProduk}>
+            <CustomHeader
+              type="BackHeader"
+              onPress={() => navigation.navigate('MainApp')}
+            />
+          </ImageBackground>
           <View style={styles.containerKeterangan}>
             <CardProduk
-              nameProduk={dataProduk.name}
-              kategori={dataProduk.Categories}
-              price={dataProduk.base_price}
+              nameProduk={dataProduk?.name}
+              kategori={dataProduk?.Categories}
+              price={dataProduk?.base_price}
             />
             <CardFoto
-              text1={dataProduk['User']?.full_name}
-              text2={dataProduk.location}
-              source={{uri: dataProduk['User']?.image_url}}
+              text1={dataProduk?.User.full_name}
+              text2={dataProduk?.location}
+              source={{uri: dataProduk?.User.image_url}}
             />
             <CardDeskripsi
               title="Deskripsi"
-              deskripsi={dataProduk.description}
+              deskripsi={dataProduk?.description}
             />
           </View>
-        </ImageBackground>
-        <View style={{height: SIZES.height * 0.7}}></View>
-        <View style={styles.button}>
-          <CustomButton
-            primary
-            disabled
-            title="Saya Tertarik dan ingin Nego"
-            onPress={() => thisRef.current.snapTo(0)}
-          />
         </View>
-      </Animated.View>
-      <BottomSheet
-        ref={thisRef}
-        snapPoints={[550, 0]}
-        renderContent={BottomSheetContent}
-        initialSnap={1}
-        callbackNode={anim}
-        enabledGestureInteraction={true}
+      </ScrollView>
+      <View
+        style={{
+          width: '100%',
+          position: 'absolute',
+          bottom: 16,
+          paddingHorizontal: 16,
+        }}>
+        <CustomButton
+          primary
+          disabled={!userData.access_token}
+          title="Saya Tertarik dan ingin Nego"
+          onPress={() => handleSnapPress(2)}
+        />
+      </View>
+      <BottomSheetComponent
+        sheetRef={sheetRef}
+        component={BottomSheetContent}
       />
-    </View>
+    </>
   );
 };
 
