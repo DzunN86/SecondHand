@@ -49,3 +49,7 @@ export const DELETE_PRODUCT_FAILED = '@DELETE_PRODUCT_FAILED';
 // Buyer
 export const BID_SUCCESS = '@BID_SUCCESS';
 export const BID_FAILED = '@BID_FAILED';
+
+// Banner
+export const SET_BANNER = '@@@SET_BANNER';
+

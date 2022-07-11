@@ -11,6 +11,7 @@ const CodePushOptions = {
   mandatoryInstallMode: CodePush.InstallMode.IMMEDIATE,
   updateDialog: {
     title: 'A new update is available!',
+    appendReleaseDescription: true,
   },
 };
 
