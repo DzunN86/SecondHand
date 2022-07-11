@@ -1,11 +1,16 @@
-import { GET_PRODUCT_FAIL, GET_PRODUCT_LOADING, GET_PRODUCT_SUCCESS } from "../../types";
-
+import {
+  GET_PRODUCT_FAIL,
+  GET_PRODUCT_LOADING,
+  GET_PRODUCT_SUCCESS,
+  SET_BANNER,
+} from '../../types';
 
 const initialState = {
   isLoading: false,
   isError: false,
   errorMessage: '',
   products: [],
+  banners: [],
 };
 
 export const homeReducer = (state = initialState, action) => {
@@ -29,7 +34,12 @@ export const homeReducer = (state = initialState, action) => {
         isError: true,
         errorMessage: action.payload,
       };
+    case SET_BANNER:
+      return {
+        ...state,
+        banners: action.payload,
+      };
     default:
       return state;
   }
-}
+};
