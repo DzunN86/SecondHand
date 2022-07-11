@@ -2,6 +2,7 @@ import {LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT} from '../../types';
 
 const initialState = {
   userData: {},
+  isLogin: false,
 };
 
 export const loginReducer = (state = initialState, action) => {
@@ -10,17 +11,20 @@ export const loginReducer = (state = initialState, action) => {
       return {
         ...state,
         userData: action.payload,
+        isLogin: true,
       };
 
     case LOGIN_FAILED:
       return {
         ...state,
+        isLogin: false,
       };
-      case LOGOUT:
-        return {
-          ...state,
-          userData: {},
-        };
+    case LOGOUT:
+      return {
+        ...state,
+        userData: {},
+        isLogin: false,
+      };
     default:
       return state;
   }
