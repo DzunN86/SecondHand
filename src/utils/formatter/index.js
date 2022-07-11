@@ -1,4 +1,6 @@
-export const formatRupiah = (angka) => {
+import Moment from "moment";
+
+export function formatRupiah(angka){
   if (angka) {
     const format = angka.toString().split('').reverse().join('');
     const convert = format.match(/\d{1,3}/g);
@@ -10,4 +12,17 @@ export const formatRupiah = (angka) => {
   return angka;
 };
 
-export default formatRupiah;
+export function formatDate(val) {
+  if (!val) {
+    return "-";
+  }
+  return Moment(val).format("DD MMM YYYY");
+}
+
+export function formatDateTime(val) {
+  if (!val) {
+    return "-";
+  }
+  return Moment(val).format("DD MMM, HH:mm");
+}
+
