@@ -70,7 +70,7 @@ export default function InfoAkun({navigation}) {
             {({handleChange, handleSubmit, values, errors, isValid, dirty}) => (
               <>
                 <Upload
-                  source={{uri: image}}
+                  source={image}
                   style={{
                     alignSelf: 'center',
                   }}
