@@ -50,7 +50,7 @@ export default function FormDetail({ navigation, route }) {
     formData.append('category_ids', value.category_ids.toString());
     formData.append('location', userProfile.city);
     formData.append('image', {
-      uri: `https://ui-avatars.com/api/?name=${data.nama}`,
+      uri: image,
       type: 'image/jpeg',
       name: 'image.jpg',
     });

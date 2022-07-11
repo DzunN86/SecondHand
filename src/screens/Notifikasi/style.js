@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { COLORS } from '../../themes/theme'
+import { COLORS, RADIUS } from '../../themes/theme'
 
 export default StyleSheet.create({
     container : {
@@ -18,7 +18,8 @@ export default StyleSheet.create({
         width: 58,
         height: 58,
         marginLeft: 22,
-        flex: 1.6
+        flex: 1.6,
+        borderRadius: RADIUS.small
     },
     productNotification: {
         flexDirection: 'row',

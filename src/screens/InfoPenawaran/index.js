@@ -4,10 +4,10 @@ import styles from './style';
 import { CustomHeader, CardBuyer, CustomButton } from '../../components';
 import { product } from '../../assets'
 
-export default function InfoPenawaran() {
+export default function InfoPenawaran({navigation}) {
   return (
     <View style={styles.container}>
-      <CustomHeader type="BackTitle" title="Info Penawar" />
+      <CustomHeader type="BackTitle" title="Info Penawar" onPress={() => navigation.goBack()} />
       <CardBuyer city="palembang" name="qodri" />
       <View>
         <Text style={styles.LabelPenawaran}>Daftar Produkmu Yang Ditawar</Text>

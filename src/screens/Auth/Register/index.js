@@ -20,7 +20,7 @@ export default function Register({navigation}) {
   const dispatch = useDispatch();
   const {isLoading} = useSelector(state => state.commonReducers);
 
-  const onPressLogin = (data) => {
+  const onPressLogin = data => {
     const formData = new FormData();
 
     formData.append('full_name', data.nama);
@@ -58,7 +58,15 @@ export default function Register({navigation}) {
             }}
             validationSchema={registerSchema}
             onSubmit={values => onPressLogin(values)}>
-            {({handleChange, handleSubmit, values, errors, isValid, dirty}) => (
+            {({
+              handleChange,
+              handleSubmit,
+              values,
+              errors,
+              touched,
+              isValid,
+              dirty,
+            }) => (
               <>
                 <CustomInput
                   testID="input-nama"
@@ -66,7 +74,7 @@ export default function Register({navigation}) {
                   name="nama"
                   onChangeText={handleChange('nama')}
                   value={values.nama}
-                  error={errors.nama}
+                  error={touched.nama && errors.nama}
                   iconPosition="right"
                   placeholder="Nama Lengkap"
                 />
@@ -76,7 +84,7 @@ export default function Register({navigation}) {
                   name="email"
                   onChangeText={handleChange('email')}
                   value={values.email}
-                  error={errors.email}
+                  error={touched.email && errors.email}
                   iconPosition="right"
                   placeholder="Contoh: johndee@gmail.com"
                 />
@@ -89,7 +97,7 @@ export default function Register({navigation}) {
                   placeholder="Buat password"
                   onChangeText={handleChange('password')}
                   value={values.password}
-                  error={errors.password}
+                  error={touched.password && errors.password}
                   icon={
                     <TouchableOpacity
                       onPress={() => {
@@ -109,7 +117,7 @@ export default function Register({navigation}) {
                   name="phone_number"
                   onChangeText={handleChange('phone_number')}
                   value={values.phone_number}
-                  error={errors.phone_number}
+                  error={touched.phone_number && errors.phone_number}
                   iconPosition="right"
                   placeholder="+62 xx xxx xxx xxx"
                 />
@@ -119,7 +127,7 @@ export default function Register({navigation}) {
                   name="alamat"
                   onChangeText={handleChange('alamat')}
                   value={values.alamat}
-                  error={errors.alamat}
+                  error={touched.alamat && errors.alamat}
                   iconPosition="right"
                   placeholder="Alamat Lengkap"
                 />
@@ -128,17 +136,16 @@ export default function Register({navigation}) {
                   name="kota"
                   onSelectChange={handleChange('kota')}
                   value={values.kota}
-                  error={errors.kota}
+                  error={touched.kota && errors.kota}
                   iconPosition="left"
                   selectData={kota}
                 />
                 <CustomButton
                   testID="btn-login"
                   loading={isLoading}
-                  disabled={isLoading}
                   primary
                   title="Daftar"
-                  disable={!(dirty && isValid)}
+                  disabled={!(dirty && isValid) || isLoading}
                   onPress={handleSubmit}
                 />
               </>

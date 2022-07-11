@@ -14,14 +14,14 @@ export const setUpdateFailed = error => ({
   payload: error,
 });
 
-export const doUpdate = (data, update, navigation) => async dispatch => {
+export const doUpdate = (data, navigation) => async dispatch => {
   dispatch(setLoading(true));
   await updateProfile(data)
     .then(res => {
       dispatch(setUpdateSuccess(res.data));
       dispatch(setLoading(false));
       showSuccess('Update Success');
-      update = dispatch(doGetProfile());
+      dispatch(doGetProfile());
       navigation.goBack();
       console.log('RES UPDATE', res);
     })

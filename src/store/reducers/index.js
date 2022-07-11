@@ -5,8 +5,9 @@ import {homeReducer} from './home'
 import {getUserReducer, updateUserReducer} from './akun'
 import { notificationReducer } from './notification';
 import {categoryReducer} from './kategori';
-import {addProductReducer, productSellerReducers, upProductReducers, detailSellerReducer, deleteProductReducers} from './seller';
+import {addProductReducer, productSellerReducers} from './seller';
 import { detailReducer } from './detail';
+import { bidReducer } from './tawar';
 
 const reducer = combineReducers({
   loginReducer,
@@ -20,9 +21,7 @@ const reducer = combineReducers({
   categoryReducer,
   addProductReducer,
   productSellerReducers,
-  upProductReducers,
-  detailSellerReducer,
-  deleteProductReducers,
+  bidReducer,
 });
 
 export default reducer;
