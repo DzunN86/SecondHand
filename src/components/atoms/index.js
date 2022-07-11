@@ -4,5 +4,14 @@ import TabItems from './TabItem';
 import CustomHeader from './CustomHeader';
 import CustomSelect from './CustomSelect';
 import MultipleSelect from './MultiSelect';
+import TabAdd from './TabAdd';
 
-export {CustomHeader, CustomButton, CustomInput, TabItems, CustomSelect, MultipleSelect};
+export {
+  CustomHeader,
+  CustomButton,
+  CustomInput,
+  TabItems,
+  CustomSelect,
+  MultipleSelect,
+  TabAdd,
+};
