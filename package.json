@@ -65,6 +65,9 @@
     "react-test-renderer": "17.0.2"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "transform": {
+      "\\.js$": "<rootDir>/node_modules/babel-jest"
+    }
   }
 }
