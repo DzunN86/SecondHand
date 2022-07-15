@@ -1,46 +1,48 @@
-import { StyleSheet } from 'react-native'
+import {StyleSheet} from 'react-native';
+import {COLORS, FONTS, RADIUS} from '../../themes';
 // import { COLORS } from '../../themes/theme'
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   productImage: {
     width: 58,
     height: 58,
-    marginLeft: 22,
-    flex: 1.6
+    borderRadius: RADIUS.medium,
   },
   productNotification: {
     flexDirection: 'row',
     marginTop: 20,
+    marginHorizontal: 16,
   },
-  date: {
-    marginLeft: -90,
-    flex: 3
+  wrapperDate: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 6,
   },
   productInfo: {
     marginLeft: 15,
-    flex: 8
+    flex: 1,
   },
   labelText: {
-    fontSize: 16,
-    fontWeight: '400',
-    color: 'black'
+    ...FONTS.body4,
+    color: COLORS.black,
+    marginBottom: 6,
   },
   label: {
-    fontSize: 14
+    ...FONTS.body4,
+    color: COLORS.grey2,
   },
   LabelPenawaran: {
-    color: 'black',
-    fontSize: 18,
-    fontWeight: '500',
-    marginLeft: 22,
-    marginTop: 20
+    ...FONTS.h3,
+    color: COLORS.black,
+    marginHorizontal: 16,
+    marginTop: 20,
   },
   button1: {
-    width: 156,
+    width: 160,
     height: 40,
     borderRadius: 18,
     alignItems: 'center',
@@ -48,11 +50,14 @@ export default StyleSheet.create({
     borderWidth: 0.8,
   },
   button2: {
-    backgroundColor: '#7126B5',
-    width: 156,
+    width: 160,
     height: 40,
     borderRadius: 18,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
-})
+  strike_through: {
+    textDecorationLine: 'line-through',
+    textDecorationStyle: 'solid',
+  },
+});

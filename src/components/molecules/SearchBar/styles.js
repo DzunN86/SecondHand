@@ -15,6 +15,6 @@ export default StyleSheet.create({
   },
   textSearch: {
     ...FONTS.body4,
-    color: COLORS.gray1,
+    color: COLORS.grey2,
   },
 });
