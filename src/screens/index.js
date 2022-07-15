@@ -13,6 +13,7 @@ import Jual from './Jual';
 import Preview from './Preview';
 import SearchProduct from './SearchProduct';
 import DetailProductSeller from './DetailProductSeller';
+import TestingComponent from './TestingComponent';
 
 export {
   DaftarJual,
@@ -30,4 +31,5 @@ export {
   Preview,
   SearchProduct,
   DetailProductSeller,
+  TestingComponent,
 };

@@ -10,3 +10,10 @@ export const deleteBuyerOrder = async (id) => await axios.delete(`/buyer/order/$
 // buyer/product
 export const getBuyerProduct = async (params) => await axios.get(`/buyer/product${params}`);
 export const detailBuyerProduct = async (id) => await axios.get(`/buyer/product/${id}`);
+
+// buyer/wishlist
+export const getWishlist = async () => await axios.get('/buyer/wishlist');
+export const detailWishlist = async (id) => await axios.get(`/buyer/wishlist/${id}`);
+export const addWishlist = async (product_id) => await axios.post(`/buyer/wishlist/${product_id}`);
+export const deleteWishlist = async (product_id) => await axios.delete(`/buyer/wishlist/${product_id}`);
+export const updateWishlist = async (product_id, payload) => await axios.put(`/buyer/wishlist/${product_id}`, payload);

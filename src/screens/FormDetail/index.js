@@ -113,6 +113,7 @@ export default function FormDetail({navigation, route}) {
                     label="Harga Produk"
                     placeholder="Rp 0,00"
                     name="base_price"
+                    keyboardType="numeric"
                     onChangeText={handleChange('base_price')}
                     value={values.base_price}
                     error={touched.base_price && errors.base_price}
