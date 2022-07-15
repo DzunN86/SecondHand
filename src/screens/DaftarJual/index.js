@@ -1,19 +1,17 @@
 import {useIsFocused} from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import {ActivityIndicator, ScrollView, View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {CardCategory, CardProduct, TabAdd} from '../../components';
 import HeaderTitle from '../../components/atoms/CustomHeader/Title';
 import CardSeller from '../../components/molecules/CardSeller';
 import {doGetProfile} from '../../store/actions';
 import {getProductSeller} from '../../store/actions/seller/getProduct';
-import {COLORS, SIZES} from '../../themes';
+import {SIZES} from '../../themes';
 
 export default function DaftarJual({navigation}) {
   const dispatch = useDispatch();
-  const {productSeller, isLoading} = useSelector(
-    state => state.productSellerReducers,
-  );
+  const {productSeller} = useSelector(state => state.productSellerReducers);
   const {userProfile} = useSelector(state => state.getUserReducer);
   const {userData} = useSelector(state => state.loginReducer);
   const isFocused = useIsFocused();
@@ -62,27 +60,19 @@ export default function DaftarJual({navigation}) {
             onPress={() => navigation.navigate('FormDetailScreen')}
           />
         )}
-        {isLoading ? (
-          <ActivityIndicator
-            style={{flex: 1}}
-            size="large"
-            color={COLORS.primary}
-          />
-        ) : (
-          productSeller.map(item => (
-            <View key={item.id} style={{marginBottom: SIZES.base}}>
-              <CardProduct
-                name={item.name}
-                price={item.base_price}
-                category={item.Categories}
-                image={item.image_url}
-                onPress={() =>
-                  navigation.navigate('DetailProductSeller', {id: item.id})
-                }
-              />
-            </View>
-          ))
-        )}
+        {productSeller.map(item => (
+          <View key={item.id} style={{marginBottom: SIZES.base}}>
+            <CardProduct
+              name={item.name}
+              price={item.base_price}
+              category={item.Categories}
+              image={item.image_url}
+              onPress={() =>
+                navigation.navigate('DetailProductSeller', {id: item.id})
+              }
+            />
+          </View>
+        ))}
       </View>
     </ScrollView>
   );
