@@ -14,8 +14,10 @@ import Preview from './Preview';
 import SearchProduct from './SearchProduct';
 import DetailProductSeller from './DetailProductSeller';
 import TestingComponent from './TestingComponent';
+import Settings from './Pengaturan';
 
 export {
+  Settings,
   DaftarJual,
   DetailProduct,
   Account,
