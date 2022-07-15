@@ -1,6 +1,7 @@
 import {Formik} from 'formik';
 import React, {useCallback, useEffect, useRef} from 'react';
 import {Image, ImageBackground, ScrollView, Text, View} from 'react-native';
+import {ActivityIndicator} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   BottomSheetComponent,
@@ -67,9 +68,9 @@ const CardDeskripsi = ({title, deskripsi}) => {
 
 const Preview = ({route, navigation}) => {
   const dispatch = useDispatch();
-  const {dataProduk} = useSelector(state => state.detailReducer);
+  const {dataProduk, isLoading} = useSelector(state => state.detailReducer);
   const {id_product} = route.params;
-  const {isLoading} = useSelector(state => state.commonReducers);
+  const LoadingSend = useSelector(state => state.commonReducers.isLoading);
   const {userData} = useSelector(state => state.loginReducer);
   const sheetRef = useRef(null);
 
@@ -126,10 +127,10 @@ const Preview = ({route, navigation}) => {
             />
             <CustomButton
               testID="btn-login"
-              loading={isLoading}
+              loading={LoadingSend}
               primary
               title="Kirim"
-              disabled={!(dirty && isValid) || isLoading}
+              disabled={!(dirty && isValid) || LoadingSend}
               onPress={handleSubmit}
             />
           </>
@@ -137,6 +138,18 @@ const Preview = ({route, navigation}) => {
       </Formik>
     </View>
   );
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <ActivityIndicator size="large" color={COLORS.primary} />
+      </View>
+    );
+  }
 
   return (
     <>
