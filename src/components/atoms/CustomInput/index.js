@@ -33,7 +33,7 @@ const Input = ({
     if (focused) {
       return COLORS.primary;
     } else {
-      return COLORS.grey3;
+      return COLORS.grey2;
     }
   };
   return (
@@ -50,6 +50,7 @@ const Input = ({
 
         <TextInput
           style={[styles.textInput, style]}
+          placeholderTextColor={COLORS.grey2}
           onChangeText={onChangeText}
           value={value}
           onFocus={() => {
