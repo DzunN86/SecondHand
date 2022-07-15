@@ -34,7 +34,7 @@ const CustomSelect = ({
     if (focused) {
       return COLORS.primary;
     } else {
-      return COLORS.grey3;
+      return COLORS.grey2;
     }
   };
   return (
@@ -58,9 +58,9 @@ const CustomSelect = ({
             onBlur={() => {
               setFocused(false);
             }}>
-            <Picker.Item label="Pilih" value="" />
+            <Picker.Item color={COLORS.grey2} label="Pilih" value="" />
             {selectData.map((item, idx) => (
-              <Picker.Item label={item.label} value={item.label} key={idx} />
+              <Picker.Item label={item.label} value={item.label} key={idx} color={COLORS.black} />
             ))}
           </Picker>
         </View>
