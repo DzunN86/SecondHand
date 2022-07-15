@@ -44,8 +44,8 @@ export default function Home({navigation}) {
   const renderHeaderComponent = useMemo(
     () => (
       <LinearGradient colors={['#AADEE9', '#D2ECF2', '#FFF']}>
-        <CardAds />
         <SearchBar onPress={() => navigation.navigate('SearchProductScreen')} />
+        <CardAds />
         <View>
           <Text style={styles.telusuriKategori}>Telusuri Kategori</Text>
           <View style={styles.categoryList}>
