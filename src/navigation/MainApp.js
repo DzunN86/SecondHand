@@ -4,10 +4,13 @@ import {Account, DaftarJual, FormDetail, Home, Notifikasi} from '../screens';
 import {COLORS, FONTS} from '../themes';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 
 const MainApp = () => {
+  const navigation = useNavigation();
+
   const {userData} = useSelector(state => state.loginReducer);
 
   return (
@@ -58,6 +61,14 @@ const MainApp = () => {
           <Tab.Screen
             name="Jual"
             component={FormDetail}
+            listeners={{
+              tabPress: (e) => {
+                // Prevent default action
+                e.preventDefault();
+                // Any custom code here
+                navigation.navigate('FormDetailScreen', { data: false });
+              },
+            }}
             options={{
               tabBarLabel: 'Jual',
               tabBarIcon: ({color, focused}) => (
