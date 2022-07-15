@@ -1,28 +1,11 @@
-import {Skeleton} from '@rneui/base';
 import PropTypes from 'prop-types';
 import React, {memo} from 'react';
 import {StyleSheet, Text} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Feather';
-import {useSelector} from 'react-redux';
 import {COLORS, FONTS} from '../../../themes';
 
-function CardCategory({icon, title, onPress, active, style}) {
-  const {isLoading} = useSelector(state => state.commonReducers);
-  if (isLoading) {
-    return (
-      <Skeleton
-        animation="wave"
-        width={80}
-        height={45}
-        style={{
-          marginTop: 6,
-          borderRadius: 12,
-          marginRight: 16,
-        }}
-      />
-    );
-  }
+function IconButton({icon, title, onPress, active, style}) {
   return (
     <RectButton
       onPress={onPress}
@@ -37,24 +20,24 @@ function CardCategory({icon, title, onPress, active, style}) {
   );
 }
 
-CardCategory.PropTypes = {
+IconButton.PropTypes = {
   icon: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
   active: PropTypes.bool.isRequired,
 };
 
-export default memo(CardCategory);
+export default memo(IconButton);
 
 const styles = StyleSheet.create({
   searchKategori: active => ({
     backgroundColor: active ? COLORS.primary : COLORS.secondary,
     paddingVertical: 12,
-    paddingHorizontal: 16,
+    paddingLeft: 16,
+    paddingRight: 25,
     borderRadius: 12,
     marginTop: 6,
     // marginLeft: 16,
-    marginRight: 16,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

@@ -1,4 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
+import {useMemo} from 'react';
 import {FlatList, RefreshControl, ScrollView, Text, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {useDispatch, useSelector} from 'react-redux';
@@ -25,6 +26,9 @@ export default function Home({navigation}) {
   useEffect(() => {
     dispatch(getBanners());
     dispatch(getKategori());
+  }, []);
+
+  useEffect(() => {
     dispatch(
       getProduct({
         search: '',
@@ -37,48 +41,54 @@ export default function Home({navigation}) {
     setRefreshing(false);
   }, [Fcategory, refreshing, perPage]);
 
-  const renderHeaderComponent = () => (
-    <LinearGradient colors={['#FFE9C9', '#FFE9CA', '#FFF']}>
-      <SearchBar onPress={() => navigation.navigate('SearchProductScreen')} />
-      <CardAds />
-      <View>
-        <Text style={styles.telusuriKategori}>Telusuri Kategori</Text>
-        <View style={styles.categoryList}>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            style={{paddingLeft: SIZES.base}}>
-            <CardCategory
-              title="Semua"
-              icon="search"
-              active={Fcategory === 0}
-              onPress={() => setFCategory(0)}
-            />
-            {category.map(item => (
+  const renderHeaderComponent = useMemo(
+    () => (
+      <LinearGradient colors={['#AADEE9', '#D2ECF2', '#FFF']}>
+        <CardAds />
+        <SearchBar onPress={() => navigation.navigate('SearchProductScreen')} />
+        <View>
+          <Text style={styles.telusuriKategori}>Telusuri Kategori</Text>
+          <View style={styles.categoryList}>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              style={{paddingLeft: SIZES.base}}>
               <CardCategory
-                title={item.name}
-                key={item.id}
-                icon="box"
-                active={Fcategory === item?.id}
-                onPress={() => setFCategory(item?.id)}
+                title="Semua"
+                icon="search"
+                active={Fcategory === 0}
+                onPress={() => setFCategory(0)}
               />
-            ))}
-          </ScrollView>
+              {category.map(item => (
+                <CardCategory
+                  title={item.name}
+                  key={item.id}
+                  icon="box"
+                  active={Fcategory === item?.id}
+                  onPress={() => setFCategory(item?.id)}
+                />
+              ))}
+            </ScrollView>
+          </View>
         </View>
-      </View>
-    </LinearGradient>
+      </LinearGradient>
+    ),
+    [Fcategory],
   );
 
-  const renderFooter = () => (
-    <View style={{paddingHorizontal: 16, marginTop: 10}}>
-      <CustomButton
-        primary
-        loading={isLoading}
-        disabled={isLoading}
-        title="Show More"
-        onPress={() => setPerpage(perPage + 10)}
-      />
-    </View>
+  const renderFooter = useMemo(
+    () => (
+      <View style={{paddingHorizontal: 16, marginTop: 10}}>
+        <CustomButton
+          primary
+          loading={isLoading}
+          disabled={isLoading}
+          title="Show More"
+          onPress={() => setPerpage(perPage + 10)}
+        />
+      </View>
+    ),
+    [isLoading],
   );
 
   const renderItem = useCallback(
@@ -129,10 +139,13 @@ export default function Home({navigation}) {
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
-            onRefresh={() => setRefreshing(true)}
+            onRefresh={() => {
+              setRefreshing(true);
+              setPerpage(10);
+            }}
           />
         }
-        ListFooterComponent={!isLoading ? renderFooter : null}
+        ListFooterComponent={renderFooter}
       />
     </>
   );

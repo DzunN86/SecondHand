@@ -3,7 +3,7 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import {COLORS, FONTS, SIZES} from '../../../themes';
 
-const IconSize = 24;
+const IconSize = 30;
 const TabProduk = ({title, icon, onPress}) => {
   return (
     <TouchableOpacity onPress={onPress}>
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   textButton: {
     color: COLORS.grey8,
-    ...FONTS.body5,
+    ...FONTS.body4,
     alignSelf: 'center',
     marginTop: 10,
   },

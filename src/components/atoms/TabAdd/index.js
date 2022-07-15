@@ -44,6 +44,14 @@ function TabAdd({title, icon, onPress, label, type}) {
                 borderRadius: RADIUS.small,
               }}
             />
+            <Skeleton
+              animation="wave"
+              width={100}
+              style={{
+                marginTop: 10,
+                borderRadius: RADIUS.small,
+              }}
+            />
           </View>
         ) : (
           <TabProduk type={type} title={title} icon={icon} onPress={onPress} />
