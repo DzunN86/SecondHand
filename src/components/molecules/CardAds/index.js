@@ -1,3 +1,4 @@
+import {Skeleton} from '@rneui/base';
 import React, {memo} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import PagerView from 'react-native-pager-view';
@@ -24,6 +25,7 @@ const DefaultAds = () => {
 
 const CardAds = () => {
   const {banners} = useSelector(state => state.homeReducer);
+  const {isLoading} = useSelector(state => state.commonReducers);
   const {userData} = useSelector(state => state.loginReducer);
 
   if (!userData.access_token) {
@@ -35,24 +37,39 @@ const CardAds = () => {
       initialPage={0}
       showPageIndicator
       overScrollMode="auto">
-      {banners?.map(item => (
-        <View
-          key={item.id}
+      {isLoading ? (
+        <Skeleton
+          animation="wave"
+          width={SIZES.width - SIZES.base * 2}
+          height={SIZES.height * 0.25 - SIZES.base * 2}
           style={{
+            borderRadius: RADIUS.large,
             marginVertical: SIZES.base,
             marginHorizontal: SIZES.base,
-          }}>
-          <Image
-            resizeMode="contain"
-            source={{uri: item.image_url}}
-            style={{
-              height: SIZES.height * 0.25 - SIZES.base * 2,
-              width: SIZES.width - SIZES.base * 2,
-              borderRadius: RADIUS.large,
-            }}
-          />
-        </View>
-      ))}
+          }}
+        />
+      ) : (
+        <>
+          {banners?.map(item => (
+            <View
+              key={item.id}
+              style={{
+                marginVertical: SIZES.base,
+                marginHorizontal: SIZES.base,
+              }}>
+              <Image
+                resizeMode="contain"
+                source={{uri: item.image_url}}
+                style={{
+                  height: SIZES.height * 0.25 - SIZES.base * 2,
+                  width: SIZES.width - SIZES.base * 2,
+                  borderRadius: RADIUS.large,
+                }}
+              />
+            </View>
+          ))}
+        </>
+      )}
     </PagerView>
   );
 };
