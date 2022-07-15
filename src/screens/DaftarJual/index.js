@@ -1,25 +1,65 @@
 import {useIsFocused} from '@react-navigation/native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollView, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {CardCategory, CardProduct, TabAdd} from '../../components';
+import {IconButton} from '../../components';
 import HeaderTitle from '../../components/atoms/CustomHeader/Title';
 import CardSeller from '../../components/molecules/CardSeller';
 import {doGetProfile} from '../../store/actions';
-import {getProductSeller} from '../../store/actions/seller/getProduct';
-import {SIZES} from '../../themes';
+import Diminati from './Diminati';
+import Product from './Product';
+import Terjual from './Terjual';
 
 export default function DaftarJual({navigation}) {
   const dispatch = useDispatch();
-  const {productSeller} = useSelector(state => state.productSellerReducers);
   const {userProfile} = useSelector(state => state.getUserReducer);
   const {userData} = useSelector(state => state.loginReducer);
   const isFocused = useIsFocused();
 
+  const [btnProdukActive, setBtnPodukActive] = useState(true);
+  const [btnDiminatiActive, setBtnDiminatiActive] = useState(false);
+  const [btnTerjualActive, setBtnTerjualActive] = useState(false);
+
+  const [title, setTitle] = useState('');
+
+  const listIconBtn = () => {
+    if (title == 'produk') {
+      return <Product />;
+    }
+    if (title == 'diminati') {
+      return <Diminati />;
+    }
+    if (title == 'terjual') {
+      return <Terjual />;
+    }
+
+    return <Product />;
+  };
+
+  const produk = () => {
+    setTitle('produk');
+    setBtnPodukActive(true);
+    setBtnTerjualActive(false);
+    setBtnDiminatiActive(false);
+  };
+
+  const diminati = () => {
+    setTitle('diminati');
+    setBtnPodukActive(false);
+    setBtnTerjualActive(false);
+    setBtnDiminatiActive(true);
+  };
+
+  const terjual = () => {
+    setTitle('terjual');
+    setBtnPodukActive(false);
+    setBtnTerjualActive(true);
+    setBtnDiminatiActive(false);
+  };
+
   useEffect(() => {
     if (isFocused) {
       dispatch(doGetProfile());
-      dispatch(getProductSeller());
     }
   }, [dispatch, isFocused]);
 
@@ -39,41 +79,33 @@ export default function DaftarJual({navigation}) {
         onPress={() => navigation.navigate('InfoAkunScreen')}
         source={{uri: userProfile.image_url}}
       />
-      <View style={{flexDirection: 'row', marginTop: 16, marginHorizontal: 15}}>
-        <CardCategory icon="box" active title="Produk" />
-        <CardCategory icon="heart" title="Diminati" />
-        <CardCategory icon="dollar-sign" title="Terjual" />
-      </View>
       <View
         style={{
-          flexWrap: 'wrap',
-          marginVertical: SIZES.base,
           flexDirection: 'row',
+          marginTop: 16,
+          marginHorizontal: 15,
           justifyContent: 'space-between',
-          marginHorizontal: 16,
         }}>
-        {productSeller.length < 5 && (
-          <TabAdd
-            type="TabProduk"
-            title="Tambah Produk"
-            icon="plus"
-            onPress={() => navigation.navigate('FormDetailScreen')}
-          />
-        )}
-        {productSeller.map(item => (
-          <View key={item.id} style={{marginBottom: SIZES.base}}>
-            <CardProduct
-              name={item.name}
-              price={item.base_price}
-              category={item.Categories}
-              image={item.image_url}
-              onPress={() =>
-                navigation.navigate('DetailProductSeller', {id: item.id})
-              }
-            />
-          </View>
-        ))}
+        <IconButton
+          icon="box"
+          active={btnProdukActive}
+          title="Produk"
+          onPress={() => produk()}
+        />
+        <IconButton
+          icon="heart"
+          title="Diminati"
+          active={btnDiminatiActive}
+          onPress={() => diminati()}
+        />
+        <IconButton
+          icon="dollar-sign"
+          title="Terjual"
+          active={btnTerjualActive}
+          onPress={() => terjual()}
+        />
       </View>
+      <>{listIconBtn()}</>
     </ScrollView>
   );
 }
