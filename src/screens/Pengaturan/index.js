@@ -1,8 +1,9 @@
 import { View } from 'react-native';
 import React from 'react';
-import { CustomHeader, CustomInput, CustomButton } from '../../components';
 import { Formik } from 'formik';
 import styles from './styles';
+import {changePasswordSchema} from '../../plugins';
+import { CustomHeader, CustomInput, CustomButton } from '../../components';
 
 export default function Settings({navigation}) {
   return (
@@ -19,6 +20,7 @@ export default function Settings({navigation}) {
               new_password: "",
               confirm_password: "",
             }}
+            validationSchema={changePasswordSchema}
             onSubmit={values => onPressUpdate(values)}>
             {({handleChange, handleSubmit, values, errors, isValid, dirty}) => (
               <>
