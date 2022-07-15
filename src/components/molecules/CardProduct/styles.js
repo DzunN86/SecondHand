@@ -8,6 +8,8 @@ export default StyleSheet.create({
     borderRadius: RADIUS.small,
     borderColor: '#E5E5E5',
     borderWidth: 1,
+    elevation: 2,
+    shadowOpacity: 0.2,
     height: SIZES.height * 0.27,
     width: SIZES.width * 0.44,
     padding: 8,

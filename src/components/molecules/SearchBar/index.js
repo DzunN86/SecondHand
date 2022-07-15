@@ -10,7 +10,7 @@ const SearchBar = ({onPress}) => {
     <TouchableOpacity onPress={onPress}>
       <View style={styles.search}>
         <Text style={styles.textSearch}>Cari di Second Chance</Text>
-        <Icon name="search" color={COLORS.gray} size={25} />
+        <Icon name="search" color={COLORS.grey2} size={25} />
       </View>
     </TouchableOpacity>
   );

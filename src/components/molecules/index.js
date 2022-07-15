@@ -6,9 +6,10 @@ import SearchBar from './SearchBar';
 import CardAds from './CardAds';
 import CardCategory from './CardCategory';
 import Upload from './UploadFoto';
-import Menu from './MenuAkun'
+import Menu from './MenuAkun';
 import BottomUpload from './BottomSheetUpload';
 import CardBuyer from './CardBuyer';
+import IconButton from './IconButton';
 
 export {
   Upload,
@@ -22,4 +23,5 @@ export {
   CardCategory,
   BottomSheetComponent,
   CardBuyer,
+  IconButton,
 };
