@@ -1,14 +1,15 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { View } from 'react-native';
+import React from 'react';
+import { CustomHeader } from '../../components';
 
-const Settings = () => {
+export default function Settings({navigation}) {
   return (
     <View>
-      <Text>Settings</Text>
+       <CustomHeader
+        type="BackTitle"
+        title="Pengaturan Akun"
+        onPress={() => navigation.goBack()}
+      />
     </View>
   )
 }
-
-export default Settings
-
-const styles = StyleSheet.create({})
