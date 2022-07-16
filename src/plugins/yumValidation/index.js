@@ -43,6 +43,13 @@ export const updateSchema = Yup.object().shape({
   phone_number: Yup.string().required('Silahkan masukan Nomor Telepon'),
 });
 
+export const changePasswordSchema = Yup.object().shape({
+  current_password: Fpassword,
+  new_password: Fpassword,
+  confirm_password: Yup.string()
+    .equals([Yup.ref('new_password')], 'Password tidak sama')
+});
+
 export const formProductSchema = Yup.object().shape({
   name_product: Yup.string()
   .required('Silahkan masukan nama produk'),
