@@ -14,3 +14,4 @@ export const updateProfile = async (data) => await axios.put('/auth/user', data,
     'Content-Type': 'multipart/form-data',
   },
 });
+export const changePassword = async () => await axios.get('/auth/change-password');
