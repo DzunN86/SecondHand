@@ -64,7 +64,7 @@ export default function DaftarJual({navigation}) {
   }, [dispatch, isFocused]);
 
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <HeaderTitle title="Daftar Jual Saya" />
       <CardSeller
         name={
@@ -79,32 +79,36 @@ export default function DaftarJual({navigation}) {
         onPress={() => navigation.navigate('InfoAkunScreen')}
         source={{uri: userProfile.image_url}}
       />
-      <View
-        style={{
+      <ScrollView horizontal={true}>
+        <View
+          style={{
           flexDirection: 'row',
           marginTop: 16,
           marginHorizontal: 15,
           justifyContent: 'space-between',
         }}>
-        <IconButton
-          icon="box"
-          active={btnProdukActive}
-          title="Produk"
-          onPress={() => produk()}
-        />
-        <IconButton
-          icon="heart"
-          title="Diminati"
-          active={btnDiminatiActive}
-          onPress={() => diminati()}
-        />
-        <IconButton
-          icon="dollar-sign"
-          title="Terjual"
-          active={btnTerjualActive}
-          onPress={() => terjual()}
-        />
-      </View>
+          <IconButton
+            style={{marginRight: 16}}
+            icon="box"
+            active={btnProdukActive}
+            title="Produk"
+            onPress={() => produk()}
+          />
+          <IconButton
+            style={{marginRight: 16}}
+            icon="heart"
+            title="Diminati"
+            active={btnDiminatiActive}
+            onPress={() => diminati()}
+          />
+          <IconButton
+            icon="dollar-sign"
+            title="Terjual"
+            active={btnTerjualActive}
+            onPress={() => terjual()}
+          />
+        </View>
+      </ScrollView>
       <>{listIconBtn()}</>
     </ScrollView>
   );
