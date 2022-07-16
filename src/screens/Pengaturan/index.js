@@ -7,23 +7,23 @@ import { COLORS } from '../../themes';
 import {changePasswordSchema} from '../../plugins';
 import { CustomHeader, CustomInput, CustomButton } from '../../components';
 
+function Hidden({onPress, name}) {
+  return (
+  <TouchableOpacity
+    onPress={onPress}>
+    <Icon
+      name={name}
+      size={24}
+      color={COLORS.gray}
+    />
+  </TouchableOpacity>
+  )
+}
+
 export default function Settings({navigation}) {
   const [isSecureEntry, setIsSecureEntry] = useState(true);
-
-  function Hidden() {
-    return (
-    <TouchableOpacity
-      onPress={() => {
-        setIsSecureEntry(prev => !prev);
-      }}>
-      <Icon
-        name={isSecureEntry ? 'eye-off' : 'eye'}
-        size={24}
-        color={COLORS.gray}
-      />
-    </TouchableOpacity>
-    )
-  }
+  const [isSecureEntry1, setIsSecureEntry1] = useState(true);
+  const [isSecureEntry2, setIsSecureEntry2] = useState(true);
 
   return (
     <View>
@@ -53,7 +53,12 @@ export default function Settings({navigation}) {
                   error={errors.current_password}
                   iconPosition="right"
                   placeholder="Masukkan password saat ini"
-                  icon={<Hidden/>}
+                  icon={
+                    <Hidden 
+                      onPress={() => {setIsSecureEntry(prev => !prev)}} 
+                      name={isSecureEntry ? 'eye-off' : 'eye'} 
+                    />
+                  }
                 />
                 <CustomInput
                   testID="input-new_password"
@@ -65,7 +70,12 @@ export default function Settings({navigation}) {
                   error={errors.new_password}
                   iconPosition="right"
                   placeholder="Masukkan password baru"
-                  icon={<Hidden/>}
+                  icon={
+                    <Hidden 
+                      onPress={() => {setIsSecureEntry1(prev => !prev)}} 
+                      name={isSecureEntry1 ? 'eye-off' : 'eye'} 
+                    />
+                  }
                 />
                 <CustomInput
                   testID="input-confirm_password"
@@ -77,7 +87,12 @@ export default function Settings({navigation}) {
                   error={errors.confirm_password}
                   iconPosition="right"
                   placeholder="Masukkan lagi password baru"
-                  icon={<Hidden/>}
+                  icon={
+                    <Hidden 
+                      onPress={() => {setIsSecureEntry2(prev => !prev)}} 
+                      name={isSecureEntry2 ? 'eye-off' : 'eye'} 
+                    />
+                  }
                 />
                 <CustomButton
                   testID="btn-login"
