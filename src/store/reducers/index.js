@@ -15,6 +15,7 @@ import {
 } from './seller';
 import {detailReducer} from './detail';
 import {bidReducer} from './tawar';
+import {changePasswordReducer} from './akun';
 
 const reducer = combineReducers({
   loginReducer,
@@ -33,6 +34,7 @@ const reducer = combineReducers({
   detailSellerReducer,
   deleteProductReducers,
   orderSellerReducers,
+  changePasswordReducer,
 });
 
 export default reducer;
