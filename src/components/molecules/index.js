@@ -1,4 +1,3 @@
-import ButtonNavigatior from './BottomNavigator';
 import BottomSheetComponent from './BottomSheet';
 import CardSeller from './CardSeller';
 import CardProduct from './CardProduct';
@@ -15,7 +14,6 @@ export {
   Upload,
   BottomUpload,
   Menu,
-  ButtonNavigatior,
   CardSeller,
   CardProduct,
   SearchBar,
