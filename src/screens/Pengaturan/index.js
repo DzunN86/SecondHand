@@ -72,7 +72,7 @@ export default function Settings({navigation}) {
                 testID="input-new_password"
                 label="New Password"
                 name="new_password"
-                secureTextEntry={isSecureEntry}
+                secureTextEntry={isSecureEntry1}
                 onChangeText={handleChange('new_password')}
                 value={values.new_password}
                 error={errors.new_password}
@@ -89,7 +89,7 @@ export default function Settings({navigation}) {
                 testID="input-confirm_password"
                 label="Confirm Password"
                 name="confirm_password"
-                secureTextEntry={isSecureEntry}
+                secureTextEntry={isSecureEntry2}
                 onChangeText={handleChange('confirm_password')}
                 value={values.confirm_password}
                 error={errors.confirm_password}
