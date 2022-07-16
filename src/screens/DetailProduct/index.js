@@ -146,7 +146,7 @@ const Preview = ({route, navigation}) => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <ActivityIndicator size="large" color={COLORS.primary} />
+        <ActivityIndicator size="small" color={COLORS.primary} />
       </View>
     );
   }
