@@ -2,7 +2,7 @@ import { View, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { Formik } from 'formik';
 import Icon from 'react-native-vector-icons/Feather';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles';
 import { COLORS } from '../../themes';
 import {changePasswordSchema} from '../../plugins';
@@ -28,6 +28,7 @@ export default function Settings({navigation}) {
   const [isSecureEntry2, setIsSecureEntry2] = useState(true);
 
   const dispatch = useDispatch();
+  const {isLoading} = useSelector(state => state.commonReducers);
 
   const onPressChange = ({current_password, new_password, confirm_password}) => {
     dispatch(doChangePassword(current_password, new_password, confirm_password, navigation));
@@ -49,7 +50,15 @@ export default function Settings({navigation}) {
           }}
           validationSchema={changePasswordSchema}
           onSubmit={values => onPressChange(values)}>
-          {({handleChange, handleSubmit, values, errors, isValid, dirty}) => (
+          {({
+            handleChange, 
+            handleSubmit, 
+            values, 
+            errors, 
+            isValid, 
+            dirty, 
+            touched
+          }) => (
             <>
               <CustomInput
                 testID="input-current_password"
@@ -58,7 +67,7 @@ export default function Settings({navigation}) {
                 secureTextEntry={isSecureEntry}
                 onChangeText={handleChange('current_password')}
                 value={values.current_password}
-                error={errors.current_password}
+                error={touched.current_password && errors.current_password}
                 iconPosition="right"
                 placeholder="Masukkan password saat ini"
                 icon={
@@ -75,7 +84,7 @@ export default function Settings({navigation}) {
                 secureTextEntry={isSecureEntry1}
                 onChangeText={handleChange('new_password')}
                 value={values.new_password}
-                error={errors.new_password}
+                error={touched.new_password && errors.new_password}
                 iconPosition="right"
                 placeholder="Masukkan password baru"
                 icon={
@@ -92,7 +101,7 @@ export default function Settings({navigation}) {
                 secureTextEntry={isSecureEntry2}
                 onChangeText={handleChange('confirm_password')}
                 value={values.confirm_password}
-                error={errors.confirm_password}
+                error={touched.confirm_password && errors.confirm_password}
                 iconPosition="right"
                 placeholder="Masukkan lagi password baru"
                 icon={
@@ -103,10 +112,11 @@ export default function Settings({navigation}) {
                 }
               />
               <CustomButton
-                testID="btn-login"
+                testID="btn-submit"
+                loading={isLoading}
                 primary
-                title="Simpan"
-                disable={!(dirty && isValid)}
+                title="Submit"
+                disabled={!(dirty && isValid) || isLoading}
                 onPress={handleSubmit}
               />
             </>
