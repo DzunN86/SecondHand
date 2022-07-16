@@ -13,9 +13,9 @@ export const setPasswordFailed = error => ({
   payload: error,
 });
 
-export const doChangePassword = (data, navigation) => async dispatch => {
+export const doChangePassword = (current_password, new_password, confirm_password, navigation) => async dispatch => {
   dispatch(setLoading(true));
-  await changePassword(data)
+  await changePassword(current_password, new_password, confirm_password)
     .then(res => {
       dispatch(setPasswordSuccess(res.data));
       dispatch(setLoading(false));

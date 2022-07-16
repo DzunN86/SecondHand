@@ -1,11 +1,13 @@
 import { View, TouchableOpacity } from 'react-native';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Formik } from 'formik';
 import Icon from 'react-native-vector-icons/Feather';
+import { useDispatch } from 'react-redux';
 import styles from './styles';
 import { COLORS } from '../../themes';
 import {changePasswordSchema} from '../../plugins';
 import { CustomHeader, CustomInput, CustomButton } from '../../components';
+import { doChangePassword } from '../../store/actions';
 
 function Hidden({onPress, name}) {
   return (
@@ -25,6 +27,12 @@ export default function Settings({navigation}) {
   const [isSecureEntry1, setIsSecureEntry1] = useState(true);
   const [isSecureEntry2, setIsSecureEntry2] = useState(true);
 
+  const dispatch = useDispatch();
+
+  const onPressChange = ({current_password, new_password, confirm_password}) => {
+    dispatch(doChangePassword(current_password, new_password, confirm_password, navigation));
+  };
+
   return (
     <View>
       <CustomHeader
@@ -40,7 +48,7 @@ export default function Settings({navigation}) {
             confirm_password: "",
           }}
           validationSchema={changePasswordSchema}
-          onSubmit={values => onPressUpdate(values)}>
+          onSubmit={values => onPressChange(values)}>
           {({handleChange, handleSubmit, values, errors, isValid, dirty}) => (
             <>
               <CustomInput
