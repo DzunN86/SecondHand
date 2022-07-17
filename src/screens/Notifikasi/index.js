@@ -1,5 +1,12 @@
-import {Text, View, Image, TouchableOpacity, FlatList} from 'react-native';
-import React, {useEffect} from 'react';
+import {
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  FlatList,
+  RefreshControl,
+} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import styles from './style';
 // import { product } from '../../assets'
 import {useDispatch, useSelector} from 'react-redux';
@@ -8,7 +15,7 @@ import {CustomHeader} from '../../components/atoms';
 import {formatDateTime, formatRupiah} from '../../utils';
 import {useIsFocused} from '@react-navigation/native';
 import {Skeleton} from '@rneui/base';
-import {RADIUS} from '../../themes';
+import {COLORS, RADIUS} from '../../themes';
 
 function CardNotif({
   navigation,
@@ -67,44 +74,51 @@ function LoadingNotif() {
   return (
     <View style={styles.productNotification}>
       <Skeleton
-        animation="wave"
+        animation="pulse"
         width={60}
         height={60}
+        backgroundColor={COLORS.grey7}
+        skeletonStyle={{backgroundColor: COLORS.grey3}}
         style={{
-          marginTop: 15,
           borderRadius: RADIUS.small,
         }}
       />
       <View style={styles.productInfo}>
         <View style={styles.wrapperDate}>
           <Skeleton
-            animation="wave"
+            animation="pulse"
             width={150}
+            backgroundColor={COLORS.grey7}
+            skeletonStyle={{backgroundColor: COLORS.grey3}}
             style={{
-              marginTop: 15,
               borderRadius: RADIUS.small,
             }}
           />
           <Skeleton
-            animation="wave"
+            animation="pulse"
             width={50}
+            backgroundColor={COLORS.grey7}
+            skeletonStyle={{backgroundColor: COLORS.grey3}}
             style={{
-              marginTop: 15,
               borderRadius: RADIUS.small,
             }}
           />
         </View>
         <Skeleton
-          animation="wave"
+          animation="pulse"
           width={100}
+          backgroundColor={COLORS.grey7}
+          skeletonStyle={{backgroundColor: COLORS.grey3}}
           style={{
             marginTop: 15,
             borderRadius: RADIUS.small,
           }}
         />
         <Skeleton
-          animation="wave"
+          animation="pulse"
           width={70}
+          backgroundColor={COLORS.grey7}
+          skeletonStyle={{backgroundColor: COLORS.grey3}}
           style={{
             marginTop: 15,
             borderRadius: RADIUS.small,
@@ -119,15 +133,27 @@ export default function Notifikasi({navigation}) {
   const {notif, isLoading} = useSelector(state => state.notificationReducer);
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     dispatch(getNotification());
-  }, [isFocused]);
+    setRefreshing(false);
+  }, [isFocused, refreshing]);
 
   return (
     <View style={styles.container}>
+      <CustomHeader type="HeaderTitle" title="Notifikasi" />
+
       <FlatList
         data={notif}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => {
+              setRefreshing(true);
+            }}
+          />
+        }
         renderItem={({item}) =>
           isLoading ? (
             <LoadingNotif />
@@ -146,9 +172,6 @@ export default function Notifikasi({navigation}) {
         }
         keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={
-          <CustomHeader type="HeaderTitle" title="Notifikasi" />
-        }
       />
     </View>
   );

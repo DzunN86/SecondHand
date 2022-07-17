@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {memo} from 'react';
-import {ActivityIndicator, Text, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, Text, View} from 'react-native';
+import {RectButton} from 'react-native-gesture-handler';
 import {COLORS, FONTS} from '../../../themes';
 import styles from './styles';
 
@@ -32,7 +33,8 @@ function CustomButton({
     }
   };
   return (
-    <TouchableOpacity
+    <RectButton
+      borderless={false}
       testID={testID}
       disabled={disabled}
       onPress={onPress}
@@ -53,7 +55,7 @@ function CustomButton({
           </Text>
         )}
       </View>
-    </TouchableOpacity>
+    </RectButton>
   );
 }
 

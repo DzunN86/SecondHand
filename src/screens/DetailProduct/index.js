@@ -1,6 +1,6 @@
 import {Formik} from 'formik';
 import React, {useCallback, useEffect, useRef} from 'react';
-import {Image, ImageBackground, ScrollView, Text, View} from 'react-native';
+import { ImageBackground, ScrollView, Text, View} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -8,6 +8,9 @@ import {
   CustomButton,
   CustomHeader,
   CustomInput,
+  CardFoto,
+  CardProduk,
+  CardDeskripsi,
 } from '../../components';
 import {tawarSchema} from '../../plugins';
 import {doBid, getDetail} from '../../store/actions';
@@ -15,58 +18,7 @@ import {COLORS, FONTS} from '../../themes';
 import {formatRupiah} from '../../utils';
 import styles from './styles';
 
-const CardFoto = ({text1, text2, source, style}) => {
-  return (
-    <View style={styles.container}>
-      <View style={styles.wrapperPenjual}>
-        <Image
-          resizeMode="contain"
-          style={styles.imagePenjual}
-          source={source}
-        />
-        <View>
-          <Text style={styles.namaPenjual}>{text1}</Text>
-          <Text style={[styles.namaKota, style]}>{text2}</Text>
-        </View>
-      </View>
-    </View>
-  );
-};
-const CardProduk = ({nameProduk, kategori, price}) => {
-  return (
-    <View style={styles.produk}>
-      <View style={styles.wrapperProduk}>
-        <View>
-          <Text style={styles.namaProduk}>{nameProduk}</Text>
-          <Text style={styles.kategori}>
-            {kategori?.length > 0
-              ? kategori.map(item => item.name).join(', ')
-              : '-'}
-          </Text>
-          <Text style={styles.price}>{formatRupiah(price)}</Text>
-        </View>
-      </View>
-    </View>
-  );
-};
-const CardDeskripsi = ({title, deskripsi}) => {
-  return (
-    <View style={styles.deskripsi}>
-      <View style={styles.wrapperDeskripsi}>
-        <View>
-          <Text style={styles.title}>{title}</Text>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <View>
-              <Text style={styles.deskripsiText}>{deskripsi}</Text>
-            </View>
-          </ScrollView>
-        </View>
-      </View>
-    </View>
-  );
-};
-
-const Preview = ({route, navigation}) => {
+const DetailProduct = ({route, navigation}) => {
   const dispatch = useDispatch();
   const {dataProduk, isLoading} = useSelector(state => state.detailReducer);
   const {id_product} = route.params;
@@ -83,7 +35,6 @@ const Preview = ({route, navigation}) => {
   }, []);
 
   const onPressBid = ({bid_price}) => {
-    const notif = notif;
     dispatch(doBid(id_product, bid_price));
   };
   const BottomSheetContent = () => (
@@ -124,6 +75,7 @@ const Preview = ({route, navigation}) => {
               error={touched.bid_price && errors.bid_price}
               iconPosition="right"
               placeholder="Rp 0,00"
+              keyboardType="numeric"
             />
             <CustomButton
               testID="btn-login"
@@ -146,7 +98,7 @@ const Preview = ({route, navigation}) => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <ActivityIndicator size="large" color={COLORS.primary} />
+        <ActivityIndicator size="small" color={COLORS.primary} />
       </View>
     );
   }
@@ -165,14 +117,14 @@ const Preview = ({route, navigation}) => {
           </ImageBackground>
           <View style={styles.containerKeterangan}>
             <CardProduk
-              nameProduk={dataProduk?.name}
+              nameProduk={dataProduk?.name ? dataProduk.name : '-'}
               kategori={dataProduk?.Categories}
               price={dataProduk?.base_price}
             />
             <CardFoto
-              text1={dataProduk?.User.full_name}
+              text1={dataProduk.User?.full_name}
               text2={dataProduk?.location}
-              source={{uri: dataProduk?.User.image_url}}
+              source={{uri: dataProduk.User?.image_url}}
             />
             <CardDeskripsi
               title="Deskripsi"
@@ -203,4 +155,4 @@ const Preview = ({route, navigation}) => {
   );
 };
 
-export default Preview;
+export default DetailProduct;

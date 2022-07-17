@@ -55,8 +55,16 @@ export default function Account({navigation}) {
               title="Ubah Akun"
               onPress={() => navigation.navigate('InfoAkunScreen')}
             />
-            <Menu name="account-cog" title="Pengaturan Akun" />
-            <Menu name="logout" title="Keluar" onPress={onPressLogout} />
+            <Menu 
+              name="account-cog" 
+              title="Pengaturan Akun"
+              onPress={() => navigation.navigate('SettingsScreen')} 
+            />
+            <Menu 
+              name="logout" 
+              title="Keluar" 
+              onPress={onPressLogout} 
+            />
           </View>
           <Text style={styles.version}> Version {version} </Text>
         </>

@@ -18,27 +18,41 @@ function TabAdd({title, icon, onPress, label, type}) {
               backgroundColor: COLORS.white,
               marginTop: 5,
               borderRadius: RADIUS.small,
-              borderColor: '#E5E5E5',
-              borderWidth: 1,
               height: SIZES.height * 0.27,
               width: SIZES.width * 0.44,
               padding: 8,
             }}>
             <Skeleton
-              animation="wave"
+              animation="pulse"
               style={{borderRadius: RADIUS.small, height: 100, width: '100%'}}
+              backgroundColor={COLORS.grey7}
+              skeletonStyle={{backgroundColor: COLORS.grey3}}
             />
             <Skeleton
-              animation="wave"
+              animation="pulse"
               width={60}
+              backgroundColor={COLORS.grey7}
+              skeletonStyle={{backgroundColor: COLORS.grey3}}
               style={{
                 marginTop: 15,
                 borderRadius: RADIUS.small,
               }}
             />
             <Skeleton
-              animation="wave"
+              animation="pulse"
               width={100}
+              backgroundColor={COLORS.grey7}
+              skeletonStyle={{backgroundColor: COLORS.grey3}}
+              style={{
+                marginTop: 10,
+                borderRadius: RADIUS.small,
+              }}
+            />
+            <Skeleton
+              animation="pulse"
+              width={100}
+              backgroundColor={COLORS.grey7}
+              skeletonStyle={{backgroundColor: COLORS.grey3}}
               style={{
                 marginTop: 10,
                 borderRadius: RADIUS.small,

@@ -1,9 +1,10 @@
 import {Skeleton} from '@rneui/base';
 import PropTypes from 'prop-types';
 import React, {memo} from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Text, View} from 'react-native';
+import {RectButton} from 'react-native-gesture-handler';
 import {useSelector} from 'react-redux';
-import {RADIUS} from '../../../themes';
+import {COLORS, RADIUS} from '../../../themes';
 import {formatRupiah} from '../../../utils';
 import styles from './styles';
 
@@ -13,18 +14,37 @@ const CardProduct = ({onPress, name, category, price, image}) => {
 
   if (isLoading || Loading) {
     return (
-      <View style={styles.cardProduct}>
-        <Skeleton animation="wave" style={styles.imageProduk} />
+      <View style={styles.cardSkeleton}>
         <Skeleton
-          animation="wave"
+          animation="pulse"
+          style={styles.imageProduk}
+          backgroundColor={COLORS.grey7}
+          skeletonStyle={{backgroundColor: COLORS.grey3}}
+        />
+        <Skeleton
+          animation="pulse"
           width={60}
+          backgroundColor={COLORS.grey7}
+          skeletonStyle={{backgroundColor: COLORS.grey3}}
           style={{
             marginTop: 15,
             borderRadius: RADIUS.small,
           }}
         />
         <Skeleton
-          animation="wave"
+          animation="pulse"
+          backgroundColor={COLORS.grey7}
+          skeletonStyle={{backgroundColor: COLORS.grey3}}
+          width={100}
+          style={{
+            marginTop: 10,
+            borderRadius: RADIUS.small,
+          }}
+        />
+        <Skeleton
+          animation="pulse"
+          backgroundColor={COLORS.grey7}
+          skeletonStyle={{backgroundColor: COLORS.grey3}}
           width={100}
           style={{
             marginTop: 10,
@@ -36,22 +56,18 @@ const CardProduct = ({onPress, name, category, price, image}) => {
   }
 
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={styles.cardProduct}>
-        <Image source={{uri: image}} style={styles.imageProduk} />
-        <Text style={styles.textCardProduct} numberOfLines={1}>
-          {name}
-        </Text>
-        <Text style={styles.typeProduct} numberOfLines={1}>
-          {category.length > 0
-            ? category.map(item => item.name).join(', ')
-            : '-'}
-        </Text>
-        <Text style={styles.textCardProduct} numberOfLines={1}>
-          {formatRupiah(price)}
-        </Text>
-      </View>
-    </TouchableOpacity>
+    <RectButton style={styles.cardProduct} onPress={onPress}>
+      <Image source={{uri: image}} style={styles.imageProduk} />
+      <Text style={styles.textCardProduct} numberOfLines={1}>
+        {name}
+      </Text>
+      <Text style={styles.typeProduct} numberOfLines={1}>
+        {category.length > 0 ? category.map(item => item.name).join(', ') : '-'}
+      </Text>
+      <Text style={styles.textCardProduct} numberOfLines={1}>
+        {formatRupiah(price)}
+      </Text>
+    </RectButton>
   );
 };
 

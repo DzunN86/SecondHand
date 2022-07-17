@@ -1,39 +1,20 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 import React from 'react';
-import styles from './styles'
-import { FONTS, COLORS } from '../../../themes';
+import styles from './styles';
 
-const CardDeskripsi = ({ title_des, deskripsi }) => {
+export default function CardDeskripsi({title, deskripsi}) {
   return (
     <View style={styles.deskripsi}>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <View style={{ marginLeft: 12 }}>
-          <Text
-            style={{
-              marginTop: 10,
-              color: COLORS.black,
-              ...FONTS.body4,
-              textTransform: 'capitalize',
-            }}>
-            {title_des}
-          </Text>
-          <View
-            style={{
-              marginTop: 10,
-              borderWidth: 0,
-              width: '100%',
-            }}>
-            <Text
-              style={{
-                color: COLORS.lightGray3,
-                ...FONTS.body4,
-              }}>
-              {deskripsi}
-            </Text>
-          </View>
+      <View style={styles.wrapperDeskripsi}>
+        <View>
+          <Text style={styles.title}>{title}</Text>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <View>
+              <Text style={styles.deskripsiText}>{deskripsi}</Text>
+            </View>
+          </ScrollView>
         </View>
       </View>
     </View>
   );
-}
-export default CardDeskripsi
+};

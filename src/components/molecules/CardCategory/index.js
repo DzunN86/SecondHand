@@ -3,19 +3,20 @@ import PropTypes from 'prop-types';
 import React, {memo} from 'react';
 import {StyleSheet, Text} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
-import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Feather';
 import {useSelector} from 'react-redux';
-import {COLORS, FONTS, RADIUS, SIZES} from '../../../themes';
+import {COLORS, FONTS} from '../../../themes';
 
 function CardCategory({icon, title, onPress, active, style}) {
   const {isLoading} = useSelector(state => state.commonReducers);
   if (isLoading) {
     return (
       <Skeleton
-        animation="wave"
+        animation="pulse"
         width={80}
         height={45}
+        backgroundColor={COLORS.grey7}
+        skeletonStyle={{backgroundColor: COLORS.grey3}}
         style={{
           marginTop: 6,
           borderRadius: 12,

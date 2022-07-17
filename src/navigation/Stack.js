@@ -12,6 +12,8 @@ import {
   SearchProduct,
   Splash,
   TestingComponent,
+  Settings,
+  ChangePassword
 } from '../screens';
 import MainApp from './MainApp';
 
@@ -38,6 +40,8 @@ function Navigation() {
       <Stack.Screen name="PreviewScreen" component={Preview} />
       <Stack.Screen name="SearchProductScreen" component={SearchProduct} />
       <Stack.Screen name="TestingComponentScreen" component={TestingComponent} />
+      <Stack.Screen name="SettingsScreen" component={Settings} />
+      <Stack.Screen name="ChangePasswordScreen" component={ChangePassword} />
     </Stack.Navigator>
   );
 }

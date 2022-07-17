@@ -31,45 +31,46 @@ const CardAds = () => {
   if (!userData.access_token) {
     return <DefaultAds />;
   }
+  if (isLoading) {
+    return (
+      <Skeleton
+        animation="pulse"
+        width={SIZES.width - SIZES.base * 2}
+        height={SIZES.height * 0.25 - SIZES.base * 2}
+        backgroundColor={COLORS.grey7}
+        skeletonStyle={{backgroundColor: COLORS.grey3}}
+        style={{
+          borderRadius: RADIUS.large,
+          marginVertical: SIZES.base,
+          marginHorizontal: SIZES.base,
+        }}
+      />
+    );
+  }
   return (
     <PagerView
       style={{height: SIZES.height * 0.25}}
       initialPage={0}
       showPageIndicator
       overScrollMode="auto">
-      {isLoading ? (
-        <Skeleton
-          animation="wave"
-          width={SIZES.width - SIZES.base * 2}
-          height={SIZES.height * 0.25 - SIZES.base * 2}
+      {banners?.map(item => (
+        <View
+          key={item.id}
           style={{
-            borderRadius: RADIUS.large,
             marginVertical: SIZES.base,
             marginHorizontal: SIZES.base,
-          }}
-        />
-      ) : (
-        <>
-          {banners?.map(item => (
-            <View
-              key={item.id}
-              style={{
-                marginVertical: SIZES.base,
-                marginHorizontal: SIZES.base,
-              }}>
-              <Image
-                resizeMode="contain"
-                source={{uri: item.image_url}}
-                style={{
-                  height: SIZES.height * 0.25 - SIZES.base * 2,
-                  width: SIZES.width - SIZES.base * 2,
-                  borderRadius: RADIUS.large,
-                }}
-              />
-            </View>
-          ))}
-        </>
-      )}
+          }}>
+          <Image
+            resizeMode="contain"
+            source={{uri: item.image_url}}
+            style={{
+              height: SIZES.height * 0.25 - SIZES.base * 2,
+              width: SIZES.width - SIZES.base * 2,
+              borderRadius: RADIUS.large,
+            }}
+          />
+        </View>
+      ))}
     </PagerView>
   );
 };
