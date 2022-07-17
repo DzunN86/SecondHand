@@ -39,9 +39,11 @@ const CardAds = () => {
       overScrollMode="auto">
       {isLoading ? (
         <Skeleton
-          animation="wave"
+          animation="pulse"
           width={SIZES.width - SIZES.base * 2}
           height={SIZES.height * 0.25 - SIZES.base * 2}
+          backgroundColor={COLORS.grey7}
+          skeletonStyle={{backgroundColor: COLORS.grey3}}
           style={{
             borderRadius: RADIUS.large,
             marginVertical: SIZES.base,
