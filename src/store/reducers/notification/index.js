@@ -1,11 +1,16 @@
-import { GET_NOTIFICATION_FAIL, GET_NOTIFICATION_LOADING, GET_NOTIFICATION_SUCCESS } from "../../types/notification";
-
+import {
+  GET_NOTIFICATION_FAIL,
+  GET_NOTIFICATION_LOADING,
+  GET_NOTIFICATION_SUCCESS,
+  SET_NOTIFICATION_TOTAL
+} from '../../types/notification';
 
 const initialState = {
   isLoading: false,
   isError: false,
   errorMessage: '',
   notif: [],
+  totalNotif: null,
 };
 
 export const notificationReducer = (state = initialState, action) => {
@@ -22,6 +27,11 @@ export const notificationReducer = (state = initialState, action) => {
         isError: false,
         notif: action.payload,
       };
+    case SET_NOTIFICATION_TOTAL:
+      return {
+        ...state,
+        totalNotif: action.payload,
+      };
     case GET_NOTIFICATION_FAIL:
       return {
         ...state,
@@ -32,4 +42,4 @@ export const notificationReducer = (state = initialState, action) => {
     default:
       return state;
   }
-}
+};

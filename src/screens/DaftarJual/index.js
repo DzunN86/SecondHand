@@ -63,7 +63,7 @@ export default function DaftarJual({navigation}) {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      <CustomHeader type = 'HeaderTitle' title="Daftar Jual Saya" />
+      <CustomHeader type="HeaderTitle" title="Daftar Jual Saya" />
       <View style={{marginHorizontal: 16}}>
         <CardFoto
           text1={
@@ -80,14 +80,14 @@ export default function DaftarJual({navigation}) {
           stylee={{borderWidth: 1}}
         />
       </View>
-      <ScrollView horizontal={true}>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         <View
           style={{
-          flexDirection: 'row',
-          marginTop: 16,
-          marginHorizontal: 16,
-          justifyContent: 'space-between',
-        }}>
+            flexDirection: 'row',
+            marginTop: 16,
+            marginHorizontal: 16,
+            justifyContent: 'space-between',
+          }}>
           <IconButton
             style={{marginRight: 16}}
             icon="box"

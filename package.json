@@ -12,7 +12,8 @@
     "pretier": "prettier --write 'src/**/*.js'",
     "cleanG": "cd android && ./gradlew clean && cd ..",
     "buildG": "cd android && ./gradlew assembleRelease && cd ..",
-    "codepush:dev": "appcenter codepush release-react -a dzun_nn/SecondHand -d Staging"
+    "codepush:dev": "appcenter codepush release-react -a dzun_nn/SecondHand -d Staging",
+    "watch-need-help": "echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_watches && echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_queued_events && echo 999999 | sudo tee -a /proc/sys/fs/inotify/max_user_instances && watchman shutdown-server && sudo sysctl -p"
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^4",

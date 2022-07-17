@@ -1,10 +1,10 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {Account, DaftarJual, FormDetail, Home, Notifikasi} from '../screens';
-import {COLORS, FONTS} from '../themes';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import {Account, DaftarJual, FormDetail, Home, Notifikasi} from '../screens';
+import {COLORS, FONTS} from '../themes';
 
 const Tab = createBottomTabNavigator();
 
@@ -12,6 +12,7 @@ const MainApp = () => {
   const navigation = useNavigation();
 
   const {userData} = useSelector(state => state.loginReducer);
+  const {totalNotif} = useSelector(state => state.notificationReducer);
 
   return (
     <Tab.Navigator
@@ -48,7 +49,13 @@ const MainApp = () => {
             component={Notifikasi}
             options={{
               tabBarLabel: 'Notifikasi',
-              tabBarBadge: 2,
+              tabBarBadge: totalNotif,
+              tabBarBadgeStyle: {
+                backgroundColor: COLORS.danger,
+                paddingHorizontal: 2,
+                paddingVertical: 2,
+                ...FONTS.body6,
+              },
               tabBarIcon: ({color, focused}) => (
                 <Icon
                   name={focused ? 'notifications' : 'notifications-outline'}
@@ -62,11 +69,11 @@ const MainApp = () => {
             name="Jual"
             component={FormDetail}
             listeners={{
-              tabPress: (e) => {
+              tabPress: e => {
                 // Prevent default action
                 e.preventDefault();
                 // Any custom code here
-                navigation.navigate('FormDetailScreen', { data: false });
+                navigation.navigate('FormDetailScreen', {data: false});
               },
             }}
             options={{
