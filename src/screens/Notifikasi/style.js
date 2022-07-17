@@ -23,6 +23,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     flex: 1,
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   productInfo: {
     marginLeft: 16,
@@ -44,10 +45,10 @@ export default StyleSheet.create({
     height: 8,
     backgroundColor: COLORS.danger,
     borderRadius: RADIUS.xLarge,
-    marginTop: 5,
     marginLeft: 8,
   },
   wrapper: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
 });
