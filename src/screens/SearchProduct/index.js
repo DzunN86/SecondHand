@@ -1,31 +1,38 @@
+import React, {useEffect, useState} from 'react';
 import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
+  FlatList,
   SafeAreaView,
   Text,
-  ActivityIndicator,
-  FlatList,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
-import {COLORS, SIZES, RADIUS} from '../../themes';
 import Icon from 'react-native-vector-icons/Feather';
 import {useDispatch, useSelector} from 'react-redux';
-import {getProduct} from '../../store/actions/home';
 import {CardProduct} from '../../components';
+import {getProduct} from '../../store/actions/home';
+import {COLORS} from '../../themes';
+import styles from './styles';
 
 const SearchProduct = ({navigation}) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [onSearch, setOnSearch] = useState(false);
-  const {isLoading, products} = useSelector(state => state.homeReducer);
+  const {products} = useSelector(state => state.homeReducer);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const getData = setTimeout(() => {
       if (searchQuery) {
         setOnSearch(true);
-        dispatch(getProduct(`?search=${searchQuery}`));
+        dispatch(
+          getProduct({
+            search: searchQuery,
+            category_id: '',
+            status: 'available',
+            page: 1,
+            per_page: 10,
+          }),
+        );
       } else {
         setOnSearch(false);
       }
@@ -50,74 +57,41 @@ const SearchProduct = ({navigation}) => {
             placeholder="Cari produk"
             autoFocus
           />
+          {onSearch && (
+            <TouchableOpacity onPress={() => setSearchQuery('')}>
+              <Icon name="x" color={COLORS.primary} size={20} />
+            </TouchableOpacity>
+          )}
         </View>
       </View>
       {onSearch ? (
-        isLoading ? (
-          <ActivityIndicator
-            style={{flex: 1}}
-            size="large"
-            color={COLORS.primary}
-          />
-        ) : (
-          <FlatList
-            data={products}
-            renderItem={({item}) => (
-              <CardProduct
-                name={item.name}
-                category={item.Categories}
-                price={item.base_price}
-                image={item.image_url}
-                onPress={() => navigation.navigate('DetailProductScreen', {id_product: item.id})}
-              />
-            )}
-            keyExtractor={item => item.id}
-            ListEmptyComponent={() => (
-              <Text style={styles.textEmpty}>
-                Tidak ada produk yang ditemukan
-              </Text>
-            )}
-            numColumns={2}
-            showsVerticalScrollIndicator={false}
-            columnWrapperStyle={styles.cardProductWrapper}
-          />
-        )
+        <FlatList
+          data={products}
+          renderItem={({item}) => (
+            <CardProduct
+              name={item.name}
+              category={item.Categories}
+              price={item.base_price}
+              image={item.image_url}
+              onPress={() =>
+                navigation.navigate('DetailProductScreen', {
+                  id_product: item.id,
+                })
+              }
+            />
+          )}
+          keyExtractor={item => item.id}
+          ListEmptyComponent={() => (
+            <Text style={styles.textEmpty}>
+              Tidak ada produk yang ditemukan
+            </Text>
+          )}
+          numColumns={2}
+          showsVerticalScrollIndicator={false}
+          columnWrapperStyle={styles.cardProductWrapper}
+        />
       ) : null}
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  page: {flex: 1},
-  search: {
-    backgroundColor: COLORS.white,
-    paddingHorizontal: SIZES.base,
-    paddingVertical: 8,
-    flexDirection: 'row',
-    alignItems: 'center',
-    elevation: 5,
-    shadowOpacity: 0.3,
-  },
-  inputContainer: {
-    flex: 1,
-    marginLeft: SIZES.base,
-    backgroundColor: '#F0F3F8',
-    borderRadius: RADIUS.small,
-    height: 45,
-    paddingHorizontal: 16,
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  textInput: {
-    flex: 1,
-    width: '100%',
-  },
-  cardProductWrapper: {
-    marginTop: 10,
-    flex: 1,
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    marginHorizontal: 16,
-  },
-});
 export default SearchProduct;

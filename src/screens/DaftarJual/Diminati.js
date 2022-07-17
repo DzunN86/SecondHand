@@ -143,7 +143,7 @@ const Diminati = () => {
           <LoadingCard />
         ) : (
           <CardDiminati
-            key={item.id}
+            key={'diminati' + item.id}
             product_name={item.Product?.name}
             date={item.transaction_date}
             base_price={item.base_price}
