@@ -1,6 +1,6 @@
 import {Formik} from 'formik';
-import React, {useCallback, useEffect, useRef} from 'react';
-import { ImageBackground, ScrollView, Text, View} from 'react-native';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {ImageBackground, ScrollView, Text, View} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -24,6 +24,7 @@ const DetailProduct = ({route, navigation}) => {
   const {id_product} = route.params;
   const LoadingSend = useSelector(state => state.commonReducers.isLoading);
   const {userData} = useSelector(state => state.loginReducer);
+  const [autoFocus, setAutoFocus] = useState(false);
   const sheetRef = useRef(null);
 
   const handleSnapPress = useCallback(index => {
@@ -34,8 +35,16 @@ const DetailProduct = ({route, navigation}) => {
     dispatch(getDetail(id_product));
   }, []);
 
+  const handleSheetChanges = useCallback(index => {
+    if (index == 2) {
+      setAutoFocus(true);
+    } else {
+      setAutoFocus(false);
+    }
+  }, []);
+
   const onPressBid = ({bid_price}) => {
-    dispatch(doBid(id_product, bid_price));
+    dispatch(doBid(id_product, bid_price, navigation));
   };
   const BottomSheetContent = () => (
     <View style={styles.bSheet}>
@@ -76,6 +85,7 @@ const DetailProduct = ({route, navigation}) => {
               iconPosition="right"
               placeholder="Rp 0,00"
               keyboardType="numeric"
+              autoFocus={autoFocus}
             />
             <CustomButton
               testID="btn-login"
@@ -150,6 +160,7 @@ const DetailProduct = ({route, navigation}) => {
       <BottomSheetComponent
         sheetRef={sheetRef}
         component={BottomSheetContent}
+        onChange={handleSheetChanges}
       />
     </>
   );
