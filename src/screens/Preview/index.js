@@ -4,9 +4,6 @@ import Animated from 'react-native-reanimated';
 import {useDispatch, useSelector} from 'react-redux';
 import {CustomButton} from '../../components';
 import BackHeader from '../../components/atoms/CustomHeader/BackHeader';
-import CardDeskripsi from '../../components/molecules/CardDeskripsi';
-import ProductSeller from '../../components/molecules/ProdutSeller';
-import Seller from '../../components/molecules/Seller';
 import {doProduct} from '../../store/actions';
 import {SIZES} from '../../themes';
 import styles from './styles';
@@ -52,7 +49,7 @@ const Preview = ({navigation, route}) => {
           <ImageBackground source={{uri: image}} style={styles.bgProduk}>
             <BackHeader onPress={() => navigation.goBack()} />
             <View style={styles.containerKeterangan}>
-              <ProductSeller
+              {/* <ProductSeller
                 nameProduk={values.name_product}
                 kategori={
                   arrCategoryName?.length > 0
@@ -69,7 +66,7 @@ const Preview = ({navigation, route}) => {
               <CardDeskripsi
                 title_des="Deskripsi"
                 deskripsi={values.description}
-              />
+              /> */}
             </View>
           </ImageBackground>
         </Animated.View>

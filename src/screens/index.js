@@ -16,8 +16,10 @@ import DetailProductSeller from './DetailProductSeller';
 import TestingComponent from './TestingComponent';
 import Settings from './Pengaturan';
 import ChangePassword from './UbahPassword';
+import EditProduct from './EditProduct';
 
 export {
+  EditProduct,
   Settings,
   ChangePassword,
   DaftarJual,
