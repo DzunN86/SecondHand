@@ -7,7 +7,7 @@ export default StyleSheet.create({
     backgroundColor: COLORS.white,
     borderRadius: RADIUS.large,
     borderColor: COLORS.grey3,
-    borderWidth: 1,
+    borderWidth: 1.5,
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 16,

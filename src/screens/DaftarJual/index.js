@@ -2,13 +2,11 @@ import {useIsFocused} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {ScrollView, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {IconButton} from '../../components';
-import HeaderTitle from '../../components/atoms/CustomHeader/Title';
-import CardSeller from '../../components/molecules/CardSeller';
-import {doGetProfile} from '../../store/actions';
 import Diminati from './Diminati';
 import Product from './Product';
 import Terjual from './Terjual';
+import {doGetProfile} from '../../store/actions';
+import {CardFoto, CustomHeader, IconButton} from '../../components';
 
 export default function DaftarJual({navigation}) {
   const dispatch = useDispatch();
@@ -65,26 +63,29 @@ export default function DaftarJual({navigation}) {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      <HeaderTitle title="Daftar Jual Saya" />
-      <CardSeller
-        name={
-          userData.access_token
-            ? userProfile.full_name || userData.name
-            : 'Akun'
-        }
-        city={
-          userData.access_token ? userProfile.city || userData.name : 'Akun'
-        }
-        title="Edit"
-        onPress={() => navigation.navigate('InfoAkunScreen')}
-        source={{uri: userProfile.image_url}}
-      />
+      <CustomHeader type = 'HeaderTitle' title="Daftar Jual Saya" />
+      <View style={{marginHorizontal: 16}}>
+        <CardFoto
+          text1={
+            userData.access_token
+              ? userProfile.full_name || userData.name
+              : 'Akun'
+          }
+          text2={
+            userData.access_token ? userProfile.city || userData.name : 'Akun'
+          }
+          title="Edit"
+          onPress={() => navigation.navigate('InfoAkunScreen')}
+          source={{uri: userProfile.image_url}}
+          stylee={{borderWidth: 1}}
+        />
+      </View>
       <ScrollView horizontal={true}>
         <View
           style={{
           flexDirection: 'row',
           marginTop: 16,
-          marginHorizontal: 15,
+          marginHorizontal: 16,
           justifyContent: 'space-between',
         }}>
           <IconButton
