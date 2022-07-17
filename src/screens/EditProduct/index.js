@@ -1,22 +1,21 @@
 import {View, ScrollView} from 'react-native';
-import React, {createRef, useState} from 'react';
-import BackTitle from '../../components/atoms/CustomHeader/BackTitle';
+import React, {createRef, useState, useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {Formik} from 'formik';
+import Animated from 'react-native-reanimated';
+import {useIsFocused} from '@react-navigation/native';
+import styles from './styles';
+import { SIZES } from '../../themes';
 import {
   CustomInput,
   CustomButton,
   MultipleSelect,
-} from '../../components/atoms/';
-import styles from './styles';
-import {BottomUpload, Upload} from '../../components/molecules';
-import {useEffect} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {Formik} from 'formik';
+  CustomHeader,
+  BottomUpload,
+  Upload,
+} from '../../components';
 import {formProductSchema} from '../../plugins';
-import {doProduct} from '../../store/actions/seller/addProduct';
-import {getKategori} from '../../store/actions/kategori';
-import Animated from 'react-native-reanimated';
-import {getProductSeller} from '../../store/actions';
-import {useIsFocused} from '@react-navigation/native';
+import {getKategori, getProductSeller} from '../../store/actions';
 
 const thisRef = createRef();
 const anim = new Animated.Value(1);
@@ -33,16 +32,13 @@ export default function EditProduct({navigation, route}) {
   const {category} = useSelector(state => state.categoryReducer);
   const {userProfile} = useSelector(state => state.getUserReducer);
   const {isLoading} = useSelector(state => state.commonReducers);
+  const {detailProduk} = useSelector(state => state.detailSellerReducer);
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    dispatch(getKategori());
-  }, [dispatch, isFocused]);
-
-  // const testPayload = value => {
-  //   dispatch(getDetailSeller(produk_id));
-  // }
-
+    dispatch(getProductSeller());
+  }, []);
+  
   const onPressTerbit = value => {
     try {
       const formData = new FormData();
@@ -62,10 +58,12 @@ export default function EditProduct({navigation, route}) {
       console.log(error);
     }
   };
-  const [image, setAvatar] = useState('-');
+  const [image, setAvatar] = useState(detailProduk.image_url);
+
   return (
     <>
-      <BackTitle
+      <CustomHeader
+        type="BackTitle"
         title="Edit Produk"
         onPress={() => navigation.goBack()}
       />
@@ -79,12 +77,12 @@ export default function EditProduct({navigation, route}) {
         style={{opacity: Animated.add(0.1, Animated.multiply(anim, 1.0))}}>
         <Formik
           initialValues={{
-            name_product: '',
-            base_price: '',
-            category_ids: [],
-            description: '',
-            image: '',
-            location: '',
+            name_product: detailProduk.name,
+            base_price: detailProduk.base_price.toString(),
+            category_ids: detailProduk.Categories?.map((item) => item.id),
+            description: detailProduk.description,
+            image: detailProduk.image_url,
+            location: detailProduk.location,
           }}
           validationSchema={formProductSchema}
           onSubmit={values => onPressTerbit(values)}>
@@ -99,8 +97,8 @@ export default function EditProduct({navigation, route}) {
             dirty,
           }) => (
             <>
-              <ScrollView contentContainerStyle={styles.scroll}>
-                <View style={{marginVertical: 10, marginHorizontal: 25}}>
+              <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
+                <View style={{marginVertical: 10, marginHorizontal: 16, minHeight: SIZES.height * 0.9}}>
                   <CustomInput
                     label="Nama Produk"
                     placeholder="Nama Produk"
@@ -147,18 +145,13 @@ export default function EditProduct({navigation, route}) {
                     onPress={() => thisRef.current.snapTo(0)}
                     name="camera"
                   />
-                </View>
-                <View
-                  style={{
-                    marginVertical: 90,
-                    marginHorizontal: 25,
-                    flexDirection: 'column',
-                  }}>
                   <CustomButton
+                    style={styles.button}
+                    loading={isLoading}
                     primary
                     title="Simpan"
-                    onPress={(value) => value}
-                    disabled={!(dirty && isValid)}
+                    onPress={handleSubmit}
+                    disabled={!(dirty && isValid) || isLoading}
                   />
                 </View>
               </ScrollView>
