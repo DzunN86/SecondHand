@@ -9,4 +9,12 @@ export default StyleSheet.create({
     marginTop: -35,
     marginHorizontal: 16,
   },
+  buttonWrapper: {
+    width: '100%',
+    position: 'absolute',
+    bottom: 16,
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  }
 })

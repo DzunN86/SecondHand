@@ -1,14 +1,11 @@
 import {View, ImageBackground, ScrollView} from 'react-native';
-import React, {useEffect, createRef, useCallback} from 'react';
+import React, {useEffect, useCallback} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import styles from './styles';
-import Animated from 'react-native-reanimated';
-import {CustomButton, CustomHeader, CardFoto, CardDeskripsi, CardProduk} from '../../components';
 import {SIZES} from '../../themes';
 import {getDetailSeller, deleteProductSeller, getProductSeller} from '../../store/actions';
-import {useDispatch, useSelector} from 'react-redux';
+import {CustomButton, CustomHeader, CardFoto, CardDeskripsi, CardProduk} from '../../components';
 
-const thisRef = createRef();
-const anim = new Animated.Value(1);
 const DetailProductSeller = ({navigation, route}) => {
   const dispatch = useDispatch();
   const {id} = route.params;
@@ -54,19 +51,16 @@ const DetailProductSeller = ({navigation, route}) => {
           </View>
         </View>
       </ScrollView>
-      <View style={{
-        width: '100%',
-        position: 'absolute',
-        bottom: 16,
-        paddingHorizontal: 16,
-      }}>
+      <View style={styles.buttonWrapper}>
         <CustomButton
+          style={{width: '48%'}}
           primary
           type="daftarjual"
           title="Edit"
           onPress={() => onPressTerbit(values)}
         />
         <CustomButton
+          style={{width: '48%'}}
           danger
           type="daftarjual"
           title="Hapus"
