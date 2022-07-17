@@ -71,7 +71,6 @@ function LoadingNotif() {
         width={60}
         height={60}
         style={{
-          marginTop: 15,
           borderRadius: RADIUS.small,
         }}
       />
@@ -81,7 +80,6 @@ function LoadingNotif() {
             animation="wave"
             width={150}
             style={{
-              marginTop: 15,
               borderRadius: RADIUS.small,
             }}
           />
@@ -89,7 +87,6 @@ function LoadingNotif() {
             animation="wave"
             width={50}
             style={{
-              marginTop: 15,
               borderRadius: RADIUS.small,
             }}
           />
@@ -126,6 +123,8 @@ export default function Notifikasi({navigation}) {
 
   return (
     <View style={styles.container}>
+          <CustomHeader type="HeaderTitle" title="Notifikasi" />
+
       <FlatList
         data={notif}
         renderItem={({item}) =>
@@ -146,9 +145,6 @@ export default function Notifikasi({navigation}) {
         }
         keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={
-          <CustomHeader type="HeaderTitle" title="Notifikasi" />
-        }
       />
     </View>
   );
