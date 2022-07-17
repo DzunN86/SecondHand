@@ -1,5 +1,12 @@
-import {Text, View, Image, TouchableOpacity, FlatList} from 'react-native';
-import React, {useEffect} from 'react';
+import {
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  FlatList,
+  RefreshControl,
+} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import styles from './style';
 // import { product } from '../../assets'
 import {useDispatch, useSelector} from 'react-redux';
@@ -126,10 +133,12 @@ export default function Notifikasi({navigation}) {
   const {notif, isLoading} = useSelector(state => state.notificationReducer);
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     dispatch(getNotification());
-  }, [isFocused]);
+    setRefreshing(false);
+  }, [isFocused, refreshing]);
 
   return (
     <View style={styles.container}>
@@ -137,6 +146,14 @@ export default function Notifikasi({navigation}) {
 
       <FlatList
         data={notif}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => {
+              setRefreshing(true);
+            }}
+          />
+        }
         renderItem={({item}) =>
           isLoading ? (
             <LoadingNotif />
