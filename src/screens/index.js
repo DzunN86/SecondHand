@@ -16,6 +16,9 @@ import DetailProductSeller from './DetailProductSeller';
 import TestingComponent from './TestingComponent';
 import Settings from './Pengaturan';
 import ChangePassword from './UbahPassword';
+import Wishlist from './Wishlist';
+import BuyerOrder from './BuyerOrder';
+import DetailOrderBuyer from './DetailBuyerOrder';
 import EditProduct from './EditProduct';
 
 export {
@@ -38,4 +41,7 @@ export {
   SearchProduct,
   DetailProductSeller,
   TestingComponent,
+  Wishlist,
+  BuyerOrder,
+  DetailOrderBuyer,
 };

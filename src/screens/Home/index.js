@@ -24,8 +24,21 @@ export default function Home({navigation}) {
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    dispatch(getBanners());
+    dispatch(
+      getProduct({
+        search: '',
+        category_id: Fcategory !== 0 ? Fcategory : '',
+        status: 'available',
+        page: 1,
+        per_page: perPage,
+      }),
+    );
+    setRefreshing(false);
+  }, [Fcategory, refreshing, perPage]);
+
+  useEffect(() => {
     dispatch(getKategori());
+    dispatch(getBanners());
   }, []);
 
   useEffect(() => {

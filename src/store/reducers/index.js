@@ -14,7 +14,7 @@ import {
   orderSellerReducers,
 } from './seller';
 import {detailReducer} from './detail';
-import {bidReducer} from './tawar';
+import {buyerReducer} from './buyer';
 import {changePasswordReducer} from './akun';
 
 const reducer = combineReducers({
@@ -29,7 +29,7 @@ const reducer = combineReducers({
   categoryReducer,
   addProductReducer,
   productSellerReducers,
-  bidReducer,
+  buyerReducer,
   upProductReducers,
   detailSellerReducer,
   deleteProductReducers,

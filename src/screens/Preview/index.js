@@ -1,11 +1,14 @@
 import React from 'react';
-import {ImageBackground, ScrollView, View} from 'react-native';
+import {ImageBackground, ScrollView, Text, View} from 'react-native';
 import Animated from 'react-native-reanimated';
 import {useDispatch, useSelector} from 'react-redux';
-import {CustomButton} from '../../components';
+import {CardFoto, CustomButton} from '../../components';
 import BackHeader from '../../components/atoms/CustomHeader/BackHeader';
+import CardDeskripsi from '../../components/molecules/CardDeskripsi';
+
 import {doProduct} from '../../store/actions';
 import {SIZES} from '../../themes';
+import {formatRupiah} from '../../utils';
 import styles from './styles';
 
 const anim = new Animated.Value(1);
@@ -14,7 +17,7 @@ const Preview = ({navigation, route}) => {
   const {userProfile} = useSelector(state => state.getUserReducer);
   const {category} = useSelector(state => state.categoryReducer);
   const dispatch = useDispatch();
-  
+
   // Ambil Label Kategori by Id Kategori :)
   var arrCategory = values.category_ids;
   var arrCategoryName = [];
@@ -49,24 +52,30 @@ const Preview = ({navigation, route}) => {
           <ImageBackground source={{uri: image}} style={styles.bgProduk}>
             <BackHeader onPress={() => navigation.goBack()} />
             <View style={styles.containerKeterangan}>
-              {/* <ProductSeller
-                nameProduk={values.name_product}
-                kategori={
-                  arrCategoryName?.length > 0
-                    ? arrCategoryName.map(item => item).join(', ')
-                    : '-'
-                }
-                price={`Rp ${values.base_price}`}
-              />
-              <Seller
+              <View style={styles.produk}>
+                <View style={styles.wrapperProduk}>
+                  <View>
+                    <Text style={styles.namaProduk}>{values.name_product}</Text>
+                    <Text style={styles.kategori}>
+                      {arrCategoryName?.length > 0
+                        ? arrCategoryName.map(item => item).join(', ')
+                        : '-'}
+                    </Text>
+                    <Text style={styles.price}>
+                      {formatRupiah(values.base_price)}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+              <CardFoto
+                text1={userProfile.full_name}
+                text2={userProfile.city}
                 source={{uri: userProfile.image_url}}
-                name={userProfile.full_name}
-                city={userProfile.city}
               />
               <CardDeskripsi
-                title_des="Deskripsi"
+                title="Deskripsi"
                 deskripsi={values.description}
-              /> */}
+              />
             </View>
           </ImageBackground>
         </Animated.View>
