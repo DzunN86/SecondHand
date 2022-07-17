@@ -67,7 +67,7 @@ export default function Login({navigation}) {
                       <Icon
                         name={isSecureEntry ? 'eye-off' : 'eye'}
                         size={24}
-                        color={COLORS.gray}
+                        color={COLORS.grey1}
                       />
                     </TouchableOpacity>
                   }

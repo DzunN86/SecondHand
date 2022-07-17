@@ -3,3 +3,4 @@ export * from './getProduct';
 export * from './updateProduct';
 export * from './detailProduct';
 export * from './deleteProduct';
+export * from './getSellerOrder';

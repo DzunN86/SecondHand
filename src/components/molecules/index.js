@@ -1,4 +1,3 @@
-import ButtonNavigatior from './BottomNavigator';
 import BottomSheetComponent from './BottomSheet';
 import CardSeller from './CardSeller';
 import CardProduct from './CardProduct';
@@ -6,15 +5,15 @@ import SearchBar from './SearchBar';
 import CardAds from './CardAds';
 import CardCategory from './CardCategory';
 import Upload from './UploadFoto';
-import Menu from './MenuAkun'
+import Menu from './MenuAkun';
 import BottomUpload from './BottomSheetUpload';
 import CardBuyer from './CardBuyer';
+import IconButton from './IconButton';
 
 export {
   Upload,
   BottomUpload,
   Menu,
-  ButtonNavigatior,
   CardSeller,
   CardProduct,
   SearchBar,
@@ -22,4 +21,5 @@ export {
   CardCategory,
   BottomSheetComponent,
   CardBuyer,
+  IconButton,
 };

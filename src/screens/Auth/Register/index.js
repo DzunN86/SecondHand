@@ -106,7 +106,7 @@ export default function Register({navigation}) {
                       <Icon
                         name={isSecureEntry ? 'eye-off' : 'eye'}
                         size={24}
-                        color={COLORS.gray1}
+                        color={COLORS.grey1}
                       />
                     </TouchableOpacity>
                   }

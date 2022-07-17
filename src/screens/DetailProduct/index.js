@@ -83,7 +83,6 @@ const Preview = ({route, navigation}) => {
   }, []);
 
   const onPressBid = ({bid_price}) => {
-    const notif = notif;
     dispatch(doBid(id_product, bid_price));
   };
   const BottomSheetContent = () => (
@@ -146,7 +145,7 @@ const Preview = ({route, navigation}) => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <ActivityIndicator size="large" color={COLORS.primary} />
+        <ActivityIndicator size="small" color={COLORS.primary} />
       </View>
     );
   }

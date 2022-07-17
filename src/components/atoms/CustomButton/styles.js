@@ -6,8 +6,9 @@ export default StyleSheet.create({
     height: 45,
 
     paddingHorizontal: 5,
-
+    borderColor: COLORS.black,
     marginVertical: 5,
+    borderWidth: 1,
     borderRadius: RADIUS.large,
     alignItems: 'center',
     justifyContent: 'space-evenly',
