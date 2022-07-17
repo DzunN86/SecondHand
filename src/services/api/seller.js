@@ -21,7 +21,12 @@ export const addProduct = async (data) => await axios.post('/seller/product', da
         'Content-Type': 'multipart/form-data',
     },
 });
-export const updateProduct = async (id, data) => await axios.put(`/seller/product/${id}`, data);
+export const updateProduct = async (id, data) => await axios.put(`/seller/product/${id}`, data, {
+    headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+    },
+});
 export const deleteProduct = async (id) => await axios.delete(`/seller/product/${id}`);
 
 // seller/order

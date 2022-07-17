@@ -1,5 +1,5 @@
 import {View, ScrollView} from 'react-native';
-import React, {createRef, useState, useEffect} from 'react';
+import React, {createRef, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Formik} from 'formik';
 import Animated from 'react-native-reanimated';
@@ -15,7 +15,7 @@ import {
   Upload,
 } from '../../components';
 import {formProductSchema} from '../../plugins';
-import {getKategori, getProductSeller} from '../../store/actions';
+import { upDataProduct } from '../../store/actions/seller';
 
 const thisRef = createRef();
 const anim = new Animated.Value(1);
@@ -34,12 +34,9 @@ export default function EditProduct({navigation, route}) {
   const {isLoading} = useSelector(state => state.commonReducers);
   const {detailProduk} = useSelector(state => state.detailSellerReducer);
   const isFocused = useIsFocused();
-
-  useEffect(() => {
-    dispatch(getProductSeller());
-  }, []);
+  const {id} = route.params;
   
-  const onPressTerbit = value => {
+  const onPressUpdate = value => {
     try {
       const formData = new FormData();
 
@@ -53,12 +50,14 @@ export default function EditProduct({navigation, route}) {
         type: 'image/jpeg',
         name: 'image.jpg',
       });
-      dispatch(doProduct(formData, navigation));
+      console.log(formData)
+      dispatch(upDataProduct(id, formData, navigation));
     } catch (error) {
       console.log(error);
     }
   };
   const [image, setAvatar] = useState(detailProduk.image_url);
+  console.log(id)
 
   return (
     <>
@@ -85,7 +84,7 @@ export default function EditProduct({navigation, route}) {
             location: detailProduk.location,
           }}
           validationSchema={formProductSchema}
-          onSubmit={values => onPressTerbit(values)}>
+          onSubmit={values => onPressUpdate(values)}>
           {({
             handleChange,
             handleSubmit,
