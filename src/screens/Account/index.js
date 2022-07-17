@@ -56,6 +56,11 @@ export default function Account({navigation}) {
               onPress={() => navigation.navigate('InfoAkunScreen')}
             />
             <Menu
+              name="receipt"
+              title="Order Saya"
+              onPress={() => navigation.navigate('BuyerOrderScreen')}
+            />
+            <Menu
               name="clipboard-list"
               title="wishlist"
               onPress={() => navigation.navigate('WishlistScreen')}
