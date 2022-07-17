@@ -36,7 +36,7 @@ function CustomButton({
     <RectButton
       borderless={false}
       testID={testID}
-      disabled={disabled}
+      enabled={!disabled}
       onPress={onPress}
       style={[styles.wrapper, {backgroundColor: getBgColor()}, style]}>
       <View style={[styles.loaderSection]}>
