@@ -1,5 +1,4 @@
 import BottomSheetComponent from './BottomSheet';
-import CardSeller from './CardSeller';
 import CardProduct from './CardProduct';
 import SearchBar from './SearchBar';
 import CardAds from './CardAds';
@@ -20,7 +19,6 @@ export {
   Upload,
   BottomUpload,
   Menu,
-  CardSeller,
   CardProduct,
   SearchBar,
   CardAds,
