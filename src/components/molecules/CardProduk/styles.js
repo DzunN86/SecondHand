@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { COLORS, RADIUS, FONTS } from '../../../themes';
 
 export default StyleSheet.create({
-  deskripsi: {
+  produk: {
     alignItems: 'center',
     backgroundColor: COLORS.white,
     borderRadius: RADIUS.large,
@@ -11,21 +11,26 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-    marginVertical: 16,
+    marginBottom: 19,
     paddingVertical: 16,
   },
-  wrapperDeskripsi: {
+  wrapperProduk: {
     flexDirection: 'row',
     alignItems: 'center',
+    width: '100%',
   },
-  title: {
-    marginBottom: 16,
-    ...FONTS.h3,
+  namaProduk: {
     color: COLORS.black,
+    ...FONTS.h3,
     textTransform: 'capitalize',
   },
-  deskripsiText: {
+  kategori: {
+    marginTop: 4,
+    marginBottom: 8,
+    ...FONTS.body5,
+  },
+  price: {
     ...FONTS.body3,
-    textAlign: 'justify',
+    color: COLORS.black,
   },
 })

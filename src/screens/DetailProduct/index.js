@@ -1,6 +1,6 @@
 import {Formik} from 'formik';
 import React, {useCallback, useEffect, useRef} from 'react';
-import {Image, ImageBackground, ScrollView, Text, View} from 'react-native';
+import { ImageBackground, ScrollView, Text, View} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -8,63 +8,15 @@ import {
   CustomButton,
   CustomHeader,
   CustomInput,
+  CardFoto,
+  CardProduk,
+  CardDeskripsi,
 } from '../../components';
 import {tawarSchema} from '../../plugins';
 import {doBid, getDetail} from '../../store/actions';
 import {COLORS, FONTS} from '../../themes';
 import {formatRupiah} from '../../utils';
 import styles from './styles';
-
-const CardFoto = ({text1, text2, source, style}) => {
-  return (
-    <View style={styles.container}>
-      <View style={styles.wrapperPenjual}>
-        <Image
-          resizeMode="contain"
-          style={styles.imagePenjual}
-          source={source}
-        />
-        <View>
-          <Text style={styles.namaPenjual}>{text1}</Text>
-          <Text style={[styles.namaKota, style]}>{text2}</Text>
-        </View>
-      </View>
-    </View>
-  );
-};
-const CardProduk = ({nameProduk, kategori, price}) => {
-  return (
-    <View style={styles.produk}>
-      <View style={styles.wrapperProduk}>
-        <View>
-          <Text style={styles.namaProduk}>{nameProduk}</Text>
-          <Text style={styles.kategori}>
-            {kategori?.length > 0
-              ? kategori.map(item => item.name).join(', ')
-              : '-'}
-          </Text>
-          <Text style={styles.price}>{formatRupiah(price)}</Text>
-        </View>
-      </View>
-    </View>
-  );
-};
-const CardDeskripsi = ({title, deskripsi}) => {
-  return (
-    <View style={styles.deskripsi}>
-      <View style={styles.wrapperDeskripsi}>
-        <View>
-          <Text style={styles.title}>{title}</Text>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <View>
-              <Text style={styles.deskripsiText}>{deskripsi}</Text>
-            </View>
-          </ScrollView>
-        </View>
-      </View>
-    </View>
-  );
-};
 
 const DetailProduct = ({route, navigation}) => {
   const dispatch = useDispatch();

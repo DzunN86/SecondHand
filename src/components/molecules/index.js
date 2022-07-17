@@ -9,8 +9,14 @@ import Menu from './MenuAkun';
 import BottomUpload from './BottomSheetUpload';
 import CardBuyer from './CardBuyer';
 import IconButton from './IconButton';
+import CardFoto from './CardFoto';
+import CardProduk from './CardProduk';
+import CardDeskripsi from './CardDeskripsi';
 
 export {
+  CardDeskripsi,
+  CardFoto,
+  CardProduk,
   Upload,
   BottomUpload,
   Menu,
