@@ -4,7 +4,7 @@ import React, {memo} from 'react';
 import {Image, Text, View} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 import {useSelector} from 'react-redux';
-import {RADIUS} from '../../../themes';
+import {COLORS, RADIUS} from '../../../themes';
 import {formatRupiah} from '../../../utils';
 import styles from './styles';
 
@@ -14,18 +14,27 @@ const CardProduct = ({onPress, name, category, price, image}) => {
 
   if (isLoading || Loading) {
     return (
-      <View style={styles.cardProduct}>
-        <Skeleton animation="wave" style={styles.imageProduk} />
+      <View style={styles.cardSkeleton}>
         <Skeleton
-          animation="wave"
+          animation="pulse"
+          style={styles.imageProduk}
+          backgroundColor={COLORS.grey7}
+          skeletonStyle={{backgroundColor: COLORS.grey3}}
+        />
+        <Skeleton
+          animation="pulse"
           width={60}
+          backgroundColor={COLORS.grey7}
+          skeletonStyle={{backgroundColor: COLORS.grey3}}
           style={{
             marginTop: 15,
             borderRadius: RADIUS.small,
           }}
         />
         <Skeleton
-          animation="wave"
+          animation="pulse"
+          backgroundColor={COLORS.grey7}
+          skeletonStyle={{backgroundColor: COLORS.grey3}}
           width={100}
           style={{
             marginTop: 10,
@@ -33,7 +42,9 @@ const CardProduct = ({onPress, name, category, price, image}) => {
           }}
         />
         <Skeleton
-          animation="wave"
+          animation="pulse"
+          backgroundColor={COLORS.grey7}
+          skeletonStyle={{backgroundColor: COLORS.grey3}}
           width={100}
           style={{
             marginTop: 10,

@@ -12,9 +12,11 @@ function CardCategory({icon, title, onPress, active, style}) {
   if (isLoading) {
     return (
       <Skeleton
-        animation="wave"
+        animation="pulse"
         width={80}
         height={45}
+        backgroundColor={COLORS.grey7}
+        skeletonStyle={{backgroundColor: COLORS.grey3}}
         style={{
           marginTop: 6,
           borderRadius: 12,

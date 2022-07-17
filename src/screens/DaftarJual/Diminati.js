@@ -64,9 +64,11 @@ function LoadingCard() {
   return (
     <View style={styles.productNotification}>
       <Skeleton
-        animation="wave"
+        animation="pulse"
         width={60}
         height={60}
+        backgroundColor={COLORS.grey7}
+              skeletonStyle={{backgroundColor: COLORS.grey3}}
         style={{
           borderRadius: RADIUS.small,
         }}
@@ -74,23 +76,29 @@ function LoadingCard() {
       <View style={styles.productInfo}>
         <View style={styles.wrapperDate}>
           <Skeleton
-            animation="wave"
+            animation="pulse"
             width={150}
+            backgroundColor={COLORS.grey7}
+              skeletonStyle={{backgroundColor: COLORS.grey3}}
             style={{
               borderRadius: RADIUS.small,
             }}
           />
           <Skeleton
-            animation="wave"
+            animation="pulse"
             width={50}
+            backgroundColor={COLORS.grey7}
+              skeletonStyle={{backgroundColor: COLORS.grey3}}
             style={{
               borderRadius: RADIUS.small,
             }}
           />
         </View>
         <Skeleton
-          animation="wave"
+          animation="pulse"
           width={100}
+          backgroundColor={COLORS.grey7}
+              skeletonStyle={{backgroundColor: COLORS.grey3}}
           style={{
             marginTop: 10,
             borderRadius: RADIUS.small,
@@ -98,16 +106,20 @@ function LoadingCard() {
         />
         <View style={styles.wrapper}>
           <Skeleton
-            animation="wave"
+            animation="pulse"
             width={70}
+            backgroundColor={COLORS.grey7}
+              skeletonStyle={{backgroundColor: COLORS.grey3}}
             style={{
               marginTop: 10,
               borderRadius: RADIUS.small,
             }}
           />
           <Skeleton
-            animation="wave"
+            animation="pulse"
             width={20}
+            backgroundColor={COLORS.grey7}
+              skeletonStyle={{backgroundColor: COLORS.grey3}}
             style={{
               marginTop: 10,
               borderRadius: RADIUS.small,

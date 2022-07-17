@@ -123,6 +123,7 @@ const DetailProduct = ({route, navigation}) => {
               error={touched.bid_price && errors.bid_price}
               iconPosition="right"
               placeholder="Rp 0,00"
+              keyboardType="numeric"
             />
             <CustomButton
               testID="btn-login"
