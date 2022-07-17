@@ -17,6 +17,8 @@ import TestingComponent from './TestingComponent';
 import Settings from './Pengaturan';
 import ChangePassword from './UbahPassword';
 import Wishlist from './Wishlist';
+import BuyerOrder from './BuyerOrder';
+import DetailOrderBuyer from './DetailBuyerOrder';
 
 export {
   Settings,
@@ -38,4 +40,6 @@ export {
   DetailProductSeller,
   TestingComponent,
   Wishlist,
+  BuyerOrder,
+  DetailOrderBuyer,
 };
