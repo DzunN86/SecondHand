@@ -6,7 +6,9 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getNotification} from '../../store/actions/notification';
 import {CustomHeader} from '../../components/atoms';
 import {formatDateTime, formatRupiah} from '../../utils';
-import { useIsFocused } from '@react-navigation/native';
+import {useIsFocused} from '@react-navigation/native';
+import {Skeleton} from '@rneui/base';
+import {RADIUS} from '../../themes';
 
 function CardNotif({
   navigation,
@@ -45,7 +47,9 @@ function CardNotif({
               {formatRupiah(base_price)}
             </Text>
             {bid_price && (
-              <Text style={styles.labelText}>{'Ditawar ' + formatRupiah(bid_price)}</Text>
+              <Text style={styles.labelText}>
+                {'Ditawar ' + formatRupiah(bid_price)}
+              </Text>
             )}
             {status == 'bid' || status == 'terima' ? (
               <Text style={styles.label}>
@@ -59,8 +63,60 @@ function CardNotif({
   );
 }
 
+function LoadingNotif() {
+  return (
+    <View style={styles.productNotification}>
+      <Skeleton
+        animation="wave"
+        width={60}
+        height={60}
+        style={{
+          marginTop: 15,
+          borderRadius: RADIUS.small,
+        }}
+      />
+      <View style={styles.productInfo}>
+        <View style={styles.wrapperDate}>
+          <Skeleton
+            animation="wave"
+            width={150}
+            style={{
+              marginTop: 15,
+              borderRadius: RADIUS.small,
+            }}
+          />
+          <Skeleton
+            animation="wave"
+            width={50}
+            style={{
+              marginTop: 15,
+              borderRadius: RADIUS.small,
+            }}
+          />
+        </View>
+        <Skeleton
+          animation="wave"
+          width={100}
+          style={{
+            marginTop: 15,
+            borderRadius: RADIUS.small,
+          }}
+        />
+        <Skeleton
+          animation="wave"
+          width={70}
+          style={{
+            marginTop: 15,
+            borderRadius: RADIUS.small,
+          }}
+        />
+      </View>
+    </View>
+  );
+}
+
 export default function Notifikasi({navigation}) {
-  const {notif} = useSelector(state => state.notificationReducer);
+  const {notif, isLoading} = useSelector(state => state.notificationReducer);
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
 
@@ -72,18 +128,22 @@ export default function Notifikasi({navigation}) {
     <View style={styles.container}>
       <FlatList
         data={notif}
-        renderItem={({item}) => (
-          <CardNotif
-            image_url={item.image_url}
-            status={item.status}
-            product_name={item.product_name}
-            base_price={item.base_price}
-            bid_price={item.bid_price}
-            date={item.createdAt}
-            navigation={navigation}
-            isRead={item.read}
-          />
-        )}
+        renderItem={({item}) =>
+          isLoading ? (
+            <LoadingNotif />
+          ) : (
+            <CardNotif
+              image_url={item.image_url}
+              status={item.status}
+              product_name={item.product_name}
+              base_price={item.base_price}
+              bid_price={item.bid_price}
+              date={item.createdAt}
+              navigation={navigation}
+              isRead={item.read}
+            />
+          )
+        }
         keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
