@@ -15,7 +15,6 @@ export const failedUpdateProduct = () => ({
 
 export const upDataProduct = (id, data, navigation) => async dispatch => {
   dispatch(setLoading(true));
-  console.log('Kirim Data Product', data);
   await updateProduct(id, data)
     .then(res => {
       dispatch(successUpdateProduct(res.data));
@@ -23,13 +22,10 @@ export const upDataProduct = (id, data, navigation) => async dispatch => {
       dispatch(getDetailSeller(id));
       navigation.goBack();
       showSuccess('Update Produk Success');
-      console.log('UPDATE PRODUK', res);
     })
     .catch(err => {
       dispatch(failedUpdateProduct());
       dispatch(setLoading(false));
       showError(err.message);
-
-      console.log('UPDATE PRODUK FAILED', err);
     });
 };
