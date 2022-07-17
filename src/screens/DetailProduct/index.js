@@ -66,7 +66,7 @@ const CardDeskripsi = ({title, deskripsi}) => {
   );
 };
 
-const Preview = ({route, navigation}) => {
+const DetailProduct = ({route, navigation}) => {
   const dispatch = useDispatch();
   const {dataProduk, isLoading} = useSelector(state => state.detailReducer);
   const {id_product} = route.params;
@@ -123,6 +123,7 @@ const Preview = ({route, navigation}) => {
               error={touched.bid_price && errors.bid_price}
               iconPosition="right"
               placeholder="Rp 0,00"
+              keyboardType="numeric"
             />
             <CustomButton
               testID="btn-login"
@@ -145,7 +146,7 @@ const Preview = ({route, navigation}) => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <ActivityIndicator size="large" color={COLORS.primary} />
+        <ActivityIndicator size="small" color={COLORS.primary} />
       </View>
     );
   }
@@ -164,14 +165,14 @@ const Preview = ({route, navigation}) => {
           </ImageBackground>
           <View style={styles.containerKeterangan}>
             <CardProduk
-              nameProduk={dataProduk?.name}
+              nameProduk={dataProduk?.name ? dataProduk.name : '-'}
               kategori={dataProduk?.Categories}
               price={dataProduk?.base_price}
             />
             <CardFoto
-              text1={dataProduk?.User.full_name}
+              text1={dataProduk.User?.full_name}
               text2={dataProduk?.location}
-              source={{uri: dataProduk?.User.image_url}}
+              source={{uri: dataProduk.User?.image_url}}
             />
             <CardDeskripsi
               title="Deskripsi"
@@ -202,4 +203,4 @@ const Preview = ({route, navigation}) => {
   );
 };
 
-export default Preview;
+export default DetailProduct;

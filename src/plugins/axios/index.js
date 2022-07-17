@@ -4,22 +4,21 @@ import {Store} from '../../store';
 
 const stores = Store.getState();
 
-const headers = {};
+const token = stores.loginReducer.userData.access_token
+  ? stores.loginReducer.userData.access_token
+  : undefined;
 
 const instance = axios.create({
   baseURL: config.backendApi,
   timeout: 1000,
-  headers,
+  headers: {
+    access_token: token,
+  },
 });
 
 // Add a request interceptor
 instance.interceptors.request.use(
   config => {
-    // Do something before request is sent
-    const {access_token} = stores.loginReducer.userData;
-    if (access_token) {
-      config.headers.access_token = access_token;
-    }
     return config;
   },
   error => {
@@ -29,8 +28,12 @@ instance.interceptors.request.use(
 );
 
 instance.interceptors.response.use(
-  (response) => response,
-  (error) => Promise.reject(error),
+  response => response,
+  error => {
+    // Do something with response error
+
+    return Promise.reject(error);
+  },
 );
 
 export default instance;

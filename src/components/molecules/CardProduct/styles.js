@@ -14,6 +14,13 @@ export default StyleSheet.create({
     width: SIZES.width * 0.44,
     padding: 8,
   },
+  cardSkeleton: {
+    backgroundColor: COLORS.white,
+    marginTop: 5,
+    height: SIZES.height * 0.27,
+    width: SIZES.width * 0.44,
+    padding: 8,
+  },
   textCardProduct: {
     ...FONTS.h4,
     marginTop: 8,

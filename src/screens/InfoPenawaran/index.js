@@ -26,7 +26,7 @@ export default function InfoPenawaran({navigation, route}) {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <ActivityIndicator size="large" color={COLORS.primary} />
+        <ActivityIndicator size="small" color={COLORS.primary} />
       </View>
     );
   }
@@ -38,15 +38,15 @@ export default function InfoPenawaran({navigation, route}) {
         onPress={() => navigation.goBack()}
       />
       <CardBuyer
-        city={detailOrderSeller?.User.city}
-        name={detailOrderSeller?.User.full_name}
+        city={detailOrderSeller.User?.city}
+        name={detailOrderSeller.User?.full_name}
       />
       <View>
         <Text style={styles.LabelPenawaran}>Daftar Produkmu Yang Ditawar</Text>
         <TouchableOpacity>
           <View style={styles.productNotification}>
             <Image
-              source={{uri: detailOrderSeller?.Product.image_url}}
+              source={{uri: detailOrderSeller.Product?.image_url}}
               style={styles.productImage}
             />
             <View style={styles.productInfo}>
