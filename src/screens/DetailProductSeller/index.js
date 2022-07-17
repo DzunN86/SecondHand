@@ -57,7 +57,7 @@ const DetailProductSeller = ({navigation, route}) => {
           primary
           type="daftarjual"
           title="Edit"
-          onPress={() => onPressTerbit(values)}
+          onPress={() => navigation.navigate('EditProductScreen')}
         />
         <CustomButton
           style={{width: '48%'}}
