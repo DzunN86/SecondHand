@@ -129,6 +129,7 @@ export default function EditProduct({navigation, route}) {
                     error={touched.description && errors.description}
                   />
                   <Upload
+                    style={{marginTop: 10}}
                     source={image}
                     onPress={() => thisRef.current.snapTo(0)}
                     name="camera"
