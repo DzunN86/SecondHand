@@ -58,7 +58,7 @@ export default function BottomUpload({setAvatar, thisRef, anim}) {
   return (
     <BottomSheet
       ref={thisRef}
-      snapPoints={[285, 0]}
+      snapPoints={[320, 0]}
       renderContent={BottomSheetContent}
       renderHeader={BottomSheetHeader}
       initialSnap={1}
