@@ -50,8 +50,7 @@ const DetailProductSeller = ({navigation, route}) => {
             />
           </View>
         </View>
-      </ScrollView>
-      <View style={styles.buttonWrapper}>
+        <View style={styles.buttonWrapper}>
         <CustomButton
           style={{width: '48%'}}
           primary
@@ -67,6 +66,7 @@ const DetailProductSeller = ({navigation, route}) => {
           onPress={() => Delete()}
         />
       </View>
+      </ScrollView>
     </View>
   );
 };
