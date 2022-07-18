@@ -26,7 +26,7 @@ export const doProduct = (payload, navigation) => async dispatch => {
     .catch(err => {
       dispatch(setAddProductFailed());
       dispatch(setLoading(false));
-      showError(err.message);
+      showError(err.response.data.message);
 
       console.log('ADD PRODUK FAILED', err);
     });
