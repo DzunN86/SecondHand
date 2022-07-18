@@ -159,6 +159,7 @@ const DetailProduct = ({route, navigation}) => {
       </View>
       <BottomSheetComponent
         sheetRef={sheetRef}
+        height={'65%'}
         component={BottomSheetContent}
         onChange={handleSheetChanges}
       />

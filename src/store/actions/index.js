@@ -6,3 +6,5 @@ export * from './notification';
 export * from './seller';
 export * from './detail';
 export * from './buyer';
+export * from './kategori';
+export * from './buyer/buyerOrder';

@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import { SIZES, RADIUS, COLORS, FONTS } from '../../themes';
+import {SIZES, RADIUS, COLORS, FONTS} from '../../themes';
 
 export default StyleSheet.create({
   container: {
@@ -11,7 +11,7 @@ export default StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     marginHorizontal: 16,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   cardProduct: {
     backgroundColor: COLORS.white,
@@ -21,10 +21,10 @@ export default StyleSheet.create({
     borderWidth: 1,
     elevation: 2,
     shadowOpacity: 0.2,
-    height: SIZES.height * 0.27,
+    height: SIZES.height * 0.25,
     width: SIZES.width * 0.44,
     padding: 8,
-    marginBottom: 10
+    marginBottom: 10,
   },
   imageProduct: {
     backgroundColor: 'grey',
@@ -37,6 +37,7 @@ export default StyleSheet.create({
   descProduct: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   label: {
     color: COLORS.black,
@@ -49,6 +50,9 @@ export default StyleSheet.create({
   },
   icon: {
     marginTop: 7,
-    marginRight: 2
-  }
-})
+    marginRight: 2,
+  },
+  removeBtn: {
+    paddingHorizontal: 5,
+  },
+});

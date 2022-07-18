@@ -11,6 +11,7 @@ export default function Upload({source, name, onPress, disabled, style}) {
       disabled={disabled}
       style={({pressed}) => [
         {opacity: disabled ? 1 : pressed ? 0.05 : 2},
+        {width: 100, height: 100},
         style,
       ]}>
       {source === '-' ? (

@@ -3,12 +3,10 @@ import { COLORS, RADIUS, FONTS } from '../../../themes';
 
 export default StyleSheet.create({
   produk: {
-    alignItems: 'center',
     backgroundColor: COLORS.white,
     borderRadius: RADIUS.large,
     borderColor: COLORS.grey3,
     borderWidth: 1.5,
-    flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     marginBottom: 19,
@@ -32,5 +30,23 @@ export default StyleSheet.create({
   price: {
     ...FONTS.body3,
     color: COLORS.black,
+  },
+  bidPrice: {
+    ...FONTS.body3,
+    color: COLORS.black,
+    marginTop: 6,
+  },
+  badgeStatus: {
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: RADIUS.small,
+  },
+  labelStatus: {
+    ...FONTS.body5,
+    color: COLORS.white,
+  },
+  strike_through: {
+    textDecorationLine: 'line-through',
+    textDecorationStyle: 'solid',
   },
 })

@@ -70,15 +70,19 @@ export const putBuyerOrder =
       .catch(err => {
         dispatch(setBuyerOrderLoading(false));
         showError(err.response.data.message);
+        console.log(err);
       });
   };
 
-export const delBuyerOrder = id_order => async dispatch => {
+export const delBuyerOrder = (id_order, navigation) => async dispatch => {
   dispatch(setBuyerOrderLoading(true));
   await deleteBuyerOrder(id_order)
     .then(() => {
       dispatch(setBuyerOrderLoading(false));
-      showSuccess('Success');
+      showSuccess('Success Delete Order');
+      if (navigation) {
+        navigation.navigate('BuyerOrderScreen');
+      }
     })
     .catch(() => {
       dispatch(setBuyerOrderLoading(false));

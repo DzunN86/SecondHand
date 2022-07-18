@@ -12,6 +12,7 @@ import {
   detailSellerReducer,
   deleteProductReducers,
   orderSellerReducers,
+  upOrderSellerReducers,
 } from './seller';
 import {detailReducer} from './detail';
 import {buyerReducer} from './buyer';
@@ -35,6 +36,7 @@ const reducer = combineReducers({
   deleteProductReducers,
   orderSellerReducers,
   changePasswordReducer,
+  upOrderSellerReducers,
 });
 
 export default reducer;

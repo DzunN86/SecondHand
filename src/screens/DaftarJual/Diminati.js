@@ -21,6 +21,9 @@ function CardDiminati({
     if (status == 'pending') {
       return COLORS.accent;
     }
+    if (status == 'accepted') {
+      return COLORS.success;
+    }
     if (status == 'declined') {
       return COLORS.danger;
     }

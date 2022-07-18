@@ -19,8 +19,10 @@ import ChangePassword from './UbahPassword';
 import Wishlist from './Wishlist';
 import BuyerOrder from './BuyerOrder';
 import DetailOrderBuyer from './DetailBuyerOrder';
+import EditProduct from './EditProduct';
 
 export {
+  EditProduct,
   Settings,
   ChangePassword,
   DaftarJual,
