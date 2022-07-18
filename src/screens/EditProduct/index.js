@@ -140,20 +140,21 @@ export default function EditProduct({navigation, route}) {
                     onPress={() => thisRef.current.snapTo(0)}
                     name="camera"
                   />
-                  <CustomButton
-                    style={styles.button}
-                    loading={isLoading}
-                    primary
-                    title="Simpan"
-                    onPress={handleSubmit}
-                    disabled={!(dirty && isValid) || isLoading}
-                  />
                 </View>
               </ScrollView>
             </>
           )}
         </Formik>
       </Animated.View>
+      <View style={styles.buttonWrapper}>
+        <CustomButton
+          loading={isLoading}
+          primary
+          title="Simpan"
+          // onPress={handleSubmit}
+          // disabled={!(dirty && isValid) || isLoading}
+        />
+      </View>
     </>
   );
 }

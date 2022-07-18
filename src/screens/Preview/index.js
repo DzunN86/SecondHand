@@ -5,7 +5,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {CardFoto, CustomButton} from '../../components';
 import BackHeader from '../../components/atoms/CustomHeader/BackHeader';
 import CardDeskripsi from '../../components/molecules/CardDeskripsi';
-
 import {doProduct} from '../../store/actions';
 import {SIZES} from '../../themes';
 import {formatRupiah} from '../../utils';

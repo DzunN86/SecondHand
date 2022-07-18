@@ -6,9 +6,10 @@ export default StyleSheet.create({
     flexGrow: 1, 
     backgroundColor: COLORS.white
   },
-  button: {
-    position: 'absolute',
+  buttonWrapper: {
     width: '100%',
-    bottom: 25,
+    position: 'absolute',
+    bottom: 16,
+    paddingHorizontal: 16,
   }
 })
