@@ -1,5 +1,5 @@
 import {View, ScrollView} from 'react-native';
-import React, {createRef, useState} from 'react';
+import React, {createRef, useRef, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Formik} from 'formik';
 import Animated from 'react-native-reanimated';
@@ -21,13 +21,6 @@ const anim = new Animated.Value(1);
 
 export default function EditProduct({navigation, route}) {
   const dispatch = useDispatch();
-
-  let data = {};
-
-  if (route.params) {
-    data = route.params;
-  }
-
   const {category} = useSelector(state => state.categoryReducer);
   const {userProfile} = useSelector(state => state.getUserReducer);
   const {isLoading} = useSelector(state => state.commonReducers);
@@ -83,17 +76,17 @@ export default function EditProduct({navigation, route}) {
           onSubmit={values => onPressUpdate(values)}>
           {({
             handleChange,
-            handleSubmit,
             setFieldValue,
+            handleSubmit,
             values,
             errors,
             touched,
-            isValid,
             dirty,
+            isValid,
           }) => (
             <>
               <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-                <View style={{marginVertical: 10, marginHorizontal: 16, minHeight: SIZES.height * 0.9}}>
+                <View style={{marginVertical: 10, marginHorizontal: 16, minHeight: SIZES.height * 0.95}}>
                   <CustomInput
                     label="Nama Produk"
                     placeholder="Nama Produk"
@@ -141,20 +134,20 @@ export default function EditProduct({navigation, route}) {
                     name="camera"
                   />
                 </View>
+                <View style={styles.buttonWrapper}>
+                  <CustomButton
+                    loading={isLoading}
+                    primary
+                    title="Simpan"
+                    onPress={handleSubmit}
+                    disabled={!(dirty && isValid) || isLoading}
+                  />
+                </View>
               </ScrollView>
             </>
           )}
         </Formik>
       </Animated.View>
-      <View style={styles.buttonWrapper}>
-        <CustomButton
-          loading={isLoading}
-          primary
-          title="Simpan"
-          // onPress={handleSubmit}
-          // disabled={!(dirty && isValid) || isLoading}
-        />
-      </View>
     </>
   );
 }
