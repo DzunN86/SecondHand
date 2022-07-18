@@ -5,23 +5,24 @@ import {ActivityIndicator} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   BottomSheetComponent,
+  CardDeskripsi,
+  CardFoto,
+  CardProduk,
   CustomButton,
   CustomHeader,
   CustomInput,
-  CardFoto,
-  CardProduk,
-  CardDeskripsi,
 } from '../../components';
 import {tawarSchema} from '../../plugins';
-import {doBid, getDetail} from '../../store/actions';
+import {doBid, delBuyerOrder, putBuyerOrder} from '../../store/actions';
+import {fetchDetailBuyerOrder} from '../../store/actions/buyer/buyerOrder';
 import {COLORS, FONTS} from '../../themes';
 import {formatRupiah} from '../../utils';
 import styles from './styles';
 
-const DetailProduct = ({route, navigation}) => {
+const DetailOrderBuyer = ({route, navigation}) => {
   const dispatch = useDispatch();
-  const {dataProduk, isLoading} = useSelector(state => state.detailReducer);
-  const {id_product} = route.params;
+  const {dataDetailOrder, isLoading} = useSelector(state => state.buyerReducer);
+  const {id_order} = route.params;
   const LoadingSend = useSelector(state => state.commonReducers.isLoading);
   const {userData} = useSelector(state => state.loginReducer);
   const [autoFocus, setAutoFocus] = useState(false);
@@ -32,7 +33,7 @@ const DetailProduct = ({route, navigation}) => {
   }, []);
 
   useEffect(() => {
-    dispatch(getDetail(id_product));
+    dispatch(fetchDetailBuyerOrder(id_order));
   }, []);
 
   const handleSheetChanges = useCallback(index => {
@@ -44,8 +45,17 @@ const DetailProduct = ({route, navigation}) => {
   }, []);
 
   const onPressBid = ({bid_price}) => {
-    dispatch(doBid(id_product, bid_price, navigation));
+    if (dataDetailOrder?.status == 'pending') {
+      dispatch(putBuyerOrder(id_order, dataDetailOrder?.product_id, bid_price));
+    } else {
+      dispatch(doBid(dataDetailOrder?.product_id, bid_price, navigation));
+    }
   };
+
+  const onDeleteOrder = () => {
+    dispatch(delBuyerOrder(id_order, navigation));
+  };
+
   const BottomSheetContent = () => (
     <View style={styles.bSheet}>
       <View>
@@ -55,9 +65,9 @@ const DetailProduct = ({route, navigation}) => {
           segera dihubungi penjual.
         </Text>
         <CardFoto
-          text1={dataProduk?.name}
-          text2={formatRupiah(dataProduk?.base_price)}
-          source={{uri: dataProduk?.image_url}}
+          text1={dataDetailOrder?.name}
+          text2={formatRupiah(dataDetailOrder?.base_price)}
+          source={{uri: dataDetailOrder?.image_url}}
           style={{...FONTS.body3, color: COLORS.black}}
         />
       </View>
@@ -118,7 +128,7 @@ const DetailProduct = ({route, navigation}) => {
       <ScrollView>
         <View>
           <ImageBackground
-            source={{uri: dataProduk?.image_url}}
+            source={{uri: dataDetailOrder?.Product.image_url}}
             style={styles.bgProduk}>
             <CustomHeader
               type="BackHeader"
@@ -127,18 +137,24 @@ const DetailProduct = ({route, navigation}) => {
           </ImageBackground>
           <View style={styles.containerKeterangan}>
             <CardProduk
-              nameProduk={dataProduk?.name ? dataProduk.name : '-'}
-              kategori={dataProduk?.Categories}
-              price={dataProduk?.base_price}
+              nameProduk={
+                dataDetailOrder?.Product.name
+                  ? dataDetailOrder.Product.name
+                  : '-'
+              }
+              kategori={dataDetailOrder?.Product.Categories}
+              price={dataDetailOrder?.base_price}
+              bid_price={dataDetailOrder?.price}
+              status={dataDetailOrder?.status}
             />
             <CardFoto
-              text1={dataProduk.User?.full_name}
-              text2={dataProduk?.location}
-              source={{uri: dataProduk.User?.image_url}}
+              text1={dataDetailOrder?.Product.User.full_name}
+              text2={dataDetailOrder?.Product.User.city}
+              source={{uri: dataDetailOrder?.Product.User.image_url}}
             />
             <CardDeskripsi
               title="Deskripsi"
-              deskripsi={dataProduk?.description}
+              deskripsi={dataDetailOrder?.Product.description}
             />
           </View>
         </View>
@@ -156,6 +172,24 @@ const DetailProduct = ({route, navigation}) => {
           title="Saya Tertarik dan ingin Nego"
           onPress={() => handleSnapPress(2)}
         />
+        {dataDetailOrder?.status == 'pending' && (
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <CustomButton
+              style={{width: '48%'}}
+              danger
+              disabled={!userData.access_token}
+              title="Batalkan Penawaran"
+              onPress={onDeleteOrder}
+            />
+            <CustomButton
+              style={{width: '48%'}}
+              primary
+              disabled={!userData.access_token}
+              title="Ubah Penawaran"
+              onPress={() => handleSnapPress(2)}
+            />
+          </View>
+        )}
       </View>
       <BottomSheetComponent
         sheetRef={sheetRef}
@@ -167,4 +201,4 @@ const DetailProduct = ({route, navigation}) => {
   );
 };
 
-export default DetailProduct;
+export default DetailOrderBuyer;

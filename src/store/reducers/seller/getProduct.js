@@ -7,7 +7,7 @@ import {
 const initialState = {
     isLoading: false,
     isError: false,
-    erroeMessage: '',
+    errorMessage: '',
     productSeller: [],
 };
 

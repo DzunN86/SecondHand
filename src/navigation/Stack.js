@@ -13,7 +13,11 @@ import {
   Splash,
   TestingComponent,
   Settings,
-  ChangePassword
+  ChangePassword,
+  Wishlist,
+  BuyerOrder,
+  DetailOrderBuyer,
+  EditProduct
 } from '../screens';
 import MainApp from './MainApp';
 
@@ -42,6 +46,10 @@ function Navigation() {
       <Stack.Screen name="TestingComponentScreen" component={TestingComponent} />
       <Stack.Screen name="SettingsScreen" component={Settings} />
       <Stack.Screen name="ChangePasswordScreen" component={ChangePassword} />
+      <Stack.Screen name="WishlistScreen" component={Wishlist} />
+      <Stack.Screen name="BuyerOrderScreen" component={BuyerOrder} />
+      <Stack.Screen name="DetailBuyerOrderScreen" component={DetailOrderBuyer} />
+      <Stack.Screen name="EditProductScreen" component={EditProduct} />
     </Stack.Navigator>
   );
 }

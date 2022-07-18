@@ -5,6 +5,8 @@ import {PersistGate} from 'redux-persist/integration/react';
 import Navigation from './navigation';
 import {Persistore, Store} from './store';
 import FlashMessage from 'react-native-flash-message';
+import { StatusBar } from 'react-native';
+import { COLORS } from './themes';
 
 const CodePushOptions = {
   checkFrequency: CodePush.CheckFrequency.ON_APP_START,
@@ -18,6 +20,9 @@ const CodePushOptions = {
 const MainApp = () => {
   return (
     <>
+      <StatusBar
+      backgroundColor={COLORS.primary}
+       barStyle="light-content" />
       <Navigation />
       <FlashMessage position="top" />
     </>

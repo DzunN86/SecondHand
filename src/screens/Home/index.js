@@ -13,6 +13,7 @@ import {
 import {getBanners, getProduct} from '../../store/actions/home';
 import {getKategori} from '../../store/actions/kategori';
 import {SIZES} from '../../themes';
+import {sortDate} from '../../utils';
 import styles from './styles';
 
 export default function Home({navigation}) {
@@ -24,8 +25,21 @@ export default function Home({navigation}) {
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    dispatch(getBanners());
+    dispatch(
+      getProduct({
+        search: '',
+        category_id: Fcategory !== 0 ? Fcategory : '',
+        status: 'available',
+        page: 1,
+        per_page: perPage,
+      }),
+    );
+    setRefreshing(false);
+  }, [Fcategory, refreshing, perPage]);
+
+  useEffect(() => {
     dispatch(getKategori());
+    dispatch(getBanners());
   }, []);
 
   useEffect(() => {
@@ -128,7 +142,7 @@ export default function Home({navigation}) {
         numColumns={2}
         showsVerticalScrollIndicator={false}
         columnWrapperStyle={styles.cardProductWrapper}
-        data={products}
+        data={products.sort(sortDate)}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
         getItemLayout={getItemLayout}

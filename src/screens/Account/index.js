@@ -55,6 +55,16 @@ export default function Account({navigation}) {
               title="Ubah Akun"
               onPress={() => navigation.navigate('InfoAkunScreen')}
             />
+            <Menu
+              name="receipt"
+              title="Order Saya"
+              onPress={() => navigation.navigate('BuyerOrderScreen')}
+            />
+            <Menu
+              name="bookmark"
+              title="Wishlist"
+              onPress={() => navigation.navigate('WishlistScreen')}
+            />
             <Menu 
               name="account-cog" 
               title="Pengaturan Akun"

@@ -9,7 +9,7 @@ export const COLORS = {
   accent: '#4895ef',
   danger: '#f72585',
   success: '#31Ad66',
-  rating: '#FFCE31',
+  warning: '#FFCE31',
 
   // colors
   black: '#151515',
@@ -63,7 +63,7 @@ export const RADIUS = {
   medium: 14,
   large: 16,
   xLarge: 24,
-}
+};
 
 export const FONTS = {
   largeTitle: {

@@ -26,3 +26,9 @@ export function formatDateTime(val) {
   return Moment(val).format("DD MMM, HH:mm");
 }
 
+export const sortDate = (a, b) => {
+  const dateA = new Date(a.createdAt);
+  const dateB = new Date(b.createdAt);
+  return dateB - dateA;
+};
+

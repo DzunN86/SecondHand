@@ -53,7 +53,7 @@ export const changePasswordSchema = Yup.object().shape({
 export const formProductSchema = Yup.object().shape({
   name_product: Yup.string()
   .required('Silahkan masukan nama produk'),
-  base_price: Yup.string()
+  base_price: Yup.number()
   .required('Silahkan masukan harga produk'),
   category_ids: Yup.array()
   .min(1, 'Silahkan pilih kategori')
