@@ -2,9 +2,9 @@ import React, {useMemo, useCallback} from 'react';
 import BottomSheet, {BottomSheetBackdrop} from '@gorhom/bottom-sheet';
 import {COLORS} from '../../../themes';
 
-function BottomSheetComponent({sheetRef, component, onChange}) {
+function BottomSheetComponent({sheetRef, component, onChange, height}) {
   // variables
-  const snapPoints = useMemo(() => ['1%', '1%', '65%'], []);
+  const snapPoints = useMemo(() => ['1%', '1%', height], []);
 
   // const handleClosePress = () => sheetRef.current.close();
 
