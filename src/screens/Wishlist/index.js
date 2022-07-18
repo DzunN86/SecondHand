@@ -1,10 +1,11 @@
-import { ScrollView, Text, View, Image } from 'react-native'
-import React from 'react'
-import styles from './styles'
-import { CustomHeader } from '../../components'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import {ScrollView, Text, View, Image} from 'react-native';
+import React from 'react';
+import styles from './styles';
+import {CustomHeader} from '../../components';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {RectButton} from 'react-native-gesture-handler';
 
-const Wishlist = ({ navigation }) => {
+const Wishlist = ({navigation}) => {
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -14,7 +15,7 @@ const Wishlist = ({ navigation }) => {
           onPress={() => navigation.goBack()}
         />
         <View style={styles.productWrapper}>
-          <View style={styles.cardProduct}>
+          <RectButton style={styles.cardProduct}>
             <View style={styles.imageProduct}>
               <Image></Image>
             </View>
@@ -22,13 +23,20 @@ const Wishlist = ({ navigation }) => {
             <Text style={styles.description}>Barang ini adalah...</Text>
             <View style={styles.descProduct}>
               <Text style={styles.label}>Rp 9.999.999</Text>
-              <Icon style={styles.icon} name="trash" size={20} color="black" />
+              <RectButton style={styles.removeBtn}>
+                <Icon
+                  style={styles.icon}
+                  name="trash"
+                  size={22}
+                  color="black"
+                />
+              </RectButton>
             </View>
-          </View>
+          </RectButton>
         </View>
       </ScrollView>
     </View>
-  )
-}
+  );
+};
 
-export default Wishlist
+export default Wishlist;
