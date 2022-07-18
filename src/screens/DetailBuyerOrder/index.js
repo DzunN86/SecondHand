@@ -13,7 +13,7 @@ import {
   CustomInput,
 } from '../../components';
 import {tawarSchema} from '../../plugins';
-import {doBid} from '../../store/actions';
+import {doBid, delBuyerOrder, putBuyerOrder} from '../../store/actions';
 import {fetchDetailBuyerOrder} from '../../store/actions/buyer/buyerOrder';
 import {COLORS, FONTS} from '../../themes';
 import {formatRupiah} from '../../utils';
@@ -45,8 +45,17 @@ const DetailOrderBuyer = ({route, navigation}) => {
   }, []);
 
   const onPressBid = ({bid_price}) => {
-    dispatch(doBid(id_order, bid_price, navigation));
+    if (dataDetailOrder?.status == 'pending') {
+      dispatch(putBuyerOrder(id_order, dataDetailOrder?.product_id, bid_price));
+    } else {
+      dispatch(doBid(dataDetailOrder?.product_id, bid_price, navigation));
+    }
   };
+
+  const onDeleteOrder = () => {
+    dispatch(delBuyerOrder(id_order, navigation));
+  };
+
   const BottomSheetContent = () => (
     <View style={styles.bSheet}>
       <View>
@@ -135,6 +144,8 @@ const DetailOrderBuyer = ({route, navigation}) => {
               }
               kategori={dataDetailOrder?.Product.Categories}
               price={dataDetailOrder?.base_price}
+              bid_price={dataDetailOrder?.price}
+              status={dataDetailOrder?.status}
             />
             <CardFoto
               text1={dataDetailOrder?.Product.User.full_name}
@@ -161,9 +172,28 @@ const DetailOrderBuyer = ({route, navigation}) => {
           title="Saya Tertarik dan ingin Nego"
           onPress={() => handleSnapPress(2)}
         />
+        {dataDetailOrder?.status == 'pending' && (
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <CustomButton
+              style={{width: '48%'}}
+              danger
+              disabled={!userData.access_token}
+              title="Batalkan Penawaran"
+              onPress={onDeleteOrder}
+            />
+            <CustomButton
+              style={{width: '48%'}}
+              primary
+              disabled={!userData.access_token}
+              title="Ubah Penawaran"
+              onPress={() => handleSnapPress(2)}
+            />
+          </View>
+        )}
       </View>
       <BottomSheetComponent
         sheetRef={sheetRef}
+        height={'65%'}
         component={BottomSheetContent}
         onChange={handleSheetChanges}
       />
