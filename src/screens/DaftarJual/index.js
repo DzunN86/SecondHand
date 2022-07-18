@@ -103,8 +103,15 @@ export default function DaftarJual({navigation}) {
             onPress={() => diminati()}
           />
           <IconButton
+            style={{marginRight: 16}}
             icon="dollar-sign"
             title="Terjual"
+            active={btnTerjualActive}
+            onPress={() => terjual()}
+          />
+          <IconButton
+            icon="rotate-ccw"
+            title="Histori"
             active={btnTerjualActive}
             onPress={() => terjual()}
           />
