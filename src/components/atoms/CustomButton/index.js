@@ -16,6 +16,9 @@ function CustomButton({
   style,
   icon,
   testID,
+  accent,
+  success,
+  warning,
 }) {
   const getBgColor = () => {
     if (disabled) {
@@ -30,6 +33,15 @@ function CustomButton({
 
     if (secondary) {
       return COLORS.secondary;
+    }
+    if (accent) {
+      return COLORS.accent;
+    }
+    if (success) {
+      return COLORS.success;
+    }
+    if (warning) {
+      return COLORS.warning;
     }
   };
   return (
