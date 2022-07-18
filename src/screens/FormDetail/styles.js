@@ -1,18 +1,17 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, SIZES, FONTS } from '../../themes';
+import { COLORS, SIZES } from '../../themes';
 
 export default StyleSheet.create({
-    button1: {
-        position: "absolute",
-        bottom: 10,
-        width: SIZES.width * 0.4,
-        alignSelf: "flex-start"
-    },
-    button2: {
-        position: "absolute",
-        bottom: 10,
-        width: SIZES.width * 0.4,
-        alignSelf: "flex-end"
-    },
-    scroll: {flexGrow: 1, backgroundColor: COLORS.white},
+  scroll: {
+    flexGrow: 1, 
+    backgroundColor: COLORS.white
+  },
+  buttonWrapper: {
+    width: '100%',
+    position: 'absolute',
+    top: SIZES.height * 0.80,
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  }
 })

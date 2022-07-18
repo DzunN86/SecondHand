@@ -1,10 +1,11 @@
-import {StyleSheet} from 'react-native';
-import {SIZES} from '../../themes';
+import { StyleSheet } from 'react-native';
+import { COLORS, SIZES } from '../../themes';
 
 export default StyleSheet.create({
-  form: {
-    marginHorizontal: SIZES.padding,
-    marginTop: 24,
-    marginBottom: 30,
-  },
-});
+  buttonWrapper: {
+    width: '100%',
+    position: 'absolute',
+    top: SIZES.height * 0.89,
+    paddingHorizontal: 16,
+  }
+})

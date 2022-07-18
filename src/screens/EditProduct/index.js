@@ -1,5 +1,5 @@
 import {View, ScrollView} from 'react-native';
-import React, {createRef, useState} from 'react';
+import React, {createRef, useRef, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Formik} from 'formik';
 import Animated from 'react-native-reanimated';
@@ -21,13 +21,6 @@ const anim = new Animated.Value(1);
 
 export default function EditProduct({navigation, route}) {
   const dispatch = useDispatch();
-
-  let data = {};
-
-  if (route.params) {
-    data = route.params;
-  }
-
   const {category} = useSelector(state => state.categoryReducer);
   const {userProfile} = useSelector(state => state.getUserReducer);
   const {isLoading} = useSelector(state => state.commonReducers);
@@ -67,6 +60,7 @@ export default function EditProduct({navigation, route}) {
         setAvatar={setAvatar}
         thisRef={thisRef}
         anim={anim}
+        deskripsi="Choose your image product"
       />
       <Animated.View
         style={{opacity: Animated.add(0.1, Animated.multiply(anim, 1.0))}}>
@@ -83,17 +77,17 @@ export default function EditProduct({navigation, route}) {
           onSubmit={values => onPressUpdate(values)}>
           {({
             handleChange,
-            handleSubmit,
             setFieldValue,
+            handleSubmit,
             values,
             errors,
             touched,
-            isValid,
             dirty,
+            isValid,
           }) => (
             <>
               <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-                <View style={{marginVertical: 10, marginHorizontal: 16, minHeight: SIZES.height * 0.9}}>
+                <View style={{marginVertical: 10, marginHorizontal: 16, minHeight: SIZES.height * 0.95}}>
                   <CustomInput
                     label="Nama Produk"
                     placeholder="Nama Produk"
@@ -136,9 +130,19 @@ export default function EditProduct({navigation, route}) {
                     error={touched.description && errors.description}
                   />
                   <Upload
+                    style={{marginTop: 10}}
                     source={image}
                     onPress={() => thisRef.current.snapTo(0)}
                     name="camera"
+                  />
+                </View>
+                <View style={styles.buttonWrapper}>
+                  <CustomButton
+                    loading={isLoading}
+                    primary
+                    title="Simpan"
+                    onPress={handleSubmit}
+                    disabled={!(dirty && isValid) || isLoading}
                   />
                 </View>
               </ScrollView>
@@ -146,15 +150,6 @@ export default function EditProduct({navigation, route}) {
           )}
         </Formik>
       </Animated.View>
-      <View style={styles.buttonWrapper}>
-        <CustomButton
-          loading={isLoading}
-          primary
-          title="Simpan"
-          // onPress={handleSubmit}
-          // disabled={!(dirty && isValid) || isLoading}
-        />
-      </View>
     </>
   );
 }

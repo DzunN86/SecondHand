@@ -15,6 +15,7 @@ import {
 } from '../../components';
 import {kota} from '../../utils';
 import {doUpdate} from '../../store/actions/akun';
+import { SIZES } from '../../themes';
 
 const thisRef = createRef();
 const anim = new Animated.Value(1);
@@ -42,7 +43,7 @@ export default function InfoAkun({navigation}) {
   const [image, setAvatar] = useState(userProfile.image_url);
 
   return (
-    <ScrollView style={{height: '100%'}}>
+    <>
       <CustomHeader
         type="BackTitle"
         title="Lengkapi Info Akun"
@@ -53,69 +54,73 @@ export default function InfoAkun({navigation}) {
         setAvatar={setAvatar}
         thisRef={thisRef}
         anim={anim}
+        deskripsi="Choose your avatar"
       />
       <Animated.View
         style={{opacity: Animated.add(0.1, Animated.multiply(anim, 1.0))}}>
-        <View style={styles.form}>
-          <Formik
-            initialValues={{
-              image: userProfile.image_url,
-              nama: userProfile.full_name,
-              phone_number: userProfile.phone_number,
-              alamat: userProfile.address,
-              kota: userProfile.city,
-            }}
-            validationSchema={updateSchema}
-            onSubmit={values => onPressUpdate(values)}>
-            {({handleChange, handleSubmit, values, errors, isValid, dirty}) => (
-              <>
-                <Upload
-                  source={image}
-                  style={{
-                    alignSelf: 'center',
-                  }}
-                  onPress={() => thisRef.current.snapTo(0)}
-                  name="camera"
-                />
-                <CustomInput
-                  testID="input-nama"
-                  label="Nama"
-                  name="nama"
-                  onChangeText={handleChange('nama')}
-                  value={values.nama}
-                  error={errors.nama}
-                  iconPosition="right"
-                  placeholder="Nama Lengkap"
-                />
-                <CustomInput
-                  testID="input-phone_number"
-                  label="Nomor Telepon"
-                  name="phone_number"
-                  onChangeText={handleChange('phone_number')}
-                  value={values.phone_number}
-                  error={errors.phone_number}
-                  iconPosition="right"
-                  placeholder="+62 xx xxx xxx xxx"
-                />
-                <CustomInput
-                  testID="input-alamat"
-                  label="Alamat"
-                  name="alamat"
-                  onChangeText={handleChange('alamat')}
-                  value={values.alamat}
-                  error={errors.alamat}
-                  iconPosition="right"
-                  placeholder="Alamat Lengkap"
-                />
-                <CustomSelect
-                  label="Kota"
-                  name="kota"
-                  onSelectChange={handleChange('kota')}
-                  value={values.kota}
-                  error={errors.kota}
-                  iconPosition="left"
-                  selectData={kota}
-                />
+        <Formik
+          initialValues={{
+            image: userProfile.image_url,
+            nama: userProfile.full_name,
+            phone_number: userProfile.phone_number,
+            alamat: userProfile.address,
+            kota: userProfile.city,
+          }}
+          validationSchema={updateSchema}
+          onSubmit={values => onPressUpdate(values)}>
+          {({handleChange, handleSubmit, values, errors, isValid, dirty}) => (
+            <>
+            <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
+              <View style={{marginVertical: 10, marginHorizontal: 16, minHeight: SIZES.height * 0.95}}>
+              <Upload
+                source={image}
+                style={{
+                  alignSelf: 'center',
+                }}
+                onPress={() => thisRef.current.snapTo(0)}
+                name="camera"
+              />
+              <CustomInput
+                testID="input-nama"
+                label="Nama"
+                name="nama"
+                onChangeText={handleChange('nama')}
+                value={values.nama}
+                error={errors.nama}
+                iconPosition="right"
+                placeholder="Nama Lengkap"
+              />
+              <CustomInput
+                testID="input-phone_number"
+                label="Nomor Telepon"
+                name="phone_number"
+                onChangeText={handleChange('phone_number')}
+                value={values.phone_number}
+                error={errors.phone_number}
+                iconPosition="right"
+                placeholder="+62 xx xxx xxx xxx"
+              />
+              <CustomInput
+                testID="input-alamat"
+                label="Alamat"
+                name="alamat"
+                onChangeText={handleChange('alamat')}
+                value={values.alamat}
+                error={errors.alamat}
+                iconPosition="right"
+                placeholder="Alamat Lengkap"
+              />
+              <CustomSelect
+                label="Kota"
+                name="kota"
+                onSelectChange={handleChange('kota')}
+                value={values.kota}
+                error={errors.kota}
+                iconPosition="left"
+                selectData={kota}
+              />
+              </View>
+              <View style={styles.buttonWrapper}>
                 <CustomButton
                   testID="btn-login"
                   loading={isLoading}
@@ -125,11 +130,12 @@ export default function InfoAkun({navigation}) {
                   disable={!(dirty && isValid)}
                   onPress={handleSubmit}
                 />
-              </>
-            )}
-          </Formik>
-        </View>
+              </View>
+              </ScrollView>
+            </>
+          )}
+        </Formik>
       </Animated.View>
-    </ScrollView>
+    </>
   );
 }
