@@ -54,6 +54,7 @@ export default function InfoAkun({navigation}) {
         setAvatar={setAvatar}
         thisRef={thisRef}
         anim={anim}
+        deskripsi="Choose your avatar"
       />
       <Animated.View
         style={{opacity: Animated.add(0.1, Animated.multiply(anim, 1.0))}}>

@@ -5,7 +5,7 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import {CustomButton} from '../../atoms';
 import styles from './styles';
 
-export default function BottomUpload({setAvatar, thisRef, anim}) {
+export default function BottomUpload({setAvatar, thisRef, anim, deskripsi}) {
 
   // let image = {image}
 
@@ -40,7 +40,7 @@ export default function BottomUpload({setAvatar, thisRef, anim}) {
           Upload Photo
         </Text>
         <Text style={styles.bSheetSubtitle}>
-          Choose your avatar
+          {deskripsi}
         </Text>
       </View>
       <CustomButton primary title="Take photo" onPress={fromCamera} />
