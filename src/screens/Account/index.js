@@ -65,6 +65,11 @@ export default function Account({navigation}) {
               title="Wishlist"
               onPress={() => navigation.navigate('WishlistScreen')}
             />
+            <Menu
+              name="history"
+              title="History"
+              onPress={() => navigation.navigate('HistoryScreen')}
+            />
             <Menu 
               name="account-cog" 
               title="Pengaturan Akun"
