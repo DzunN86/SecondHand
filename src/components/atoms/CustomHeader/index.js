@@ -6,12 +6,12 @@ import Title from './Title';
 import BackHeader from './BackHeader';
 import BackHeaderLove from './BackLoveHeader';
 
-function CustomHeader({title, onPress, type, isLoved}) {
+function CustomHeader({title, onPress, type, isLoved, presLoved}) {
   if (type === 'BackHeader') {
     return <BackHeader onPress={onPress} />;
   }
   if (type === 'BackHeaderLove') {
-    return <BackHeaderLove onPress={onPress} isLoved={isLoved} />;
+    return <BackHeaderLove onPress={onPress} isLoved={isLoved} pressLoved={presLoved} />;
   }
   if (type === 'BackTitle') {
     return <BackTitle title={title} onPress={onPress} />;

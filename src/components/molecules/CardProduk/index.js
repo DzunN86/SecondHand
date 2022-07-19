@@ -32,7 +32,7 @@ export default function CardProduk({
           </View>
         )}
       </View>
-      <Text style={styles.kategori}>
+      <Text style={styles.kategori} numberOfLines={1}>
         {kategori?.length > 0
           ? kategori.map(item => item.name).join(', ')
           : '-'}

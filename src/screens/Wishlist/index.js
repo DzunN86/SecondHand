@@ -1,11 +1,21 @@
-import {ScrollView, Text, View, Image} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
+import {ScrollView, View} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {CardWishlist, CustomHeader} from '../../components';
+import {deleteItemWishlist, getItemWishlist} from '../../store/actions/wishlist';
 import styles from './styles';
-import {CustomHeader} from '../../components';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import {RectButton} from 'react-native-gesture-handler';
 
 const Wishlist = ({navigation}) => {
+  const dispatch = useDispatch();
+  const {dataWishlist} = useSelector(state => state.wishlistReducer);
+
+  useEffect(() => {
+    dispatch(getItemWishlist());
+  }, []);
+
+  const onDelete = id => {
+    dispatch(deleteItemWishlist(id));
+  }
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -15,24 +25,17 @@ const Wishlist = ({navigation}) => {
           onPress={() => navigation.goBack()}
         />
         <View style={styles.productWrapper}>
-          <RectButton style={styles.cardProduct}>
-            <View style={styles.imageProduct}>
-              <Image></Image>
-            </View>
-            <Text style={styles.label}>Nama Barang</Text>
-            <Text style={styles.description}>Barang ini adalah...</Text>
-            <View style={styles.descProduct}>
-              <Text style={styles.label}>Rp 9.999.999</Text>
-              <RectButton style={styles.removeBtn}>
-                <Icon
-                  style={styles.icon}
-                  name="trash"
-                  size={22}
-                  color="black"
-                />
-              </RectButton>
-            </View>
-          </RectButton>
+          {dataWishlist.map((item, index) => (
+            <CardWishlist
+              key={index}
+              onPress={() => navigation.navigate('DetailProductScreen', {id_product: item?.product_id})}
+              image={{uri: item?.Product?.image_url}}
+              product_name={item?.Product?.name}
+              base_price={item?.Product?.base_price}
+              location={item?.Product?.location}
+              onDelete={() => onDelete(item?.id)}
+            />
+          ))}
         </View>
       </ScrollView>
     </View>
