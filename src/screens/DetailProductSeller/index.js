@@ -48,25 +48,25 @@ const DetailProductSeller = ({navigation, route}) => {
               title="Deskripsi"
               deskripsi={detailProduk?.description}
             />
+            <View style={styles.buttonWrapper}>
+              <CustomButton
+                style={{width: '48%'}}
+                primary
+                type="daftarjual"
+                title="Edit"
+                onPress={() => navigation.navigate('EditProductScreen', {id:id})}
+              />
+              <CustomButton
+                style={{width: '48%'}}
+                danger
+                type="daftarjual"
+                title="Hapus"
+                onPress={() => Delete()}
+              />
+            </View>
           </View>
         </View>
       </ScrollView>
-      <View style={styles.buttonWrapper}>
-        <CustomButton
-          style={{width: '48%'}}
-          primary
-          type="daftarjual"
-          title="Edit"
-          onPress={() => navigation.navigate('EditProductScreen', {id:id})}
-        />
-        <CustomButton
-          style={{width: '48%'}}
-          danger
-          type="daftarjual"
-          title="Hapus"
-          onPress={() => Delete()}
-        />
-      </View>
     </View>
   );
 };

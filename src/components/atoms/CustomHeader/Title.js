@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     title: {
-        ...FONTS.h2,
+        ...FONTS.h1,
         color: COLORS.black,
         marginTop: 4,
     }

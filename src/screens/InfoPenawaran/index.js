@@ -34,6 +34,9 @@ export default function InfoPenawaran({navigation, route}) {
   const onChangeStatus = useCallback(status => {
     dispatch(pathcOrderSeller(id_order, status));
     setIsSubmit(true);
+    if(RadioValue == 'available'){
+      navigation.navigate('Daftar Jual');
+    }
     if (status == 'accepted') {
       sheetRef.current?.snapToIndex(2);
     }
@@ -52,10 +55,10 @@ export default function InfoPenawaran({navigation, route}) {
                 onValueChange={value => setRadioValue(value)}
                 value={RadioValue}>
                 <View style={styles.radioWrapper}>
-                  <RadioButton value="first" />
+                  <RadioButton value="seller" />
                   <RectButton
                     style={{paddingVertical: 8, paddingHorizontal: 10, flex: 1}}
-                    onPress={() => setRadioValue('first')}>
+                    onPress={() => setRadioValue('seller')}>
                     <Text style={styles.labelRadio}>Berhasil Terjual</Text>
                     <Text style={styles.sublabelRadio}>
                       Kamu telah sepakat menjual produk ini kepada pembeli
@@ -202,77 +205,81 @@ export default function InfoPenawaran({navigation, route}) {
               </Text>
             </View>
           </View>
-          <View
-            style={{
-              marginVertical: 25,
-              marginHorizontal: 16,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}>
-            {detailOrderSeller?.status !== 'accepted' ? (
-              <>
-                <CustomButton
-                  danger
-                  title="Tolak"
-                  onPress={() => {
-                    Alert.alert(
-                      'Terima Penawaran',
-                      'Apakah anda yakin ingin menolak penawaran ini?',
-                      [
-                        {text: 'Tidak', style: 'cancel'},
-                        {
-                          text: 'Ya',
-                          onPress: () => {
-                            onChangeStatus('declined');
+          {detailOrderSeller?.status !== 'seller' && (
+            <View
+              style={{
+                marginVertical: 25,
+                marginHorizontal: 16,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
+              {detailOrderSeller?.status !== 'accepted' ? (
+                <>
+                  <CustomButton
+                    danger
+                    title="Tolak"
+                    onPress={() => {
+                      Alert.alert(
+                        'Terima Penawaran',
+                        'Apakah anda yakin ingin menolak penawaran ini?',
+                        [
+                          {text: 'Tidak', style: 'cancel'},
+                          {
+                            text: 'Ya',
+                            onPress: () => {
+                              onChangeStatus('declined');
+                            },
                           },
-                        },
-                      ],
-                    );
-                  }}
-                  style={styles.button1}
-                />
-                <CustomButton
-                  primary
-                  title="Terima"
-                  onPress={() => {
-                    Alert.alert(
-                      'Terima Penawaran',
-                      'Apakah anda yakin ingin menerima penawaran ini?',
-                      [
-                        {text: 'Tidak', style: 'cancel'},
-                        {
-                          text: 'Ya',
-                          onPress: () => {
-                            onChangeStatus('accepted');
+                        ],
+                      );
+                    }}
+                    style={styles.button1}
+                  />
+                  <CustomButton
+                    primary
+                    title="Terima"
+                    onPress={() => {
+                      Alert.alert(
+                        'Terima Penawaran',
+                        'Apakah anda yakin ingin menerima penawaran ini?',
+                        [
+                          {text: 'Tidak', style: 'cancel'},
+                          {
+                            text: 'Ya',
+                            onPress: () => {
+                              onChangeStatus('accepted');
+                            },
                           },
-                        },
-                      ],
-                    );
-                  }}
-                  style={styles.button2}
-                />
-              </>
-            ) : (
-              <>
-                <CustomButton
-                  success
-                  title="Status"
-                  onPress={() => {
-                    sheetRef.current?.snapToIndex(2);
-                    setModalMode('status');
-                  }}
-                  style={styles.button1}
-                />
-                <CustomButton
-                  primary
-                  title="Hubungi"
-                  icon={<Icon name="whatsapp" size={24} color={COLORS.white} />}
-                  onPress={onHubungi}
-                  style={styles.button2}
-                />
-              </>
-            )}
-          </View>
+                        ],
+                      );
+                    }}
+                    style={styles.button2}
+                  />
+                </>
+              ) : (
+                <>
+                  <CustomButton
+                    success
+                    title="Status"
+                    onPress={() => {
+                      sheetRef.current?.snapToIndex(2);
+                      setModalMode('status');
+                    }}
+                    style={styles.button1}
+                  />
+                  <CustomButton
+                    primary
+                    title="Hubungi"
+                    icon={
+                      <Icon name="whatsapp" size={24} color={COLORS.white} />
+                    }
+                    onPress={onHubungi}
+                    style={styles.button2}
+                  />
+                </>
+              )}
+            </View>
+          )}
         </View>
       </ScrollView>
       <BottomSheetComponent

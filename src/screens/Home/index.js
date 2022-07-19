@@ -3,11 +3,13 @@ import {useMemo} from 'react';
 import {FlatList, RefreshControl, ScrollView, Text, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {useDispatch, useSelector} from 'react-redux';
+import {EmptySearch} from '../../assets';
 import {
   CardAds,
   CardCategory,
   CardProduct,
   CustomButton,
+  EmptyState,
   SearchBar,
 } from '../../components';
 import {getBanners, getProduct} from '../../store/actions/home';
@@ -150,6 +152,16 @@ export default function Home({navigation}) {
         windowSize={60}
         updateCellsBatchingPeriod={50}
         initialNumToRender={7}
+        ListEmptyComponent={() => (
+          <EmptyState
+            image={EmptySearch}
+            title="Tidak ada hasil yang ditemukan"
+            subTitle="Coba sesuaikan pencarian Anda
+            untuk menemukan apa yang Anda cari"
+            labelBtn="Lihat Produk"
+            onPress={() => navigation.navigate('Home')}
+          />
+        )}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}

@@ -49,7 +49,7 @@ const MainApp = () => {
             component={Notifikasi}
             options={{
               tabBarLabel: 'Notifikasi',
-              tabBarBadge: totalNotif,
+              tabBarBadge: totalNotif > 0 ? totalNotif : null,
               tabBarBadgeStyle: {
                 backgroundColor: COLORS.danger,
                 paddingHorizontal: 2,

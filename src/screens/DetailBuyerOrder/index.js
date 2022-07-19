@@ -1,3 +1,4 @@
+import {useIsFocused} from '@react-navigation/native';
 import {Formik} from 'formik';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {ImageBackground, ScrollView, Text, View} from 'react-native';
@@ -27,6 +28,7 @@ const DetailOrderBuyer = ({route, navigation}) => {
   const {userData} = useSelector(state => state.loginReducer);
   const [autoFocus, setAutoFocus] = useState(false);
   const sheetRef = useRef(null);
+  const isFocused = useIsFocused();
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index);
@@ -34,7 +36,7 @@ const DetailOrderBuyer = ({route, navigation}) => {
 
   useEffect(() => {
     dispatch(fetchDetailBuyerOrder(id_order));
-  }, []);
+  }, [isFocused]);
 
   const handleSheetChanges = useCallback(index => {
     if (index == 2) {
@@ -110,7 +112,7 @@ const DetailOrderBuyer = ({route, navigation}) => {
       </Formik>
     </View>
   );
-  if (isLoading) {
+  if (LoadingSend && isLoading) {
     return (
       <View
         style={{
@@ -128,7 +130,7 @@ const DetailOrderBuyer = ({route, navigation}) => {
       <ScrollView>
         <View>
           <ImageBackground
-            source={{uri: dataDetailOrder?.Product.image_url}}
+            source={{uri: dataDetailOrder?.Product?.image_url}}
             style={styles.bgProduk}>
             <CustomHeader
               type="BackHeader"
@@ -138,23 +140,27 @@ const DetailOrderBuyer = ({route, navigation}) => {
           <View style={styles.containerKeterangan}>
             <CardProduk
               nameProduk={
-                dataDetailOrder?.Product.name
-                  ? dataDetailOrder.Product.name
+                dataDetailOrder?.Product?.name
+                  ? dataDetailOrder?.Product?.name
                   : '-'
               }
-              kategori={dataDetailOrder?.Product.Categories}
+              kategori={dataDetailOrder?.Product?.Categories}
               price={dataDetailOrder?.base_price}
               bid_price={dataDetailOrder?.price}
               status={dataDetailOrder?.status}
             />
             <CardFoto
-              text1={dataDetailOrder?.Product.User.full_name}
-              text2={dataDetailOrder?.Product.User.city}
-              source={{uri: dataDetailOrder?.Product.User.image_url}}
+              text1={dataDetailOrder?.Product?.User?.full_name}
+              text2={
+                dataDetailOrder?.Product?.User?.city
+                  ? dataDetailOrder?.Product?.User?.city
+                  : '-'
+              }
+              source={{uri: dataDetailOrder?.Product?.User?.image_url}}
             />
             <CardDeskripsi
               title="Deskripsi"
-              deskripsi={dataDetailOrder?.Product.description}
+              deskripsi={dataDetailOrder?.Product?.description}
             />
           </View>
         </View>
@@ -172,12 +178,19 @@ const DetailOrderBuyer = ({route, navigation}) => {
           title="Saya Tertarik dan ingin Nego"
           onPress={() => handleSnapPress(2)}
         />
+        <CustomButton
+          primary
+          disabled={!userData.access_token}
+          title="Saya Tertarik dan ingin Nego"
+          onPress={() => handleSnapPress(2)}
+        />
         {dataDetailOrder?.status == 'pending' && (
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <CustomButton
               style={{width: '48%'}}
               danger
-              disabled={!userData.access_token}
+              loading={isLoading}
+              disabled={!userData.access_token || isLoading}
               title="Batalkan Penawaran"
               onPress={onDeleteOrder}
             />
@@ -193,7 +206,7 @@ const DetailOrderBuyer = ({route, navigation}) => {
       </View>
       <BottomSheetComponent
         sheetRef={sheetRef}
-        height={'65%'}
+        height={'63%'}
         component={BottomSheetContent}
         onChange={handleSheetChanges}
       />
