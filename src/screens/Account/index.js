@@ -1,4 +1,4 @@
-import {View, Text, Button} from 'react-native';
+import {View, Text, Button, ScrollView} from 'react-native';
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from './styles';
@@ -41,7 +41,7 @@ export default function Account({navigation}) {
         }
       />
       {userData.access_token ? (
-        <>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <Upload
             source={userProfile.image_url}
             style={{
@@ -77,7 +77,7 @@ export default function Account({navigation}) {
             />
           </View>
           <Text style={styles.version}> Version {version} </Text>
-        </>
+        </ScrollView>
       ) : (
         <View style={styles.doLogin}>
           <Button

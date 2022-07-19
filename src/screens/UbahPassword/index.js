@@ -1,4 +1,4 @@
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, ScrollView } from 'react-native';
 import React, { useState } from 'react';
 import { Formik } from 'formik';
 import Icon from 'react-native-vector-icons/Feather';
@@ -67,8 +67,8 @@ export default function ChangePassword({navigation}) {
             dirty, 
             touched
           }) => (
-            <>
-              <View style={{marginVertical: 10, marginHorizontal: 16}}>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <View style={{marginVertical: 10, marginHorizontal: 16, minHeight: SIZES.height * 0.87}}>
                 <CustomInput
                   testID="input-current_password"
                   label="Current Password"
@@ -131,7 +131,7 @@ export default function ChangePassword({navigation}) {
                   onPress={handleSubmit}
                 />
               </View>
-            </>
+            </ScrollView>
           )}
         </Formik>
     </>

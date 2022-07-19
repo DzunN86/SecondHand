@@ -59,13 +59,14 @@ const CardAds = () => {
           style={{
             marginVertical: SIZES.base,
             marginHorizontal: SIZES.base,
+            alignItems: 'center',
           }}>
           <Image
             resizeMode="contain"
             source={{uri: item.image_url}}
             style={{
               height: SIZES.height * 0.25 - SIZES.base * 2,
-              width: SIZES.width - SIZES.base * 2,
+              width: '100%',
               borderRadius: RADIUS.large,
             }}
           />

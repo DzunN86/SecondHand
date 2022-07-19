@@ -5,7 +5,7 @@ export default StyleSheet.create({
   buttonWrapper: {
     width: '100%',
     position: 'absolute',
-    top: SIZES.height * 0.89,
+    top: SIZES.height * 0.80,
     paddingHorizontal: 16,
   }
 })
