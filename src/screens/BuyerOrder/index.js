@@ -1,9 +1,10 @@
-import {useNavigation} from '@react-navigation/native';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {Skeleton} from '@rneui/base';
 import React, {useEffect} from 'react';
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {CustomHeader} from '../../components';
+import {EmptyOrder} from '../../assets';
+import {CustomHeader, EmptyState} from '../../components';
 import {fetchBuyerOrder} from '../../store/actions/buyer/buyerOrder';
 import {COLORS, RADIUS} from '../../themes';
 import {formatDateTime, formatRupiah} from '../../utils';
@@ -136,22 +137,37 @@ const BuyerOrder = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const {dataBuyerOrder, isLoading} = useSelector(state => state.buyerReducer);
+  const isFocused = useIsFocused();
+
   useEffect(() => {
     dispatch(fetchBuyerOrder());
-  }, []);
+  }, [isFocused]);
   return (
-    <ScrollView>
-      <CustomHeader
-        type="BackTitle"
-        title="Daftar Order Saya"
-        onPress={() => navigation.goBack()}
-      />
-      <View
-        style={{
-          flex: 1,
-          marginTop: 5,
-        }}>
-        {dataBuyerOrder.map(item =>
+    <View
+      style={{
+        flex: 1,
+        marginTop: 5,
+      }}>
+      <FlatList
+        data={dataBuyerOrder}
+        ListHeaderComponent={() => (
+          <CustomHeader
+            type="BackTitle"
+            title="Daftar Order Saya"
+            onPress={() => navigation.goBack()}
+          />
+        )}
+        keyExtractor={item => item?.id}
+        ListEmptyComponent={() => (
+          <EmptyState
+            image={EmptyOrder}
+            title="Anda Tidak Memeiliki Order"
+            subTitle="Yuk lihat apa yang sedang trending"
+            labelBtn="Lihat Produk"
+            onPress={() => navigation.navigate('Home')}
+          />
+        )}
+        renderItem={({item}) =>
           isLoading ? (
             <LoadingCard />
           ) : (
@@ -164,13 +180,15 @@ const BuyerOrder = () => {
               status={item.status}
               image_url={item.Product?.image_url}
               onPress={() =>
-                navigation.navigate('DetailBuyerOrderScreen', {id_order: item.id})
+                navigation.navigate('DetailBuyerOrderScreen', {
+                  id_order: item.id,
+                })
               }
             />
-          ),
-        )}
-      </View>
-    </ScrollView>
+          )
+        }
+      />
+    </View>
   );
 };
 

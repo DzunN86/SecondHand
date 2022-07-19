@@ -47,8 +47,14 @@ export const getNotification = () => async dispatch => {
     });
 };
 
-export const ReadNotification = id_notif => async () => {
+export const ReadNotification = id_notif => async dispatch => {
+  dispatch(setNotificationLoading(true));
   await PatchNotif(id_notif)
-    .then(() => {})
-    .catch(() => {});
+    .then(() => {
+      dispatch(setNotificationLoading(false));
+    })
+
+    .catch(() => {
+      dispatch(setNotificationLoading(false));
+    });
 };

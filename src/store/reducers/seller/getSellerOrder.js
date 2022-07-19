@@ -3,6 +3,7 @@ import {
   GET_ORDERSELLER_LOADING,
   GET_ORDERSELLER_FAILED,
   GET_ORDERDETAILSELLER_SUCCESS,
+  SET_ORDERSELLER_TERJUAL,
 } from '../../types';
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
   erroeMessage: '',
   orderSeller: [],
   detailOrderSeller: {},
+  productTerjual: [],
 };
 
 export const orderSellerReducers = (state = initialState, action) => {
@@ -26,6 +28,12 @@ export const orderSellerReducers = (state = initialState, action) => {
         isLoading: false,
         isError: false,
         orderSeller: action.payload,
+      };
+    case SET_ORDERSELLER_TERJUAL:
+      return {
+        ...state,
+        isLoading: false,
+        productTerjual: action.payload,
       };
     case GET_ORDERDETAILSELLER_SUCCESS:
       return {

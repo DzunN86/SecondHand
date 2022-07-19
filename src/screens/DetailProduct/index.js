@@ -45,6 +45,7 @@ const DetailProduct = ({route, navigation}) => {
 
   const onPressBid = ({bid_price}) => {
     dispatch(doBid(id_product, bid_price, navigation));
+    sheetRef.current?.snapToIndex(1);
   };
   const BottomSheetContent = () => (
     <View style={styles.bSheet}>
@@ -121,7 +122,7 @@ const DetailProduct = ({route, navigation}) => {
             source={{uri: dataProduk?.image_url}}
             style={styles.bgProduk}>
             <CustomHeader
-              type="BackHeader"
+              type="BackHeaderLove"
               onPress={() => navigation.navigate('MainApp')}
             />
           </ImageBackground>
@@ -134,7 +135,7 @@ const DetailProduct = ({route, navigation}) => {
             <CardFoto
               text1={dataProduk.User?.full_name}
               text2={dataProduk?.location}
-              source={{uri: dataProduk.User?.image_url}}
+              source={{uri: dataProduk?.User?.image_url}}
             />
             <CardDeskripsi
               title="Deskripsi"
@@ -152,9 +153,14 @@ const DetailProduct = ({route, navigation}) => {
         }}>
         <CustomButton
           primary
-          disabled={!userData.access_token}
           title="Saya Tertarik dan ingin Nego"
-          onPress={() => handleSnapPress(2)}
+          onPress={() => {
+            if (userData?.access_token) {
+              handleSnapPress(2);
+            } else {
+              navigation.navigate('LoginScreen');
+            }
+          }}
         />
       </View>
       <BottomSheetComponent

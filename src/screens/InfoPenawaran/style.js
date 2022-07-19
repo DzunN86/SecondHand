@@ -69,7 +69,7 @@ export default StyleSheet.create({
   },
   label: {
     ...FONTS.body4,
-    color: COLORS.grey2,
+    color: COLORS.grey1,
   },
   LabelPenawaran: {
     ...FONTS.h3,

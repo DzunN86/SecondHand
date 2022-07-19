@@ -1,12 +1,12 @@
-import {View, Text, Button} from 'react-native';
+import {useIsFocused} from '@react-navigation/native';
 import React, {useEffect} from 'react';
+import {Alert, Button, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import styles from './styles';
-import {CustomHeader, Upload, Menu} from '../../components';
-import {logoutUser, doGetProfile} from '../../store/actions';
-import {showError, showSuccess} from '../../plugins';
 import {version} from '../../../package.json';
-import { useIsFocused } from '@react-navigation/native';
+import {CustomHeader, Menu, Upload} from '../../components';
+import {showSuccess} from '../../plugins';
+import {doGetProfile, logoutUser} from '../../store/actions';
+import styles from './styles';
 
 export default function Account({navigation}) {
   const dispatch = useDispatch();
@@ -15,13 +15,18 @@ export default function Account({navigation}) {
   const isFocused = useIsFocused();
 
   const onPressLogout = () => {
-    try {
-      dispatch(logoutUser());
-      navigation.reset({index: 0, routes: [{name: 'MainApp'}]});
-      showSuccess('Logout Success');
-    } catch (error) {
-      showError(error);
-    }
+    Alert.alert('Konfirmasi', 'Apakah anda yakin ingin keluar?', [
+      {text: 'Tidak', style: 'cancel'},
+      {
+        text: 'Ya',
+        onPress: () => {
+          dispatch(logoutUser());
+          navigation.reset({index: 0, routes: [{name: 'MainApp'}]});
+
+          showSuccess('Logout Success');
+        },
+      },
+    ]);
   };
 
   useEffect(() => {
@@ -65,16 +70,12 @@ export default function Account({navigation}) {
               title="Wishlist"
               onPress={() => navigation.navigate('WishlistScreen')}
             />
-            <Menu 
-              name="account-cog" 
+            <Menu
+              name="account-cog"
               title="Pengaturan Akun"
-              onPress={() => navigation.navigate('SettingsScreen')} 
+              onPress={() => navigation.navigate('SettingsScreen')}
             />
-            <Menu 
-              name="logout" 
-              title="Keluar" 
-              onPress={onPressLogout} 
-            />
+            <Menu name="logout" title="Keluar" onPress={onPressLogout} />
           </View>
           <Text style={styles.version}> Version {version} </Text>
         </>

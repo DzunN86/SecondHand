@@ -5,6 +5,9 @@ export default StyleSheet.create({
   container: {
     flex: 1,
   },
+  emptyState:{
+    marginVertical: SIZES.height * 0.2,
+  },
   productImage: {
     width: 58,
     height: 58,

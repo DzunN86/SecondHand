@@ -1,20 +1,20 @@
-import {View, ScrollView} from 'react-native';
-import React, {createRef, useRef, useState} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
 import {Formik} from 'formik';
+import React, {createRef, useState} from 'react';
+import {ScrollView, View} from 'react-native';
 import Animated from 'react-native-reanimated';
-import styles from './styles';
-import { SIZES } from '../../themes';
+import {useDispatch, useSelector} from 'react-redux';
 import {
-  CustomInput,
-  CustomButton,
-  MultipleSelect,
-  CustomHeader,
   BottomUpload,
+  CustomButton,
+  CustomHeader,
+  CustomInput,
+  MultipleSelect,
   Upload,
 } from '../../components';
-import {formProductSchema} from '../../plugins';
-import { upDataProduct } from '../../store/actions/seller';
+import {formProductSchema, showError} from '../../plugins';
+import {upDataProduct} from '../../store/actions/seller';
+import {SIZES} from '../../themes';
+import styles from './styles';
 
 const thisRef = createRef();
 const anim = new Animated.Value(1);
@@ -44,7 +44,7 @@ export default function EditProduct({navigation, route}) {
       });
       dispatch(upDataProduct(id, formData, navigation));
     } catch (error) {
-      console.log(error);
+      showError('Update Produk Gagal');
     }
   };
 
@@ -68,7 +68,7 @@ export default function EditProduct({navigation, route}) {
           initialValues={{
             name_product: detailProduk.name,
             base_price: detailProduk.base_price.toString(),
-            category_ids: detailProduk.Categories?.map((item) => item.id),
+            category_ids: detailProduk.Categories?.map(item => item.id),
             description: detailProduk.description,
             image: detailProduk.image_url,
             location: detailProduk.location,
@@ -86,8 +86,15 @@ export default function EditProduct({navigation, route}) {
             isValid,
           }) => (
             <>
-              <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-                <View style={{marginVertical: 10, marginHorizontal: 16, minHeight: SIZES.height * 0.95}}>
+              <ScrollView
+                contentContainerStyle={styles.scroll}
+                showsVerticalScrollIndicator={false}>
+                <View
+                  style={{
+                    marginVertical: 10,
+                    marginHorizontal: 16,
+                    minHeight: SIZES.height * 0.95,
+                  }}>
                   <CustomInput
                     label="Nama Produk"
                     placeholder="Nama Produk"
