@@ -1,5 +1,5 @@
 import {View, ScrollView} from 'react-native';
-import React, {createRef, useRef, useState} from 'react';
+import React, {createRef, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Formik} from 'formik';
 import Animated from 'react-native-reanimated';

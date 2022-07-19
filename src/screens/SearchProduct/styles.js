@@ -1,6 +1,5 @@
 import {StyleSheet} from 'react-native';
 import {COLORS, RADIUS, SIZES} from '../../themes';
-// import { COLORS } from '../../themes/theme'
 
 export default StyleSheet.create({
   page: {flex: 1},
@@ -30,6 +29,7 @@ export default StyleSheet.create({
   cardProductWrapper: {
     marginVertical: SIZES.base,
     flex: 1,
+    alignItems: 'flex-start',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     marginHorizontal: 16,

@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import { COLORS, FONTS, RADIUS, SIZES } from '../../themes';
+import { COLORS, FONTS, RADIUS } from '../../themes';
 
 export default StyleSheet.create({
   bgProduk:{

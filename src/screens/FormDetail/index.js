@@ -1,22 +1,20 @@
 import {View, ScrollView} from 'react-native';
-import React, {createRef, useState} from 'react';
-import BackTitle from '../../components/atoms/CustomHeader/BackTitle';
+import React, {createRef, useState, useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {Formik} from 'formik';
+import Animated from 'react-native-reanimated';
+import {useIsFocused} from '@react-navigation/native';
+import styles from './styles';
 import {
   CustomInput,
   CustomButton,
   MultipleSelect,
-} from '../../components/atoms/';
-import styles from './styles';
-import {BottomUpload, Upload} from '../../components/molecules';
-import {useEffect} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {Formik} from 'formik';
+  CustomHeader,
+  BottomUpload, 
+  Upload
+} from '../../components';
 import {formProductSchema} from '../../plugins';
-import {doProduct} from '../../store/actions/seller/addProduct';
-import {getKategori} from '../../store/actions/kategori';
-import Animated from 'react-native-reanimated';
-import {getProductSeller} from '../../store/actions';
-import {useIsFocused} from '@react-navigation/native';
+import {doProduct, getKategori} from '../../store/actions';
 import { SIZES } from '../../themes';
 
 const thisRef = createRef();
@@ -66,7 +64,8 @@ export default function FormDetail({navigation, route}) {
   const [image, setAvatar] = useState('-');
   return (
     <>
-      <BackTitle
+      <CustomHeader
+        type="BackTitle"
         title="Lengkapi Detail Produk"
         onPress={() => navigation.goBack()}
       />

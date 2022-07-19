@@ -86,7 +86,7 @@ const SearchProduct = ({navigation}) => {
               Tidak ada produk yang ditemukan
             </Text>
           )}
-          numColumns={2}
+          numColumns={4}
           showsVerticalScrollIndicator={false}
           columnWrapperStyle={styles.cardProductWrapper}
         />
