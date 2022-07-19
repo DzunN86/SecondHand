@@ -5,14 +5,16 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import {COLORS} from '../../../themes';
 
 const IconSize = 24;
-function BackHeaderLove({onPress, isLoved}) {
+function BackHeaderLove({onPress, isLoved, pressLoved}) {
   return (
     <>
-      <TouchableOpacity onPress={onPress}>
-        <View style={styles.container}>
+      <View style={styles.container}>
+        <TouchableOpacity onPress={onPress}>
           <View style={styles.iconButton}>
             <Icon name="arrow-left" size={IconSize} color={COLORS.black} />
           </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={pressLoved}>
           <View style={styles.iconButton}>
             <Octicons
               name={isLoved ? 'heart-fill' : 'heart'}
@@ -20,8 +22,8 @@ function BackHeaderLove({onPress, isLoved}) {
               color={COLORS.danger}
             />
           </View>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </View>
     </>
   );
 }

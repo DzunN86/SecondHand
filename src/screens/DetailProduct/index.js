@@ -14,6 +14,11 @@ import {
 } from '../../components';
 import {tawarSchema} from '../../plugins';
 import {doBid, getDetail} from '../../store/actions';
+import {
+  addItemWishlist,
+  deleteItemWishlist,
+  getItemWishlist,
+} from '../../store/actions/wishlist';
 import {COLORS, FONTS} from '../../themes';
 import {formatRupiah} from '../../utils';
 import styles from './styles';
@@ -23,17 +28,39 @@ const DetailProduct = ({route, navigation}) => {
   const {dataProduk, isLoading} = useSelector(state => state.detailReducer);
   const {id_product} = route.params;
   const LoadingSend = useSelector(state => state.commonReducers.isLoading);
-  const {userData} = useSelector(state => state.loginReducer);
+  const {userData, isLogin} = useSelector(state => state.loginReducer);
   const [autoFocus, setAutoFocus] = useState(false);
   const sheetRef = useRef(null);
+  const dataWishlist = useSelector(state =>
+    state.wishlistReducer.dataWishlist.filter(
+      item => item.product_id === id_product,
+    ),
+  );
+  const [isBookmark, setIsBookmark] = useState(dataWishlist.length > 0);
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index);
   }, []);
 
+  const handleToggleBookmark = () => {
+    setIsBookmark(!isBookmark);
+    if (isBookmark) {
+      dispatch(deleteItemWishlist(dataWishlist[0]?.id));
+    }
+    if (!isBookmark) {
+      dispatch(addItemWishlist(dataProduk?.id));
+    }
+  };
+
   useEffect(() => {
     dispatch(getDetail(id_product));
   }, []);
+
+  useEffect(() => {
+    if (isLogin) {
+      dispatch(getItemWishlist());
+    }
+  }, [isBookmark]);
 
   const handleSheetChanges = useCallback(index => {
     if (index == 2) {
@@ -47,6 +74,7 @@ const DetailProduct = ({route, navigation}) => {
     dispatch(doBid(id_product, bid_price, navigation));
     sheetRef.current?.snapToIndex(1);
   };
+
   const BottomSheetContent = () => (
     <View style={styles.bSheet}>
       <View>
@@ -101,6 +129,7 @@ const DetailProduct = ({route, navigation}) => {
       </Formik>
     </View>
   );
+
   if (isLoading) {
     return (
       <View
@@ -123,7 +152,9 @@ const DetailProduct = ({route, navigation}) => {
             style={styles.bgProduk}>
             <CustomHeader
               type="BackHeaderLove"
-              onPress={() => navigation.navigate('MainApp')}
+              onPress={() => navigation.goBack()}
+              isLoved={isBookmark}
+              presLoved={handleToggleBookmark}
             />
           </ImageBackground>
           <View style={styles.containerKeterangan}>
