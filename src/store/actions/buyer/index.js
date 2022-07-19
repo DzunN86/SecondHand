@@ -25,8 +25,8 @@ export const doBid = (product_id, bid_price, navigation) => async dispatch => {
       }
     })
     .catch(err => {
-      dispatch(setBidFailed(err.response.data.message));
+      dispatch(setBidFailed(err.response.message));
       dispatch(setLoading(false));
-      showError(err.response.data.message);
+      showError(err.response.message);
     });
 };

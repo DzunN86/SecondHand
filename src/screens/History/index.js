@@ -9,7 +9,7 @@ import {COLORS, RADIUS} from '../../themes';
 import {formatDateTime, formatRupiah, sortDate} from '../../utils';
 import styles from './styles';
 
-function CardBuyerOrder({
+function CardHistory({
   image_url,
   status,
   product_name,
@@ -45,9 +45,7 @@ function CardBuyerOrder({
             </Text>
             <View style={styles.wrapper}>
               {bid_price && (
-                <Text style={styles.labelText}>
-                  {formatRupiah(bid_price)}
-                </Text>
+                <Text style={styles.labelText}>{formatRupiah(bid_price)}</Text>
               )}
               <View
                 style={[styles.badgeStatus, {backgroundColor: getBgColor()}]}>
@@ -151,19 +149,22 @@ const History = () => {
           flex: 1,
           marginTop: 5,
         }}>
-        {history.sort(sortDate).map(item =>
-          isLoading ? (
-            <LoadingCard />
-          ) : (
-            <CardBuyerOrder
-              product_name={item.product_name}
-              date={item.transaction_date}
-              bid_price={item.price}
-              status={item.status}
-              image_url={item.image_url}
-            />
-          ),
-        )}
+        {history
+          .sort(sortDate)
+          .map((item, index) =>
+            isLoading ? (
+              <LoadingCard key={index} />
+            ) : (
+              <CardHistory
+                key={item.id}
+                product_name={item.product_name}
+                date={item.transaction_date}
+                bid_price={item.price}
+                status={item.status}
+                image_url={item.image_url}
+              />
+            ),
+          )}
       </View>
     </ScrollView>
   );

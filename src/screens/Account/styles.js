@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {COLORS, FONTS, SIZES} from '../../themes';
+import {FONTS} from '../../themes';
 
 export default StyleSheet.create({
   menuWrapper: {
@@ -13,7 +13,6 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   doLogin: {
-    marginTop: SIZES.height * 0.3,
     alignSelf: 'center',
   },
 });

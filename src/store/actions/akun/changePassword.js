@@ -24,9 +24,9 @@ export const doChangePassword = (current_password, new_password, confirm_passwor
       console.log('RES UPDATE', res);
     })
     .catch(err => {
-      dispatch(setPasswordFailed(err.response.data.message));
+      dispatch(setPasswordFailed(err.response.message));
       dispatch(setLoading(false));
-      showError(err.response.data.message);
+      showError(err.response.message);
       console.log('RES UPDATE FAILED', err);
     });
 };

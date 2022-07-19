@@ -9,7 +9,7 @@ export default StyleSheet.create({
   separator: {
     height: 0.5,
     width: '100%',
-    backgroundColor: '#c8c8c8',
+    backgroundColor: COLORS.grey2,
   },
   menuItemText: {
     ...FONTS.h4,

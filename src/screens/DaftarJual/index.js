@@ -109,13 +109,6 @@ export default function DaftarJual({navigation}) {
             active={btnTerjualActive}
             onPress={() => terjual()}
           />
-          <IconButton
-            style={{marginRight: 10}}
-            icon="dollar-sign"
-            title="Histori"
-            active={btnTerjualActive}
-            onPress={() => terjual()}
-          />
         </View>
       </ScrollView>
       <>{listIconBtn()}</>

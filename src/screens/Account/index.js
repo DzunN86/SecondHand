@@ -1,9 +1,10 @@
 import {useIsFocused} from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import {Alert, Button, Text, View} from 'react-native';
+import {Alert, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {version} from '../../../package.json';
-import {CustomHeader, Menu, Upload} from '../../components';
+import {NotLogin} from '../../assets';
+import {CustomHeader, EmptyState, Menu, Upload} from '../../components';
 import {showSuccess} from '../../plugins';
 import {doGetProfile, logoutUser} from '../../store/actions';
 import styles from './styles';
@@ -11,7 +12,7 @@ import styles from './styles';
 export default function Account({navigation}) {
   const dispatch = useDispatch();
   const {userProfile} = useSelector(state => state.getUserReducer);
-  const {userData} = useSelector(state => state.loginReducer);
+  const {userData, isLogin} = useSelector(state => state.loginReducer);
   const isFocused = useIsFocused();
 
   const onPressLogout = () => {
@@ -36,16 +37,12 @@ export default function Account({navigation}) {
   }, [dispatch, isFocused]);
 
   return (
-    <View>
+    <View style={{flex: 1}}>
       <CustomHeader
         type="HeaderTitle"
-        title={
-          userData.access_token
-            ? userProfile.full_name || userData.name
-            : 'Akun'
-        }
+        title={isLogin ? userProfile.full_name || userData.name : 'Akun'}
       />
-      {userData.access_token ? (
+      {isLogin ? (
         <>
           <Upload
             source={userProfile.image_url}
@@ -75,8 +72,8 @@ export default function Account({navigation}) {
               title="History"
               onPress={() => navigation.navigate('HistoryScreen')}
             />
-            <Menu 
-              name="account-cog" 
+            <Menu
+              name="account-cog"
               title="Pengaturan Akun"
               onPress={() => navigation.navigate('SettingsScreen')}
             />
@@ -85,12 +82,13 @@ export default function Account({navigation}) {
           <Text style={styles.version}> Version {version} </Text>
         </>
       ) : (
-        <View style={styles.doLogin}>
-          <Button
-            title="Masuk"
-            onPress={() => navigation.navigate('LoginScreen')}
-          />
-        </View>
+        <EmptyState
+          image={NotLogin}
+          title="Anda belum login"
+          subTitle="Silahkan login terlebih dahulu"
+          labelBtn={'Login'}
+          onPress={() => navigation.navigate('LoginScreen')}
+        />
       )}
     </View>
   );
