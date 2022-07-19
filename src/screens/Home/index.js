@@ -139,7 +139,7 @@ export default function Home({navigation}) {
     <>
       <FlatList
         ListHeaderComponent={renderHeaderComponent}
-        numColumns={4}
+        numColumns={2}
         showsVerticalScrollIndicator={false}
         columnWrapperStyle={styles.cardProductWrapper}
         data={products.sort(sortDate)}

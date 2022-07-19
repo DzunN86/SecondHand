@@ -60,6 +60,9 @@ export const formProductSchema = Yup.object().shape({
   .required('Silahkan pilih kategori'),
   description: Yup.string()
   .required('Silahkan masukan deskripsi'),
+  image: Yup.string()
+  .required('Silahkan masukan deskripsi')
+  .min(5, 'Silahkan tambahkan image produk'),
 })
 
 export const tawarSchema = Yup.object().shape({

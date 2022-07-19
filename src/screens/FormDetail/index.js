@@ -1,5 +1,5 @@
 import {View, ScrollView} from 'react-native';
-import React, {createRef, useState, useEffect} from 'react';
+import React, {createRef, useState, useEffect, useRef} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Formik} from 'formik';
 import Animated from 'react-native-reanimated';
@@ -61,7 +61,24 @@ export default function FormDetail({navigation, route}) {
       console.log(error);
     }
   };
-  const [image, setAvatar] = useState('-');
+
+  const formRef = useRef()
+  var a = formRef.current?.values.image
+  const [image, setAvatar] = useState(a);
+
+  const initialValues = {
+    name_product: '',
+    base_price: '',
+    category_ids: [],
+    description: '',
+    image: '-',
+    location: '',
+  }
+
+  console.log(image)
+  console.log(formRef.current?.values.image)
+  console.log(typeof formRef.current?.values.image)
+
   return (
     <>
       <CustomHeader
@@ -79,14 +96,8 @@ export default function FormDetail({navigation, route}) {
       <Animated.View
         style={{opacity: Animated.add(0.1, Animated.multiply(anim, 1.0))}}>
         <Formik
-          initialValues={{
-            name_product: '',
-            base_price: '',
-            category_ids: [],
-            description: '',
-            image: '',
-            location: '',
-          }}
+          initialValues={initialValues}
+          innerRef={formRef}
           validationSchema={formProductSchema}
           onSubmit={values => onPressTerbit(values)}>
           {({
@@ -145,7 +156,7 @@ export default function FormDetail({navigation, route}) {
                   />
                   <Upload
                     style={{marginTop: 10}}
-                    source={image}
+                    source={values.image}
                     onPress={() => thisRef.current.snapTo(0)}
                     name="camera"
                   />
