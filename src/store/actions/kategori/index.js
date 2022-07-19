@@ -24,8 +24,8 @@ export const getKategori = () => async dispatch => {
       dispatch(setLoading(false));
     })
     .catch(err => {
-      dispatch(setCategoryFailed(err.response.data.message));
+      dispatch(setCategoryFailed(err.response.message));
       dispatch(setLoading(false));
-      showError(err.response.data.message);
+      showError(err.response.message);
     });
 };

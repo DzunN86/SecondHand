@@ -12,7 +12,7 @@ import styles from './style';
 import {useDispatch, useSelector} from 'react-redux';
 import {getNotification, ReadNotification} from '../../store/actions';
 import {CustomHeader} from '../../components/atoms';
-import {formatDateTime, formatRupiah} from '../../utils';
+import {formatDateTime, formatRupiah, sortDate} from '../../utils';
 import {useIsFocused} from '@react-navigation/native';
 import {Skeleton} from '@rneui/base';
 import {COLORS, RADIUS} from '../../themes';
@@ -30,6 +30,22 @@ function CardNotif({
   isRead,
   onPress,
 }) {
+  const titleNotif = () => {
+    switch (status) {
+      case 'accepted':
+        return 'Penawaranmu Telah Diterima';
+      case 'create':
+        return 'Berhasil di terbitkan';
+      case 'bid':
+        return 'Penawaran Produk';
+      case 'declined':
+        return 'Penawaran Ditolak';
+      case 'Dibatalkan':
+        return 'Penawaran Ditolak';
+      default:
+        return '';
+    }
+  };
   return (
     <>
       <TouchableOpacity onPress={onPress}>
@@ -37,11 +53,7 @@ function CardNotif({
           <Image source={{uri: image_url}} style={styles.productImage}></Image>
           <View style={styles.productInfo}>
             <View style={styles.wrapperDate}>
-              <Text style={styles.label}>
-                {status == 'bid' || status == 'terima'
-                  ? 'Penawaran produk'
-                  : 'Produk Baru Anda'}
-              </Text>
+              <Text style={styles.label}>{titleNotif()}</Text>
               <View style={styles.wrapper}>
                 <Text style={styles.label}>{formatDateTime(date)}</Text>
                 {!isRead && <View style={styles.isRead} />}
@@ -60,11 +72,11 @@ function CardNotif({
                 {'Ditawar ' + formatRupiah(bid_price)}
               </Text>
             )}
-            {status == 'bid' || status == 'terima' ? (
+            {status == 'accepted' && (
               <Text style={styles.label}>
                 Kamu akan segera dihubungi penjual via whatsapp
               </Text>
-            ) : null}
+            )}
           </View>
         </View>
       </TouchableOpacity>
@@ -143,8 +155,9 @@ export default function Notifikasi({navigation}) {
   }, [isFocused, refreshing]);
 
   const onclick = item => {
-    dispatch(ReadNotification(item?.id));
-    dispatch(getNotification());
+    if (item?.read) {
+      dispatch(ReadNotification(item?.id));
+    }
 
     switch (item?.status) {
       case 'accepted':
@@ -152,7 +165,9 @@ export default function Notifikasi({navigation}) {
           'Penawaranmu telah diterima, silahkan tunggu konfirmasi dari penjual',
         );
         if (item?.Product !== null) {
-          navigation.navigate('DetailBuyerOrderScreen', {id_order: item?.order_id});
+          navigation.navigate('DetailBuyerOrderScreen', {
+            id_order: item?.order_id,
+          });
         } else {
           Alert.alert(
             'Produk Terhapus',
@@ -182,10 +197,11 @@ export default function Notifikasi({navigation}) {
         break;
       case 'bid':
         if (item?.Product !== null) {
-          if(item?.order_id){
-
-            navigation.navigate('InfoPenawaranScreen', {id_order: item?.order_id});
-          }else {
+          if (item?.order_id) {
+            navigation.navigate('InfoPenawaranScreen', {
+              id_order: item?.order_id,
+            });
+          } else {
             Alert.alert(
               'Order Tidak Ditemukan',
               'Order yang anda tawarkan tidak ditemukan, mungkin telah dihapus',
@@ -200,7 +216,9 @@ export default function Notifikasi({navigation}) {
         break;
       case 'create':
         if (item?.Product !== null) {
-          navigation.navigate('DetailProductScreen', {id_product: item?.Product?.id});
+          navigation.navigate('DetailProductScreen', {
+            id_product: item?.Product?.id,
+          });
         } else {
           Alert.alert(
             'Barang tidak ditemukan',
@@ -217,21 +235,25 @@ export default function Notifikasi({navigation}) {
   return (
     <View style={styles.container}>
       <CustomHeader type="HeaderTitle" title="Notifikasi" />
-
-      <FlatList
-        data={notif}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={() => {
-              setRefreshing(true);
-            }}
-          />
-        }
-        renderItem={({item}) =>
-          isLoading ? (
-            <LoadingNotif />
-          ) : (
+      {isLoading ? (
+        <>
+          <LoadingNotif />
+          <LoadingNotif />
+          <LoadingNotif />
+          <LoadingNotif />
+        </>
+      ) : (
+        <FlatList
+          data={notif.sort(sortDate)}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={() => {
+                setRefreshing(true);
+              }}
+            />
+          }
+          renderItem={({item}) => (
             <CardNotif
               image_url={item.image_url}
               status={item.status}
@@ -243,19 +265,19 @@ export default function Notifikasi({navigation}) {
               isRead={item.read}
               onPress={() => onclick(item)}
             />
-          )
-        }
-        keyExtractor={item => item.id}
-        showsVerticalScrollIndicator={false}
-        ListEmptyComponent={() => (
-          <EmptyState
-            image={EmptyNotif}
-            title="Tidak ada produk yang diminati"
-            subTitle="Sabar ya rejeki nggak kemana kok"
-            style={styles.emptyState}
-          />
-        )}
-      />
+          )}
+          keyExtractor={item => item.id}
+          showsVerticalScrollIndicator={false}
+          ListEmptyComponent={() => (
+            <EmptyState
+              image={EmptyNotif}
+              title="Tidak ada produk yang diminati"
+              subTitle="Sabar ya rejeki nggak kemana kok"
+              style={styles.emptyState}
+            />
+          )}
+        />
+      )}
     </View>
   );
 }

@@ -20,6 +20,7 @@ import Wishlist from './Wishlist';
 import BuyerOrder from './BuyerOrder';
 import DetailOrderBuyer from './DetailBuyerOrder';
 import EditProduct from './EditProduct';
+import History from './History';
 
 export {
   EditProduct,
@@ -44,4 +45,5 @@ export {
   Wishlist,
   BuyerOrder,
   DetailOrderBuyer,
+  History,
 };

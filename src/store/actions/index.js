@@ -8,3 +8,4 @@ export * from './detail';
 export * from './buyer';
 export * from './kategori';
 export * from './buyer/buyerOrder';
+export * from './history';

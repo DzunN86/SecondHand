@@ -41,20 +41,31 @@ export const getNotification = () => async dispatch => {
       dispatch(setNotificationLoading(false));
     })
     .catch(err => {
-      dispatch(setNotificationFailed(err.response.data.message));
+      dispatch(setNotificationFailed(err.message));
       dispatch(setNotificationLoading(false));
-      showError(err.response.data.message);
+      showError(err.message);
     });
 };
 
-export const ReadNotification = id_notif => async dispatch => {
-  dispatch(setNotificationLoading(true));
+export const ReadNotification = id_notif => async (dispatch) => {
   await PatchNotif(id_notif)
     .then(() => {
-      dispatch(setNotificationLoading(false));
+      getNotif()
+        .then(res => {
+          dispatch(setNotificationSuccess(res.data));
+          let total = 0;
+          res.data.map(item => {
+            if (item.read === false) {
+              total++;
+            }
+          });
+          dispatch(countNotification(total));
+        })
+        .catch(err => {
+          dispatch(setNotificationFailed(err.message));
+          showError(err.message);
+        });
     })
 
-    .catch(() => {
-      dispatch(setNotificationLoading(false));
-    });
+    .catch(() => {});
 };

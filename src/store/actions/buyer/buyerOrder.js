@@ -40,9 +40,9 @@ export const fetchBuyerOrder = () => async dispatch => {
       dispatch(setBuyerOrderLoading(false));
     })
     .catch(err => {
-      dispatch(setBuyerOrderFailed(err.response.data.message));
+      dispatch(setBuyerOrderFailed(err.response.message));
       dispatch(setBuyerOrderLoading(false));
-      showError(err.response.data.message);
+      showError(err.response.message);
     });
 };
 
@@ -54,9 +54,9 @@ export const fetchDetailBuyerOrder = id => async dispatch => {
       dispatch(setBuyerOrderLoading(false));
     })
     .catch(err => {
-      dispatch(setBuyerOrderFailed(err.response.data.message));
+      dispatch(setBuyerOrderFailed(err.response.message));
       dispatch(setBuyerOrderLoading(false));
-      showError(err.response.data.message);
+      showError(err.response.message);
     });
 };
 
@@ -69,7 +69,7 @@ export const putBuyerOrder =
       })
       .catch(err => {
         dispatch(setBuyerOrderLoading(false));
-        showError(err.response.data.message);
+        showError(err.response.message);
         console.log(err);
       });
   };

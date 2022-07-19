@@ -17,7 +17,8 @@ import {
   Wishlist,
   BuyerOrder,
   DetailOrderBuyer,
-  EditProduct
+  EditProduct,
+  History,
 } from '../screens';
 import MainApp from './MainApp';
 
@@ -50,6 +51,7 @@ function Navigation() {
       <Stack.Screen name="BuyerOrderScreen" component={BuyerOrder} />
       <Stack.Screen name="DetailBuyerOrderScreen" component={DetailOrderBuyer} />
       <Stack.Screen name="EditProductScreen" component={EditProduct} />
+      <Stack.Screen name="HistoryScreen" component={History} />
     </Stack.Navigator>
   );
 }
