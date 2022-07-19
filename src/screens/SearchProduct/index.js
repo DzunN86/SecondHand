@@ -2,14 +2,14 @@ import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   SafeAreaView,
-  Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import {useDispatch, useSelector} from 'react-redux';
-import {CardProduct} from '../../components';
+import {EmptySearch} from '../../assets';
+import {CardProduct, EmptyState} from '../../components';
 import {getProduct} from '../../store/actions/home';
 import {COLORS} from '../../themes';
 import styles from './styles';
@@ -67,6 +67,7 @@ const SearchProduct = ({navigation}) => {
       {onSearch ? (
         <FlatList
           data={products}
+          keyExtractor={item => item.id}
           renderItem={({item}) => (
             <CardProduct
               name={item.name}
@@ -80,11 +81,15 @@ const SearchProduct = ({navigation}) => {
               }
             />
           )}
-          keyExtractor={item => item.id}
           ListEmptyComponent={() => (
-            <Text style={styles.textEmpty}>
-              Tidak ada produk yang ditemukan
-            </Text>
+            <EmptyState
+              image={EmptySearch}
+              title="Tidak ada hasil yang ditemukan"
+              subTitle="Coba sesuaikan pencarian Anda
+              untuk menemukan apa yang Anda cari"
+              labelBtn="Lihat Produk"
+              style={{marginTop: 20, paddingHorizontal: 9}}
+            />
           )}
           numColumns={2}
           showsVerticalScrollIndicator={false}

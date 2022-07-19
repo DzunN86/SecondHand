@@ -11,6 +11,8 @@ import IconButton from './IconButton';
 import CardFoto from './CardFoto';
 import CardProduk from './CardProduk';
 import CardDeskripsi from './CardDeskripsi';
+import EmptyState from './EmptyState';
+import CardWishlist from './CardWishlist';
 
 export {
   CardDeskripsi,
@@ -26,4 +28,6 @@ export {
   BottomSheetComponent,
   CardBuyer,
   IconButton,
+  EmptyState,
+  CardWishlist,
 };

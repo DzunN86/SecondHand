@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, RADIUS, FONTS } from '../../../themes';
+import { COLORS, RADIUS, FONTS, SIZES } from '../../../themes';
 
 export default StyleSheet.create({
   deskripsi: {
@@ -11,6 +11,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
+    minHeight: SIZES.height * 0.19,
     marginVertical: 16,
     paddingVertical: 16,
   },

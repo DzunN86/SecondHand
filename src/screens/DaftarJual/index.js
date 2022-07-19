@@ -62,7 +62,7 @@ export default function DaftarJual({navigation}) {
   }, [dispatch, isFocused]);
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
+    <ScrollView>
       <CustomHeader type="HeaderTitle" title="Daftar Jual Saya" />
       <View style={{marginHorizontal: 16}}>
         <CardFoto
@@ -89,28 +89,29 @@ export default function DaftarJual({navigation}) {
             justifyContent: 'space-between',
           }}>
           <IconButton
-            style={{marginRight: 16}}
+            style={{marginRight: 10}}
             icon="box"
             active={btnProdukActive}
             title="Produk"
             onPress={() => produk()}
           />
           <IconButton
-            style={{marginRight: 16}}
+            style={{marginRight: 10}}
             icon="heart"
             title="Diminati"
             active={btnDiminatiActive}
             onPress={() => diminati()}
           />
           <IconButton
-            style={{marginRight: 16}}
+            style={{marginRight: 10}}
             icon="dollar-sign"
             title="Terjual"
             active={btnTerjualActive}
             onPress={() => terjual()}
           />
           <IconButton
-            icon="rotate-ccw"
+            style={{marginRight: 10}}
+            icon="dollar-sign"
             title="Histori"
             active={btnTerjualActive}
             onPress={() => terjual()}

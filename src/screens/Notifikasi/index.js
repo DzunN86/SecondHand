@@ -5,20 +5,22 @@ import {
   TouchableOpacity,
   FlatList,
   RefreshControl,
+  Alert,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './style';
-// import { product } from '../../assets'
 import {useDispatch, useSelector} from 'react-redux';
-import {getNotification} from '../../store/actions/notification';
+import {getNotification, ReadNotification} from '../../store/actions';
 import {CustomHeader} from '../../components/atoms';
 import {formatDateTime, formatRupiah} from '../../utils';
 import {useIsFocused} from '@react-navigation/native';
 import {Skeleton} from '@rneui/base';
 import {COLORS, RADIUS} from '../../themes';
+import {EmptyState} from '../../components';
+import {EmptyNotif} from '../../assets';
+import {showSuccess} from '../../plugins';
 
 function CardNotif({
-  navigation,
   image_url,
   status,
   product_name,
@@ -26,11 +28,11 @@ function CardNotif({
   bid_price,
   date,
   isRead,
+  onPress,
 }) {
   return (
     <>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('InfoPenawaranScreen')}>
+      <TouchableOpacity onPress={onPress}>
         <View style={styles.productNotification}>
           <Image source={{uri: image_url}} style={styles.productImage}></Image>
           <View style={styles.productInfo}>
@@ -140,6 +142,78 @@ export default function Notifikasi({navigation}) {
     setRefreshing(false);
   }, [isFocused, refreshing]);
 
+  const onclick = item => {
+    dispatch(ReadNotification(item?.id));
+    dispatch(getNotification());
+
+    switch (item?.status) {
+      case 'accepted':
+        showSuccess(
+          'Penawaranmu telah diterima, silahkan tunggu konfirmasi dari penjual',
+        );
+        if (item?.Product !== null) {
+          navigation.navigate('DetailBuyerOrderScreen', {id_order: item?.order_id});
+        } else {
+          Alert.alert(
+            'Produk Terhapus',
+            'Produk ini telah dihapus oleh penjual',
+          );
+        }
+        break;
+      case 'declined':
+        Alert.alert('Tawar Lagi?', 'Apakah anda menawar lagi?', [
+          {text: 'Tidak', style: 'cancel'},
+          {
+            text: 'Ya',
+            onPress: () => {
+              if (item?.Product !== null) {
+                navigation.navigate('DetailProductScreen', {
+                  id: item?.Product?.id,
+                });
+              } else {
+                Alert.alert(
+                  'Barang tidak ditemukan',
+                  'Barang yang ingin anda tawarkan tidak ditemukan, mungkin telah dihapus',
+                );
+              }
+            },
+          },
+        ]);
+        break;
+      case 'bid':
+        if (item?.Product !== null) {
+          if(item?.order_id){
+
+            navigation.navigate('InfoPenawaranScreen', {id_order: item?.order_id});
+          }else {
+            Alert.alert(
+              'Order Tidak Ditemukan',
+              'Order yang anda tawarkan tidak ditemukan, mungkin telah dihapus',
+            );
+          }
+        } else {
+          Alert.alert(
+            'Produk Terhapus',
+            'Produk ini telah dihapus oleh penjual',
+          );
+        }
+        break;
+      case 'create':
+        if (item?.Product !== null) {
+          navigation.navigate('DetailProductScreen', {id_product: item?.Product?.id});
+        } else {
+          Alert.alert(
+            'Barang tidak ditemukan',
+            'Produk ini telah dihapus oleh penjual',
+          );
+        }
+        break;
+
+      default:
+        break;
+    }
+  };
+
   return (
     <View style={styles.container}>
       <CustomHeader type="HeaderTitle" title="Notifikasi" />
@@ -167,11 +241,20 @@ export default function Notifikasi({navigation}) {
               date={item.createdAt}
               navigation={navigation}
               isRead={item.read}
+              onPress={() => onclick(item)}
             />
           )
         }
         keyExtractor={item => item.id}
         showsVerticalScrollIndicator={false}
+        ListEmptyComponent={() => (
+          <EmptyState
+            image={EmptyNotif}
+            title="Tidak ada produk yang diminati"
+            subTitle="Sabar ya rejeki nggak kemana kok"
+            style={styles.emptyState}
+          />
+        )}
       />
     </View>
   );

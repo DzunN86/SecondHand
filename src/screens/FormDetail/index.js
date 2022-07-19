@@ -17,6 +17,7 @@ import {getKategori} from '../../store/actions/kategori';
 import Animated from 'react-native-reanimated';
 import {getProductSeller} from '../../store/actions';
 import {useIsFocused} from '@react-navigation/native';
+import { SIZES } from '../../themes';
 
 const thisRef = createRef();
 const anim = new Animated.Value(1);
@@ -74,6 +75,7 @@ export default function FormDetail({navigation, route}) {
         setAvatar={setAvatar}
         thisRef={thisRef}
         anim={anim}
+        deskripsi="Choose your image product"
       />
       <Animated.View
         style={{opacity: Animated.add(0.1, Animated.multiply(anim, 1.0))}}>
@@ -100,7 +102,7 @@ export default function FormDetail({navigation, route}) {
           }) => (
             <>
               <ScrollView contentContainerStyle={styles.scroll}>
-                <View style={{marginVertical: 10, marginHorizontal: 25}}>
+                <View style={{marginVertical: 10, marginHorizontal: 16, minHeight: SIZES.height * 0.95}}>
                   <CustomInput
                     label="Nama Produk"
                     placeholder="Nama Produk"
@@ -143,31 +145,28 @@ export default function FormDetail({navigation, route}) {
                     error={touched.description && errors.description}
                   />
                   <Upload
+                    style={{marginTop: 10}}
                     source={image}
                     onPress={() => thisRef.current.snapTo(0)}
                     name="camera"
                   />
                 </View>
-                <View
-                  style={{
-                    marginVertical: 90,
-                    marginHorizontal: 25,
-                    flexDirection: 'column',
-                  }}>
+                <View style={styles.buttonWrapper}>
                   <CustomButton
+                    style={{width: '48%'}}
                     primary
+                    type="daftarjual"
                     title="Preview"
-                    style={styles.button1}
                     onPress={() =>
                       navigation.navigate('PreviewScreen', {values, image})
                     }
                     disabled={!(dirty && isValid)}
                   />
                   <CustomButton
+                    style={{width: '48%'}}
                     primary
+                    type="daftarjual"
                     title="Terbitkan"
-                    loading={isLoading}
-                    style={styles.button2}
                     disabled={!(dirty && isValid) || isLoading}
                     onPress={handleSubmit}
                   />

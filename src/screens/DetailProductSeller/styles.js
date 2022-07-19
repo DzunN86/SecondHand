@@ -11,9 +11,8 @@ export default StyleSheet.create({
   },
   buttonWrapper: {
     width: '100%',
-    position: 'absolute',
     bottom: 16,
-    paddingHorizontal: 16,
+    marginTop: 16,
     flexDirection: 'row',
     justifyContent: 'space-between'
   }
