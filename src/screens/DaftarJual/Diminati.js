@@ -1,8 +1,17 @@
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {Skeleton} from '@rneui/base';
 import React, {useEffect} from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {
+  FlatList,
+  Image,
+  LogBox,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import {EmptyOrder} from '../../assets';
+import {EmptyState} from '../../components';
 import {getOrderSeller} from '../../store/actions/seller/getSellerOrder';
 import {COLORS, RADIUS} from '../../themes';
 import {formatDateTime, formatRupiah} from '../../utils';
@@ -21,7 +30,7 @@ function CardDiminati({
     if (status == 'pending') {
       return COLORS.accent;
     }
-    if (status == 'accepted') {
+    if (status == 'accepted' || status == 'seller') {
       return COLORS.success;
     }
     if (status == 'declined') {
@@ -71,7 +80,7 @@ function LoadingCard() {
         width={60}
         height={60}
         backgroundColor={COLORS.grey7}
-              skeletonStyle={{backgroundColor: COLORS.grey3}}
+        skeletonStyle={{backgroundColor: COLORS.grey3}}
         style={{
           borderRadius: RADIUS.small,
         }}
@@ -82,7 +91,7 @@ function LoadingCard() {
             animation="pulse"
             width={150}
             backgroundColor={COLORS.grey7}
-              skeletonStyle={{backgroundColor: COLORS.grey3}}
+            skeletonStyle={{backgroundColor: COLORS.grey3}}
             style={{
               borderRadius: RADIUS.small,
             }}
@@ -91,7 +100,7 @@ function LoadingCard() {
             animation="pulse"
             width={50}
             backgroundColor={COLORS.grey7}
-              skeletonStyle={{backgroundColor: COLORS.grey3}}
+            skeletonStyle={{backgroundColor: COLORS.grey3}}
             style={{
               borderRadius: RADIUS.small,
             }}
@@ -101,7 +110,7 @@ function LoadingCard() {
           animation="pulse"
           width={100}
           backgroundColor={COLORS.grey7}
-              skeletonStyle={{backgroundColor: COLORS.grey3}}
+          skeletonStyle={{backgroundColor: COLORS.grey3}}
           style={{
             marginTop: 10,
             borderRadius: RADIUS.small,
@@ -112,7 +121,7 @@ function LoadingCard() {
             animation="pulse"
             width={70}
             backgroundColor={COLORS.grey7}
-              skeletonStyle={{backgroundColor: COLORS.grey3}}
+            skeletonStyle={{backgroundColor: COLORS.grey3}}
             style={{
               marginTop: 10,
               borderRadius: RADIUS.small,
@@ -122,7 +131,7 @@ function LoadingCard() {
             animation="pulse"
             width={20}
             backgroundColor={COLORS.grey7}
-              skeletonStyle={{backgroundColor: COLORS.grey3}}
+            skeletonStyle={{backgroundColor: COLORS.grey3}}
             style={{
               marginTop: 10,
               borderRadius: RADIUS.small,
@@ -142,10 +151,9 @@ const Diminati = () => {
   );
   const isFocused = useIsFocused();
 
-  console.log('Oreder Seller', orderSeller);
-
   useEffect(() => {
     dispatch(getOrderSeller());
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
   }, [dispatch, isFocused]);
   return (
     <View
@@ -153,24 +161,34 @@ const Diminati = () => {
         flex: 1,
         marginTop: 5,
       }}>
-      {orderSeller.map(item =>
-        isLoading ? (
-          <LoadingCard />
-        ) : (
-          <CardDiminati
-            key={'diminati' + item.id}
-            product_name={item.Product?.name}
-            date={item.transaction_date}
-            base_price={item.base_price}
-            bid_price={item.price}
-            status={item.status}
-            image_url={item.Product?.image_url}
-            onPress={() =>
-              navigation.navigate('InfoPenawaranScreen', {id_order: item.id})
-            }
+      <FlatList
+        data={orderSeller}
+        keyExtractor={item => item?.id}
+        renderItem={({item}) =>
+          isLoading ? (
+            <LoadingCard />
+          ) : (
+            <CardDiminati
+              product_name={item.Product?.name}
+              date={item.transaction_date}
+              base_price={item.base_price}
+              bid_price={item.price}
+              status={item.status}
+              image_url={item.Product?.image_url}
+              onPress={() =>
+                navigation.navigate('InfoPenawaranScreen', {id_order: item.id})
+              }
+            />
+          )
+        }
+        ListEmptyComponent={() => (
+          <EmptyState
+            image={EmptyOrder}
+            title="Tidak ada produk yang diminati"
+            subTitle="Sabar ya rejeki nggak kemana kok"
           />
-        ),
-      )}
+        )}
+      />
     </View>
   );
 };

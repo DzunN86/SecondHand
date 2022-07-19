@@ -5,6 +5,7 @@ import {
   GET_ORDERSELLER_FAILED,
   GET_ORDERSELLER_LOADING,
   GET_ORDERSELLER_SUCCESS,
+  SET_ORDERSELLER_TERJUAL,
 } from '../../types';
 
 export const setOrderSellerSuccess = data => ({
@@ -26,11 +27,31 @@ export const setOrderSellerFailed = error => ({
   payload: error,
 });
 
+export const setOrderSellerTerjual = data => ({
+  type: SET_ORDERSELLER_TERJUAL,
+  payload: data,
+});
+
 export const getOrderSeller = () => async dispatch => {
   dispatch(setOrderSellerLoading(true));
   await getSellerOrder()
     .then(res => {
-      dispatch(setOrderSellerSuccess(res.data));
+      const dataFilterTerjual = [];
+      const dataFilterDiminati = [];
+      // Terjual
+      const checkDataTerjual = async () => {
+        for (let i = 0; i < res.data.length; i += 1) {
+          if (res.data[i]?.status === 'seller') {
+            dataFilterTerjual.push(res.data[i]);
+          } else if (res.data[i]?.status !== 'available') {
+            dataFilterDiminati.push(res.data[i]);
+          }
+        }
+      };
+
+      checkDataTerjual();
+      dispatch(setOrderSellerTerjual(dataFilterTerjual));
+      dispatch(setOrderSellerSuccess(dataFilterDiminati));
       dispatch(setOrderSellerLoading(false));
     })
     .catch(err => {
