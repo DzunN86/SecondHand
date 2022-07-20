@@ -166,7 +166,7 @@ const DetailProduct = ({route, navigation}) => {
             <CardFoto
               text1={dataProduk.User?.full_name}
               text2={dataProduk?.location}
-              source={{uri: dataProduk?.User?.image_url}}
+              source={{uri: dataProduk?.User?.image_url || `https://ui-avatars.com/api/?name=${dataProduk.User?.full_name}&background=01A0C7&color=fff`}}
             />
             <CardDeskripsi
               title="Deskripsi"

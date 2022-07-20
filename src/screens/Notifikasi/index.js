@@ -271,8 +271,8 @@ export default function Notifikasi({navigation}) {
           ListEmptyComponent={() => (
             <EmptyState
               image={EmptyNotif}
-              title="Tidak ada produk yang diminati"
-              subTitle="Sabar ya rejeki nggak kemana kok"
+              title="Tidak ada notifikasi"
+              subTitle="Notifikasis akan muncul di sini"
               style={styles.emptyState}
             />
           )}

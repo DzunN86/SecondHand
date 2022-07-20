@@ -73,7 +73,7 @@ export default function InfoAkun({navigation}) {
             <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
               <View style={{marginVertical: 10, marginHorizontal: 16, minHeight: SIZES.height * 0.95}}>
               <Upload
-                source={image}
+                source={image || `https://ui-avatars.com/api/?name=${userProfile.full_name}&background=01A0C7&color=fff`}
                 style={{
                   alignSelf: 'center',
                 }}

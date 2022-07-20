@@ -69,7 +69,7 @@ const Preview = ({navigation, route}) => {
           <CardFoto
             text1={userProfile.full_name}
             text2={userProfile.city}
-            source={{uri: userProfile.image_url}}
+            source={{uri: userProfile.image_url || `https://ui-avatars.com/api/?name=${userProfile.full_name}&background=01A0C7&color=fff`}}
           />
           <CardDeskripsi
             title="Deskripsi"

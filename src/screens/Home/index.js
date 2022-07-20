@@ -144,7 +144,7 @@ export default function Home({navigation}) {
         numColumns={2}
         showsVerticalScrollIndicator={false}
         columnWrapperStyle={styles.cardProductWrapper}
-        data={products.sort(sortDate)}
+        data={products?.sort(sortDate)}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
         getItemLayout={getItemLayout}
@@ -158,8 +158,6 @@ export default function Home({navigation}) {
             title="Tidak ada hasil yang ditemukan"
             subTitle="Coba sesuaikan pencarian Anda
             untuk menemukan apa yang Anda cari"
-            labelBtn="Lihat Produk"
-            onPress={() => navigation.navigate('Home')}
           />
         )}
         refreshControl={
