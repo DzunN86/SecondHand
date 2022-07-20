@@ -48,7 +48,6 @@ export const deleteItemWishlist = id => async () => {
   await deleteWishlist(id)
     .then(() => {
       showSuccess('Delete item wishlist success');
-      getWishlist()
     })
     .catch(err => {
       showError(err.message);
