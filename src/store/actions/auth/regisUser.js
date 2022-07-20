@@ -21,13 +21,13 @@ export const doRegister = (data, navigation) => async dispatch => {
       navigation.navigate('LoginScreen');
       dispatch(setLoading(false));
       showSuccess('Register Success');
-      console.log('RES REGISTER', res);
+      console.log('RES REGISTER', res.respone);
     })
     .catch(err => {
       dispatch(setRegisterFailed(err.message));
       dispatch(setLoading(false));
       showError(err.message);
 
-      console.log('RES REGISTER FAILED', err);
+      console.log('RES REGISTER FAILED', err.response.data);
     });
 };

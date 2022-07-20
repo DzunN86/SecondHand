@@ -23,12 +23,11 @@ export const doLogin = (email, password, navigation) => async dispatch => {
       navigation.replace('MainApp');
       dispatch(setLoading(false));
       showSuccess('Login Success');
-      console.log('RES LOGIN', res);
     })
     .catch(err => {
       dispatch(setLoginFailed(err.message));
       dispatch(setLoading(false));
-      showError(err.message);
-      console.log('RES LOGIN FAILED', err);
+      showError(err.response.data?.message || err.message);
+      console.log('RES LOGIN FAILED', err.response.data);
     });
 };
