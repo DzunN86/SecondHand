@@ -11,7 +11,7 @@ import styles from './styles';
 
 const Wishlist = ({navigation}) => {
   const dispatch = useDispatch();
-  const {dataWishlist} = useSelector(state => state.wishlistReducer);
+  const {dataWishlist, isLoading} = useSelector(state => state.wishlistReducer);
 
   useEffect(() => {
     dispatch(getItemWishlist());
@@ -27,11 +27,13 @@ const Wishlist = ({navigation}) => {
         title="Wishlist Barang"
         onPress={() => navigation.goBack()}
       />
-      <EmptyState
-        image={EmptyOrder}
-        title="Tidak ada produk yang diminati"
-        subTitle="Sabar ya rejeki nggak kemana kok"
-      />
+      {dataWishlist.length === 0 && !isLoading && (
+        <EmptyState
+          image={EmptyOrder}
+          title="Tidak ada produk yang disukai"
+          subTitle="Silahkan lakukan pencarian produk yang Anda inginkan"
+        />
+      )}
       <View style={styles.productWrapper}>
         {dataWishlist.map((item, index) => (
           <CardWishlist
