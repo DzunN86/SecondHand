@@ -25,9 +25,9 @@ export const doLogin = (email, password, navigation) => async dispatch => {
       showSuccess('Login Success');
     })
     .catch(err => {
-      dispatch(setLoginFailed(err.message));
+      dispatch(setLoginFailed(err.response.message));
       dispatch(setLoading(false));
-      showError(err.response.data?.message || err.message);
+      showError(err.response.data?.message || err.response.message);
       console.log('RES LOGIN FAILED', err.response.data);
     });
 };

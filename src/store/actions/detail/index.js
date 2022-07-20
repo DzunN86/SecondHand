@@ -25,8 +25,8 @@ export const getDetail = (id) => async dispatch => {
       dispatch(setDetailLoading(false));
     })
     .catch(err => {
-      dispatch(setDetailFailed(err.message));
+      dispatch(setDetailFailed(err.response.message));
       dispatch(setDetailLoading(false));
-      showError(err.message);
+      showError(err.response.message);
     });
 };

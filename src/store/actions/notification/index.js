@@ -41,9 +41,9 @@ export const getNotification = () => async dispatch => {
       dispatch(setNotificationLoading(false));
     })
     .catch(err => {
-      dispatch(setNotificationFailed(err.message));
+      dispatch(setNotificationFailed(err.response.message));
       dispatch(setNotificationLoading(false));
-      showError(err.message);
+      showError(err.response.message);
     });
 };
 
@@ -62,8 +62,8 @@ export const ReadNotification = id_notif => async (dispatch) => {
           dispatch(countNotification(total));
         })
         .catch(err => {
-          dispatch(setNotificationFailed(err.message));
-          showError(err.message);
+          dispatch(setNotificationFailed(err.response.message));
+          showError(err.response.message);
         });
     })
 

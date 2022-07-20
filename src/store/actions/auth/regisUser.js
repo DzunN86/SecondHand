@@ -24,9 +24,9 @@ export const doRegister = (data, navigation) => async dispatch => {
       console.log('RES REGISTER', res.respone);
     })
     .catch(err => {
-      dispatch(setRegisterFailed(err.message));
+      dispatch(setRegisterFailed(err.response.message));
       dispatch(setLoading(false));
-      showError(err.message);
+      showError(err.response.message);
 
       console.log('RES REGISTER FAILED', err.response.data);
     });

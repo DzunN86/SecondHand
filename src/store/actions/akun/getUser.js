@@ -22,7 +22,7 @@ export const doGetProfile = () => async dispatch => {
     })
     .catch(err => {
       dispatch(setLoading(false));
-      dispatch(setGetUserFailed(err.message));
-      showError(err.message);
+      dispatch(setGetUserFailed(err.response.message));
+      showError(err.response.message);
     });
 };

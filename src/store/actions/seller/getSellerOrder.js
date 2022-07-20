@@ -55,9 +55,9 @@ export const getOrderSeller = () => async dispatch => {
       dispatch(setOrderSellerLoading(false));
     })
     .catch(err => {
-      dispatch(setOrderSellerFailed(err.message));
+      dispatch(setOrderSellerFailed(err.response.message));
       dispatch(setOrderSellerLoading(false));
-      showError(err.message);
+      showError(err.response.message);
     });
 };
 export const getDetailOrderSeller = id => async dispatch => {
@@ -69,6 +69,6 @@ export const getDetailOrderSeller = id => async dispatch => {
     })
     .catch(err => {
       dispatch(setOrderSellerLoading(false));
-      showError(err.message);
+      showError(err.response.message);
     });
 };
