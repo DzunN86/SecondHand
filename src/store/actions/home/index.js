@@ -33,7 +33,7 @@ export const getProduct = params => async dispatch => {
   dispatch(setProductLoading(true));
   await getBuyerProduct(`?search=${params?.search}&category_id=${params?.category_id}&status=${params?.status}&page=${params?.page}&per_page=${params?.per_page}`)
     .then(res => {
-      dispatch(setProductSuccess(res.data.data));
+      dispatch(setProductSuccess(res.data));
       dispatch(setProductLoading(false));
     })
     .catch(err => {
