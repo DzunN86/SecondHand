@@ -22,6 +22,6 @@ export const pathcOrderSeller = (id_order, status) => async dispatch => {
     })
     .catch(err => {
       dispatch(setLoadingUpdateOrder(false));
-      showError(err.message);
+      showError(err.response.message);
     });
 };

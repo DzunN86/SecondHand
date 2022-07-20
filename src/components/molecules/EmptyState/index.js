@@ -31,5 +31,5 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   title: {...FONTS.h2, color: COLORS.black, textAlign: 'center'},
-  subTitle: {...FONTS.body3, color: COLORS.grey1, textAlign: 'center'},
+  subTitle: {...FONTS.body3, color: COLORS.grey1, textAlign: 'center', marginTop: 8},
 });

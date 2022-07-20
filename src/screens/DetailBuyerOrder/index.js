@@ -156,7 +156,7 @@ const DetailOrderBuyer = ({route, navigation}) => {
                   ? dataDetailOrder?.Product?.User?.city
                   : '-'
               }
-              source={{uri: dataDetailOrder?.Product?.User?.image_url}}
+              source={{uri: dataDetailOrder?.Product?.User?.image_url || `https://ui-avatars.com/api/?name=${dataDetailOrder?.Product?.User?.full_name}&background=01A0C7&color=fff`}}
             />
             <CardDeskripsi
               title="Deskripsi"

@@ -26,9 +26,9 @@ export const doUpdate = (data, navigation) => async dispatch => {
       console.log('RES UPDATE', res);
     })
     .catch(err => {
-      dispatch(setUpdateFailed(err.message));
+      dispatch(setUpdateFailed(err.response.message));
       dispatch(setLoading(false));
-      showError(err.message);
+      showError(err.response.message);
       console.log('RES UPDATE FAILED', err);
     });
 };

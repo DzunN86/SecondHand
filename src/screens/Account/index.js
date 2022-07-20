@@ -45,7 +45,7 @@ export default function Account({navigation}) {
       {isLogin ? (
         <>
           <Upload
-            source={userProfile.image_url}
+            source={userProfile.image_url || `https://ui-avatars.com/api/?name=${userProfile.full_name}&background=01A0C7&color=fff`}
             style={{
               alignSelf: 'center',
             }}

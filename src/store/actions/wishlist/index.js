@@ -1,5 +1,10 @@
 import {showError, showSuccess} from '../../../plugins';
-import {addWishlist, deleteWishlist, detailWishlist, getWishlist} from '../../../services';
+import {
+  addWishlist,
+  deleteWishlist,
+  detailWishlist,
+  getWishlist,
+} from '../../../services';
 import {
   GET_DETAILWISHLIST_SUCCESS,
   GET_WISHLIST_LOADING,
@@ -21,13 +26,13 @@ export const setWishlistLoading = data => ({
   payload: data,
 });
 
-export const addItemWishlist = (id_product) => async () => {
+export const addItemWishlist = id_product => async () => {
   await addWishlist(id_product)
     .then(() => {
       showSuccess('Berhasil menambahkan produk ke wishlist');
     })
     .catch(err => {
-      showError(err.message);
+      showError(err.response.message);
     });
 };
 
@@ -40,18 +45,22 @@ export const getItemWishlist = () => async dispatch => {
     })
     .catch(err => {
       dispatch(setWishlistLoading(false));
-      showError(err.message);
+      showError(err.response.message);
     });
 };
 
-export const deleteItemWishlist = id => async () => {
+export const deleteItemWishlist = id => async dispatch => {
   await deleteWishlist(id)
     .then(() => {
       showSuccess('Delete item wishlist success');
       getWishlist()
+        .then(res => {
+          dispatch(setWishlistSuccess(res.data));
+        })
+        .catch(() => {});
     })
     .catch(err => {
-      showError(err.message);
+      showError(err.response.message);
     });
 };
 
@@ -64,6 +73,6 @@ export const getItemDetailWishlist = id => async dispatch => {
     })
     .catch(err => {
       dispatch(setWishlistLoading(false));
-      showError(err.message);
+      showError(err.response.message);
     });
 };

@@ -176,7 +176,7 @@ export default function InfoPenawaran({navigation, route}) {
         <CardBuyer
           city={detailOrderSeller.User?.city}
           name={detailOrderSeller.User?.full_name}
-          source={{uri: detailOrderSeller.User?.image_url}}
+          source={{uri: detailOrderSeller.User?.image_url || `https://ui-avatars.com/api/?name=${detailOrderSeller.User?.full_name}&background=01A0C7&color=fff`}}
         />
         <View>
           <Text style={styles.LabelPenawaran}>

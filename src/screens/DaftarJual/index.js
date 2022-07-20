@@ -76,7 +76,7 @@ export default function DaftarJual({navigation}) {
           }
           title="Edit"
           onPress={() => navigation.navigate('InfoAkunScreen')}
-          source={{uri: userProfile.image_url}}
+          source={{uri: userProfile.image_url || `https://ui-avatars.com/api/?name=${userProfile.full_name}&background=01A0C7&color=fff`}}
           stylee={{borderWidth: 1}}
         />
       </View>
