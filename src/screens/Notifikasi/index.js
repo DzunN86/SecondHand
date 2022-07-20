@@ -155,7 +155,7 @@ export default function Notifikasi({navigation}) {
   }, [isFocused, refreshing]);
 
   const onclick = item => {
-    if (item?.read) {
+    if (item?.read === false) {
       dispatch(ReadNotification(item?.id));
     }
 
@@ -244,7 +244,7 @@ export default function Notifikasi({navigation}) {
         </>
       ) : (
         <FlatList
-          data={notif.sort(sortDate)}
+          data={notif?.sort(sortDate)}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -268,14 +268,16 @@ export default function Notifikasi({navigation}) {
           )}
           keyExtractor={item => item.id}
           showsVerticalScrollIndicator={false}
-          ListEmptyComponent={() => (
-            <EmptyState
-              image={EmptyNotif}
-              title="Tidak ada notifikasi"
-              subTitle="Notifikasis akan muncul di sini"
-              style={styles.emptyState}
-            />
-          )}
+          ListEmptyComponent={() =>
+            !isLoading && (
+              <EmptyState
+                image={EmptyNotif}
+                title="Tidak ada notifikasi"
+                subTitle="Notifikasis akan muncul di sini"
+                style={styles.emptyState}
+              />
+            )
+          }
         />
       )}
     </View>

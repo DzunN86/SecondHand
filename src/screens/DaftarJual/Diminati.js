@@ -154,7 +154,7 @@ const Diminati = () => {
   useEffect(() => {
     dispatch(getOrderSeller());
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-  }, [dispatch, isFocused]);
+  }, [isFocused]);
   return (
     <View
       style={{
