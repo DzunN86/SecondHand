@@ -22,7 +22,6 @@ export const loginReducer = (state = initialState, action) => {
     case LOGOUT:
       return {
         ...state,
-        userData: {},
         isLogin: false,
       };
     default:

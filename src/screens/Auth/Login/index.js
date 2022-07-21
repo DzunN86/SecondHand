@@ -9,14 +9,20 @@ import { Formik } from 'formik';
 import { COLORS } from '../../../themes';
 import Icon from 'react-native-vector-icons/Feather';
 import TouchID from 'react-native-touch-id';
+import Icons from 'react-native-vector-icons/Ionicons';
 
 export default function Login({ navigation }) {
   const [isSecureEntry, setIsSecureEntry] = useState(true);
   const dispatch = useDispatch();
   const { isLoading } = useSelector(state => state.commonReducers);
+  const { isLogin, userData } = useSelector(state => state.loginReducer);
 
   const onPressLogin = ({ email, password }) => {
 
+    dispatch(doLogin(email, password, navigation))
+  };
+
+  const onFingerPrint = () => {
     const optionalConfigObject = {
       title: 'Authentication Required', // Android
       imageColor: '#e00606', // Android
@@ -29,18 +35,15 @@ export default function Login({ navigation }) {
       passcodeFallback: false, // iOS - allows the device to fall back to using the passcode, if faceid/touch is not available. this does not mean that if touchid/faceid fails the first few times it will revert to passcode, rather that if the former are not enrolled, then it will use the passcode.
     };
 
-    dispatch(doLogin(email, password, navigation))
-      .then(() => {
-        TouchID.authenticate('to demo this react-native component', optionalConfigObject)
-          .then(success => {
-            console.log(success)
-            alert('Authenticated Successfully, Signed in with Fingerprint!');
-          })
-          .catch(error => {
-            console.log(error)
-            alert('Authentication Failed');
-          });
+    TouchID.authenticate('to demo this react-native component', optionalConfigObject)
+      .then(success => {
+        console.log(success)
+        alert('Authenticated Successfully, Signed in with Fingerprint!');
       })
+      .catch(error => {
+        console.log(error)
+        alert('Authentication Failed');
+      });
   };
   return (
     <ScrollView contentContainerStyle={styles.scroll} testID="LoginScreen">
@@ -97,14 +100,26 @@ export default function Login({ navigation }) {
                     </TouchableOpacity>
                   }
                 />
-                <CustomButton
-                  testID="btn-login"
-                  loading={isLoading}
-                  primary
-                  title="Login"
-                  disabled={!(dirty && isValid) || isLoading}
-                  onPress={handleSubmit}
-                />
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+
+                  <CustomButton
+                    style={{ width: userData.access_token ? "83%" : "100%" }}
+                    testID="btn-login"
+                    loading={isLoading}
+                    primary
+                    title="Login"
+                    disabled={!(dirty && isValid) || isLoading}
+                    onPress={handleSubmit}
+                  />
+                  {userData.access_token && (
+                    <CustomButton
+                      style={{ width: "15%" }}
+                      primary
+                      icon={<Icons name='finger-print' size={24} color='white' />}
+                      onPress={onFingerPrint}
+                    />
+                  )}
+                </View>
               </>
             )}
           </Formik>
