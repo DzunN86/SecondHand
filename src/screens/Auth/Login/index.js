@@ -1,21 +1,46 @@
-import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
-import React, {useState} from 'react';
-import {CustomHeader, CustomInput, CustomButton} from '../../../components';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { CustomHeader, CustomInput, CustomButton } from '../../../components';
 import styles from './styles';
-import {useDispatch, useSelector} from 'react-redux';
-import {doLogin} from '../../../store/actions/auth/loginUser';
-import {loginSchema} from '../../../plugins';
-import {Formik} from 'formik';
-import {COLORS} from '../../../themes';
+import { useDispatch, useSelector } from 'react-redux';
+import { doLogin } from '../../../store/actions/auth/loginUser';
+import { loginSchema } from '../../../plugins';
+import { Formik } from 'formik';
+import { COLORS } from '../../../themes';
 import Icon from 'react-native-vector-icons/Feather';
+import TouchID from 'react-native-touch-id';
 
-export default function Login({navigation}) {
+export default function Login({ navigation }) {
   const [isSecureEntry, setIsSecureEntry] = useState(true);
   const dispatch = useDispatch();
-  const {isLoading} = useSelector(state => state.commonReducers);
+  const { isLoading } = useSelector(state => state.commonReducers);
 
-  const onPressLogin = ({email, password}) => {
-    dispatch(doLogin(email, password, navigation));
+  const onPressLogin = ({ email, password }) => {
+
+    const optionalConfigObject = {
+      title: 'Authentication Required', // Android
+      imageColor: '#e00606', // Android
+      imageErrorColor: '#ff0000', // Android
+      sensorDescription: 'Touch sensor', // Android
+      sensorErrorDescription: 'Failed', // Android
+      cancelText: 'Cancel', // Android
+      fallbackLabel: 'Show Passcode', // iOS (if empty, then label is hidden)
+      unifiedErrors: false, // use unified error messages (default false)
+      passcodeFallback: false, // iOS - allows the device to fall back to using the passcode, if faceid/touch is not available. this does not mean that if touchid/faceid fails the first few times it will revert to passcode, rather that if the former are not enrolled, then it will use the passcode.
+    };
+
+    dispatch(doLogin(email, password, navigation))
+      .then(() => {
+        TouchID.authenticate('to demo this react-native component', optionalConfigObject)
+          .then(success => {
+            console.log(success)
+            alert('Authenticated Successfully, Signed in with Fingerprint!');
+          })
+          .catch(error => {
+            console.log(error)
+            alert('Authentication Failed');
+          });
+      })
   };
   return (
     <ScrollView contentContainerStyle={styles.scroll} testID="LoginScreen">
@@ -26,7 +51,7 @@ export default function Login({navigation}) {
         </View>
         <View style={styles.form}>
           <Formik
-            initialValues={{email: '', password: ''}}
+            initialValues={{ email: '', password: '' }}
             validationSchema={loginSchema}
             onSubmit={values => onPressLogin(values)}>
             {({
