@@ -1,32 +1,49 @@
-import { View, Text, TouchableOpacity, ScrollView, Alert } from 'react-native';
-import React, { useState } from 'react';
-import { CustomHeader, CustomInput, CustomButton } from '../../../components';
-import styles from './styles';
-import { useDispatch, useSelector } from 'react-redux';
-import { doLogin } from '../../../store/actions/auth/loginUser';
-import { getDataSecure, loginSchema, showError, storeDataSecure } from '../../../plugins';
-import { Formik } from 'formik';
-import { COLORS } from '../../../themes';
-import Icon from 'react-native-vector-icons/Feather';
+import {Formik} from 'formik';
+import React, {useEffect, useState} from 'react';
+import {Alert, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import TouchID from 'react-native-touch-id';
+import Icon from 'react-native-vector-icons/Feather';
 import Icons from 'react-native-vector-icons/Ionicons';
+import {useDispatch, useSelector} from 'react-redux';
+import {CustomButton, CustomHeader, CustomInput} from '../../../components';
+import {
+  getDataSecure,
+  loginSchema,
+  showError,
+  storeDataSecure,
+} from '../../../plugins';
+import {doLogin} from '../../../store/actions/auth/loginUser';
+import {COLORS} from '../../../themes';
+import styles from './styles';
 
-export default function Login({ navigation }) {
+export default function Login({navigation}) {
   const [isSecureEntry, setIsSecureEntry] = useState(true);
   const dispatch = useDispatch();
-  const { isLoading } = useSelector(state => state.commonReducers);
-  const { userData } = useSelector(state => state.loginReducer);
+  const {isLoading} = useSelector(state => state.loginReducer);
+  const [everLogin, setEverLogin] = useState(false);
 
-  const onPressLogin = ({ email, password }) => {
-    storeDataSecure("user", { email, password })
-    dispatch(doLogin(email, password, navigation))
+  const onPressLogin = ({email, password}) => {
+    storeDataSecure('user', {email, password});
+    dispatch(doLogin(email, password, navigation));
   };
+
+  useEffect(() => {
+    getDataSecure('user')
+      .then(user => {
+        if (user) {
+          setEverLogin(true);
+        } else {
+          setEverLogin(false);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const onFingerPrint = () => {
     const optionalConfigObject = {
-      title: 'Authentication Required', // Android
-      imageColor: '#e00606', // Android
-      imageErrorColor: '#ff0000', // Android
+      title: 'Authentication', // Android
+      imageColor: COLORS.primary, // Android
+      imageErrorColor: COLORS.danger, // Android
       sensorDescription: 'Touch sensor', // Android
       sensorErrorDescription: 'Failed', // Android
       cancelText: 'Cancel', // Android
@@ -35,33 +52,31 @@ export default function Login({ navigation }) {
       passcodeFallback: false, // iOS - allows the device to fall back to using the passcode, if faceid/touch is not available. this does not mean that if touchid/faceid fails the first few times it will revert to passcode, rather that if the former are not enrolled, then it will use the passcode.
     };
 
-    TouchID.isSupported(optionalConfigObject).then((biometryType) => {
+    TouchID.isSupported(optionalConfigObject).then(biometryType => {
       if (biometryType === 'FaceID') {
-        Alert.alert('perangkat ini support FaceID')
+        Alert.alert('This device supports FaceID');
       } else {
-        TouchID.authenticate("Untuk Melakukan Login", optionalConfigObject)
+        TouchID.authenticate('Untuk Melakukan Login', optionalConfigObject)
           .then(() => {
-            getDataSecure("user")
-              .then((user) => {
-                if (user) {
-                  const akunUser = {
-                    email: user.email,
-                    password: user.password,
-                  }
-                  dispatch(doLogin(akunUser.email, akunUser.password, navigation))
-                } else {
-                  showError("Silahkan Login Terlebih Dahulu")
-                }
-              })
+            getDataSecure('user').then(user => {
+              if (user) {
+                const akunUser = {
+                  email: user.email,
+                  password: user.password,
+                };
+                dispatch(
+                  doLogin(akunUser.email, akunUser.password, navigation),
+                );
+              } else {
+                showError('Silahkan Login Terlebih Dahulu');
+              }
+            });
           })
-          .catch(error => {
-            console.log(error)
-            alert('Authentication Failed');
-          });
+          .catch(() => {});
       }
-    })
-
+    });
   };
+
   return (
     <ScrollView contentContainerStyle={styles.scroll} testID="LoginScreen">
       <View style={styles.container}>
@@ -71,7 +86,7 @@ export default function Login({ navigation }) {
         </View>
         <View style={styles.form}>
           <Formik
-            initialValues={{ email: '', password: '' }}
+            initialValues={{email: '', password: ''}}
             validationSchema={loginSchema}
             onSubmit={values => onPressLogin(values)}>
             {({
@@ -117,9 +132,13 @@ export default function Login({ navigation }) {
                     </TouchableOpacity>
                   }
                 />
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                  }}>
                   <CustomButton
-                    style={{ width: userData.access_token ? "83%" : "100%" }}
+                    style={{width: everLogin ? '83%' : '100%'}}
                     testID="btn-login"
                     loading={isLoading}
                     primary
@@ -127,11 +146,13 @@ export default function Login({ navigation }) {
                     disabled={!(dirty && isValid) || isLoading}
                     onPress={handleSubmit}
                   />
-                  {userData.access_token && (
+                  {everLogin && (
                     <CustomButton
-                      style={{ width: "15%" }}
+                      style={{width: '15%'}}
                       primary
-                      icon={<Icons name='finger-print' size={24} color='white' />}
+                      icon={
+                        <Icons name="finger-print" size={24} color="white" />
+                      }
                       onPress={onFingerPrint}
                     />
                   )}
