@@ -47,8 +47,8 @@ const DetailOrderBuyer = ({route, navigation}) => {
   }, []);
 
   const onPressBid = ({bid_price}) => {
-    if (dataDetailOrder?.status == 'pending') {
-      dispatch(putBuyerOrder(id_order, dataDetailOrder?.product_id, bid_price));
+    if (dataDetailOrder?.status == 'pending' || dataDetailOrder?.status == 'tolak') {
+      dispatch(putBuyerOrder(id_order, bid_price, navigation));
     } else {
       dispatch(doBid(dataDetailOrder?.product_id, bid_price, navigation));
     }
@@ -156,7 +156,11 @@ const DetailOrderBuyer = ({route, navigation}) => {
                   ? dataDetailOrder?.Product?.User?.city
                   : '-'
               }
-              source={{uri: dataDetailOrder?.Product?.User?.image_url || `https://ui-avatars.com/api/?name=${dataDetailOrder?.Product?.User?.full_name}&background=01A0C7&color=fff`}}
+              source={{
+                uri:
+                  dataDetailOrder?.Product?.User?.image_url ||
+                  `https://ui-avatars.com/api/?name=${dataDetailOrder?.Product?.User?.full_name}&background=01A0C7&color=fff`,
+              }}
             />
             <CardDeskripsi
               title="Deskripsi"
@@ -172,19 +176,7 @@ const DetailOrderBuyer = ({route, navigation}) => {
           bottom: 16,
           paddingHorizontal: 16,
         }}>
-        <CustomButton
-          primary
-          disabled={!userData.access_token}
-          title="Saya Tertarik dan ingin Nego"
-          onPress={() => handleSnapPress(2)}
-        />
-        <CustomButton
-          primary
-          disabled={!userData.access_token}
-          title="Saya Tertarik dan ingin Nego"
-          onPress={() => handleSnapPress(2)}
-        />
-        {dataDetailOrder?.status == 'pending' && (
+        {dataDetailOrder?.status == 'pending' || dataDetailOrder?.status == 'tolak' || dataDetailOrder?.status == 'declined' && (
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <CustomButton
               style={{width: '48%'}}

@@ -21,6 +21,9 @@ export default function CardProduk({
     if (status == 'declined') {
       return COLORS.danger;
     }
+    if (status == 'tolak') {
+      return COLORS.danger;
+    }
   };
   return (
     <View style={styles.produk}>

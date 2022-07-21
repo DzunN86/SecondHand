@@ -4,7 +4,7 @@ import axios from '../../plugins/axios';
 export const getBuyerOrder = async () => await axios.get('/buyer/order');
 export const detailBuyerOrder = async (id) => await axios.get(`/buyer/order/${id}`);
 export const addBuyerOrder = async (product_id, bid_price) => await axios.post('/buyer/order/', {product_id: product_id, bid_price: bid_price});
-export const updateBuyerOrder = async (id_order, id_product, bid_price) => await axios.put(`/buyer/order/${id_order}`, {product_id: id_product, bid_price: bid_price});
+export const updateBuyerOrder = async (id_order, bid_price) => await axios.put(`/buyer/order/${id_order}`, {bid_price: bid_price});
 export const deleteBuyerOrder = async (id) => await axios.delete(`/buyer/order/${id}`);
 
 // buyer/product

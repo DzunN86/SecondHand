@@ -22,7 +22,7 @@ export default function Account({navigation}) {
         text: 'Ya',
         onPress: () => {
           dispatch(logoutUser());
-          navigation.reset({index: 0, routes: [{name: 'MainApp'}]});
+          navigation.navigate('Home');
 
           showSuccess('Logout Success');
         },
@@ -34,7 +34,7 @@ export default function Account({navigation}) {
     if (userData.access_token) {
       dispatch(doGetProfile());
     }
-  }, [dispatch, isFocused]);
+  }, [isFocused]);
 
   return (
     <View style={{flex: 1}}>

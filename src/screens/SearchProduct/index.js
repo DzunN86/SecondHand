@@ -39,6 +39,15 @@ const SearchProduct = ({navigation}) => {
     }, 500);
     return () => {
       clearTimeout(getData);
+      dispatch(
+        getProduct({
+          search: '',
+          category_id: '',
+          status: 'available',
+          page: 1,
+          per_page: 10,
+        }),
+      );
     };
   }, [dispatch, searchQuery]);
 

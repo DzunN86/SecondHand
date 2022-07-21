@@ -1,18 +1,20 @@
 import BottomSheetComponent from './BottomSheet';
-import CardProduct from './CardProduct';
-import SearchBar from './SearchBar';
-import CardAds from './CardAds';
-import CardCategory from './CardCategory';
-import Upload from './UploadFoto';
-import Menu from './MenuAkun';
 import BottomUpload from './BottomSheetUpload';
+import CardAds from './CardAds';
 import CardBuyer from './CardBuyer';
-import IconButton from './IconButton';
-import CardFoto from './CardFoto';
-import CardProduk from './CardProduk';
+import CardCategory from './CardCategory';
 import CardDeskripsi from './CardDeskripsi';
-import EmptyState from './EmptyState';
+import CardFoto from './CardFoto';
+import CardNotif from './CardNotif';
+import LoadingNotif from './CardNotif/LoadingNotif';
+import CardProduct from './CardProduct';
+import CardProduk from './CardProduk';
 import CardWishlist from './CardWishlist';
+import EmptyState from './EmptyState';
+import IconButton from './IconButton';
+import Menu from './MenuAkun';
+import SearchBar from './SearchBar';
+import Upload from './UploadFoto';
 
 export {
   CardDeskripsi,
@@ -30,4 +32,6 @@ export {
   IconButton,
   EmptyState,
   CardWishlist,
+  CardNotif,
+  LoadingNotif,
 };

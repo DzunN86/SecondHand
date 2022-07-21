@@ -26,6 +26,12 @@ function CardBuyerOrder({
     if (status == 'declined') {
       return COLORS.danger;
     }
+    if (status == 'accepted' || status == 'seller') {
+      return COLORS.success;
+    }
+    if (status == 'tolak') {
+      return COLORS.danger;
+    }
   };
   return (
     <>

@@ -107,7 +107,7 @@ export default function InfoPenawaran({navigation, route}) {
             <Text style={styles.matchTitle}>Product Match</Text>
             <View style={styles.infoBuyer}>
               <Image
-                source={{uri: detailOrderSeller.User?.image_url}}
+                source={{uri: detailOrderSeller.User?.image_url || `https://ui-avatars.com/api/?name=${detailOrderSeller.User?.full_name}&background=01A0C7&color=fff`}}
                 style={styles.productImage}
               />
               <View style={styles.productInfo}>

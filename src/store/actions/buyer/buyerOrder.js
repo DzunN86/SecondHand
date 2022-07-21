@@ -61,11 +61,14 @@ export const fetchDetailBuyerOrder = id => async dispatch => {
 };
 
 export const putBuyerOrder =
-  (id_order, id_product, bid_price) => async dispatch => {
+  (id_order, bid_price, navigation) => async dispatch => {
     dispatch(setBuyerOrderLoading(true));
-    await updateBuyerOrder(id_order, id_product, bid_price)
+    await updateBuyerOrder(id_order, bid_price)
       .then(() => {
-        showSuccess('Bid Success');
+        showSuccess('Update Penawaran Success');
+        if (navigation) {
+          navigation.navigate('BuyerOrderScreen');
+        }
       })
       .catch(err => {
         dispatch(setBuyerOrderLoading(false));

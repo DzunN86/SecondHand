@@ -13,7 +13,7 @@ import {
   CardDeskripsi,
 } from '../../components';
 import {tawarSchema} from '../../plugins';
-import {doBid, getDetail} from '../../store/actions';
+import {doBid, fetchBuyerOrder, getDetail} from '../../store/actions';
 import {
   addItemWishlist,
   deleteItemWishlist,
@@ -36,6 +36,8 @@ const DetailProduct = ({route, navigation}) => {
       item => item.product_id === id_product,
     ),
   );
+  const dataBuyerOrder = useSelector(state => state.buyerReducer.dataBuyerOrder.filter(item => item.product_id === id_product));
+
   const [isBookmark, setIsBookmark] = useState(dataWishlist.length > 0);
 
   const handleSnapPress = useCallback(index => {
@@ -59,6 +61,7 @@ const DetailProduct = ({route, navigation}) => {
   useEffect(() => {
     if (isLogin) {
       dispatch(getItemWishlist());
+      dispatch(fetchBuyerOrder());
     }
   }, [isBookmark]);
 
@@ -184,7 +187,8 @@ const DetailProduct = ({route, navigation}) => {
         }}>
         <CustomButton
           primary
-          title="Saya Tertarik dan ingin Nego"
+          title={dataBuyerOrder.length > 0 ? "Anda sudah menawar produk ini" : "Saya Tertarik dan ingin Nego"}
+          disabled={dataBuyerOrder.length > 0}
           onPress={() => {
             if (userData?.access_token) {
               handleSnapPress(2);
