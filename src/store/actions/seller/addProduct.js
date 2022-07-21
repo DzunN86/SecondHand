@@ -1,4 +1,5 @@
 import {showError, showSuccess} from '../../../plugins';
+import { buatChannel, cancelAllLocalNotifications, configure, kirimNotifikasi } from '../../../plugins/pushNotif';
 import {addProduct} from '../../../services/api/seller';
 import {ADD_PRODUCT_FAILED, ADD_PRODUCT_SUCCESS} from '../../types';
 import {setLoading} from '../common';
@@ -18,6 +19,13 @@ export const doProduct = (payload, navigation) => async dispatch => {
   console.log('Kirim Data Product', payload);
   await addProduct(payload)
     .then(res => {
+      const notifProductTerbit = () => {
+        configure(navigation);
+        buatChannel('1');
+        cancelAllLocalNotifications();
+        kirimNotifikasi('1', 'Second Hand', 'Produk anda berhasil di terbitkan', res.data.id, "DetailProductScreen");
+      };
+      notifProductTerbit();
       dispatch(setAddProductSuccess(res.data));
       dispatch(getNotification());
       dispatch(setLoading(false));
