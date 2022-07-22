@@ -11,16 +11,8 @@
 
 ## :dart: About ##
 
-Tired of editing your github profile? Looking for some **cool readme** to do a `ctrl+c ctrl+v`? Or are you tired of missing out on the **amazing features** you can add to your readme? What about configuring github actions? 😩 **Come on!**
+This platform is a place for buying and selling goods online, especially used goods. This platform opens and provides various types of need categories. Users who register with this application can act as sellers and buyers by using the same 1 (one) account. This platform will bring together sellers and buyers to be able to negotiate goods and conduct transactions directly outside the platform.
 
-Beautify your github profile with this amazing tool, creating the readme your way in a simple and fast way! Include what you want, place it wherever you want, however you want! (<i>But of course, respecting the limits of what is possible to do in markdown</i> 😁)
-
-
-<p align="center">
-  <i>Loved the tool? Please consider <a href="https://www.paypal.com/donate/?hosted_button_id=FR3A2DGVYKGJS">donating</a> 💸 to help it improve!</i>
-</p>
-
-https://user-images.githubusercontent.com/54520907/173442002-dafc63ea-321f-4ce2-b349-be490b3a00ff.mp4
 
 ## :rocket: Main Technologies ##
 
@@ -73,7 +65,7 @@ https://user-images.githubusercontent.com/54520907/173442002-dafc63ea-321f-4ce2-
 
 ## :white_check_mark: Requirements ##
 
-Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) and [Node](https://nodejs.org/en/) installed ([nvm](https://github.com/nvm-sh/nvm#node-version-manager---) recommended).
+Before starting :checkered_flag:, you need to be setting up the development environment that already tell in [RN Doc here](https://reactnative.dev/docs/environment-setup)
 
 ## :checkered_flag: Starting ##
 
