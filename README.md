@@ -1,5 +1,5 @@
 <div align="center" id="top">
-  <img src="https://profile-readme-generator.com/assets/app.png" width="900" alt="Profile Readme Generator" />
+  <img src="https://raw.githubusercontent.com/DzunN86/SecondHand/development/Cover.png" width="900" alt="Second Hand" />
 
   <a href="https://profile-readme-generator.com">Demo</a>
 </div>
@@ -22,7 +22,7 @@ This platform is a place for buying and selling goods online, especially used go
 </a> &#xa0; &#xa0;
 
 <a href="https://reactnavigation.org/">
-  <img width="60" title="React Navigation" alt="React Navigation" src="https://reactnavigation.org/img/spiro.svg">
+  <img width="55" title="React Navigation" alt="React Navigation" src="https://reactnavigation.org/img/spiro.svg">
 </a> &#xa0; &#xa0;
 
 <a href="https://formik.org/">
@@ -30,7 +30,7 @@ This platform is a place for buying and selling goods online, especially used go
 </a> &#xa0; &#xa0;
 
 <a href="https://redux.js.org/">
-  <img width="70" title="Redux" alt="Redux Logo" src="https://d33wubrfki0l68.cloudfront.net/0834d0215db51e91525a25acf97433051f280f2f/c30f5/img/redux.svg">
+  <img width="55" title="Redux" alt="Redux Logo" src="https://d33wubrfki0l68.cloudfront.net/0834d0215db51e91525a25acf97433051f280f2f/c30f5/img/redux.svg">
 </a> &#xa0; &#xa0;
 
 <a href="https://axios-http.com/">
@@ -43,6 +43,18 @@ This platform is a place for buying and selling goods online, especially used go
 
 <a href="https://prettier.io">
   <img width="50" title="Prettier" alt="Prettier Logo" src="https://prettier.io/icon.png">
+</a>
+
+<a href="https://rnfirebase.io/">
+  <img width="50" title="rnfirebase" alt="rnfirebase Logo" src="https://static.invertase.io/assets/React-Native-Firebase.svg">
+</a>
+
+<a href="https://firebase.google.com/?hl=id">
+  <img width="50" title="Firebase" alt="Firebase Logo" src="https://www.gstatic.com/devrel-devsite/prod/vdb149cdc08c87ab249cdebfec6395e8f073056d752ca9c2d285d3b8426fcfa32/firebase/images/touchicon-180.png">
+</a>
+
+<a href="https://sonarcloud.io/">
+  <img width="50" title="Sonarcloud" alt="Sonarcloud Logo" src="https://pbs.twimg.com/profile_images/955394530806829056/LC7DAYM3_400x400.jpg">
 </a>
 </div>
 
@@ -58,8 +70,6 @@ This platform is a place for buying and selling goods online, especially used go
   * [React Native Element](https://reactnativeelements.com/)
   * [Async Storage](https://react-native-async-storage.github.io/async-storage/)
   * [LinearGradient](https://github.com/react-native-linear-gradient/react-native-linear-gradient)
-  * [Prismjs](https://prismjs.com)
-  * [UUID](https://www.npmjs.com/package/uuid)
 
 </details>
 
