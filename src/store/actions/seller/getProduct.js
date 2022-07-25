@@ -29,8 +29,8 @@ export const getProductSeller = (access_token) => async dispatch => {
         dispatch(setProductSellerLoading(false));
     })
     .catch(err => {
-        dispatch(setProductSellerFailed(err.message));
+        dispatch(setProductSellerFailed(err.response.message));
         dispatch(setProductSellerLoading(false));
-        showError(err.message);
+        showError(err.response.message);
     });
 };

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { COLORS, SIZES, FONTS } from '../../themes';
+import { COLORS, SIZES } from '../../themes';
 
 export default StyleSheet.create({
   scroll: {
@@ -9,7 +9,7 @@ export default StyleSheet.create({
   buttonWrapper: {
     width: '100%',
     position: 'absolute',
-    bottom: 16,
+    top: SIZES.height * 0.80,
     paddingHorizontal: 16,
   }
 })

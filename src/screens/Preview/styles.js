@@ -1,36 +1,36 @@
 import {StyleSheet} from 'react-native';
-import {COLORS, FONTS, RADIUS, SIZES} from '../../themes';
+import {COLORS, FONTS, RADIUS} from '../../themes';
 
 export default StyleSheet.create({
   bgProduk: {
-    height: 360,
+    height: 300,
   },
   containerKeterangan: {
-    marginTop: SIZES.height * 0.27,
+    marginTop: -35,
     marginHorizontal: 16,
   },
-  button: {
-    paddingHorizontal: 16,
+  buttonWrapper: {
     width: '100%',
-    marginTop: SIZES.height * 0.89,
-    position: 'absolute',
-  },
-  produk: {
-    alignItems: 'center',
-    backgroundColor: COLORS.white,
-    borderRadius: RADIUS.large,
-    borderColor: COLORS.grey3,
-    borderWidth: 1.5,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    marginBottom: 19,
-    paddingVertical: 16,
+    bottom: 16,
+    marginTop: 16,
   },
   wrapperProduk: {
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
+  },
+  produk: {
+    backgroundColor: COLORS.white,
+    borderRadius: RADIUS.large,
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    marginBottom: 19,
+    paddingVertical: 16,
+    shadowColor: COLORS.black,
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+    elevation: 4,
   },
   namaProduk: {
     color: COLORS.black,

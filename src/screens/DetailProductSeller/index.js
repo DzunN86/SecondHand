@@ -35,38 +35,38 @@ const DetailProductSeller = ({navigation, route}) => {
           </ImageBackground>
           <View style={styles.containerKeterangan}>
             <CardProduk
-              nameProduk={detailProduk?.name ? detailProduk.name : '-'}
+              nameProduk={detailProduk?.name ? detailProduk?.name : '-'}
               kategori={detailProduk?.Categories}
               price={detailProduk?.base_price}
             />
             <CardFoto
-              text1={userProfile.full_name}
+              text1={userProfile?.full_name}
               text2={detailProduk?.location}
-              source={{uri: userProfile.image_url}}
+              source={{uri: userProfile?.image_url || `https://ui-avatars.com/api/?name=${userProfile?.full_name}&background=01A0C7&color=fff`}}
             />
             <CardDeskripsi
               title="Deskripsi"
               deskripsi={detailProduk?.description}
             />
+            <View style={styles.buttonWrapper}>
+              <CustomButton
+                style={{width: '48%'}}
+                primary
+                type="daftarjual"
+                title="Edit"
+                onPress={() => navigation.navigate('EditProductScreen', {id:id})}
+              />
+              <CustomButton
+                style={{width: '48%'}}
+                danger
+                type="daftarjual"
+                title="Hapus"
+                onPress={() => Delete()}
+              />
+            </View>
           </View>
         </View>
       </ScrollView>
-      <View style={styles.buttonWrapper}>
-        <CustomButton
-          style={{width: '48%'}}
-          primary
-          type="daftarjual"
-          title="Edit"
-          onPress={() => navigation.navigate('EditProductScreen', {id:id})}
-        />
-        <CustomButton
-          style={{width: '48%'}}
-          danger
-          type="daftarjual"
-          title="Hapus"
-          onPress={() => Delete()}
-        />
-      </View>
     </View>
   );
 };

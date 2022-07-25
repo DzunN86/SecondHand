@@ -5,12 +5,15 @@ export default StyleSheet.create({
   produk: {
     backgroundColor: COLORS.white,
     borderRadius: RADIUS.large,
-    borderColor: COLORS.grey3,
-    borderWidth: 1.5,
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     marginBottom: 19,
     paddingVertical: 16,
+    shadowColor: COLORS.black,
+    shadowOffset: {width: 0, height: 0},
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+    elevation: 4,
   },
   wrapperProduk: {
     flexDirection: 'row',

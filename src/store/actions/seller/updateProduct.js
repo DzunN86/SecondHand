@@ -26,6 +26,6 @@ export const upDataProduct = (id, data, navigation) => async dispatch => {
     .catch(err => {
       dispatch(failedUpdateProduct());
       dispatch(setLoading(false));
-      showError(err.message);
+      showError(err.response.message);
     });
 };

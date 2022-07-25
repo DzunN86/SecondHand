@@ -1,16 +1,12 @@
 import React from 'react';
-import {ImageBackground, ScrollView, Text, View} from 'react-native';
-import Animated from 'react-native-reanimated';
+import {ImageBackground, ScrollView, View, Text} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {CardFoto, CustomButton} from '../../components';
-import BackHeader from '../../components/atoms/CustomHeader/BackHeader';
-import CardDeskripsi from '../../components/molecules/CardDeskripsi';
+import {CardFoto, CardDeskripsi, CustomButton, CustomHeader} from '../../components';
 import {doProduct} from '../../store/actions';
 import {SIZES} from '../../themes';
 import {formatRupiah} from '../../utils';
 import styles from './styles';
 
-const anim = new Animated.Value(1);
 const Preview = ({navigation, route}) => {
   const {values, image} = route.params;
   const {userProfile} = useSelector(state => state.getUserReducer);
@@ -44,51 +40,53 @@ const Preview = ({navigation, route}) => {
     dispatch(doProduct(formData, navigation));
   };
   return (
-    <View>
-      <ScrollView>
-        <Animated.View
-          style={{opacity: Animated.add(0.1, Animated.multiply(anim, 1.0))}}>
-          <ImageBackground source={{uri: image}} style={styles.bgProduk}>
-            <BackHeader onPress={() => navigation.goBack()} />
-            <View style={styles.containerKeterangan}>
-              <View style={styles.produk}>
-                <View style={styles.wrapperProduk}>
-                  <View>
-                    <Text style={styles.namaProduk}>{values.name_product}</Text>
-                    <Text style={styles.kategori}>
-                      {arrCategoryName?.length > 0
-                        ? arrCategoryName.map(item => item).join(', ')
-                        : '-'}
-                    </Text>
-                    <Text style={styles.price}>
-                      {formatRupiah(values.base_price)}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-              <CardFoto
-                text1={userProfile.full_name}
-                text2={userProfile.city}
-                source={{uri: userProfile.image_url}}
-              />
-              <CardDeskripsi
-                title="Deskripsi"
-                deskripsi={values.description}
-              />
-            </View>
-          </ImageBackground>
-        </Animated.View>
-        <View style={{height: SIZES.height * 0.7}}></View>
-        <View style={styles.button}>
-          <CustomButton
-            primary
-            type="daftarjual"
-            title="Terbitkan"
-            onPress={onPressTerbit}
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={{minHeight: SIZES.height - 5}}>
+        <ImageBackground
+          source={{uri: image}}
+          style={styles.bgProduk}>
+          <CustomHeader
+            type="BackHeader"
+            onPress={() => navigation.goBack()}
           />
+        </ImageBackground>
+        <View style={styles.containerKeterangan}>
+          <View style={styles.produk}>
+            <View style={styles.wrapperProduk}>
+              <View>
+                <Text style={styles.namaProduk}>{values.name_product}</Text>
+                <Text style={styles.kategori}>
+                  {arrCategoryName?.length > 0
+                    ? arrCategoryName.map(item => item).join(', ')
+                    : '-'}
+                </Text>
+                <Text style={styles.price}>
+                  {formatRupiah(values.base_price)}
+                </Text>
+              </View>
+            </View>
+          </View>
+          <CardFoto
+            text1={userProfile.full_name}
+            text2={userProfile.city}
+            source={{uri: userProfile.image_url || `https://ui-avatars.com/api/?name=${userProfile.full_name}&background=01A0C7&color=fff`}}
+          />
+          <CardDeskripsi
+            title="Deskripsi"
+            deskripsi={values.description}
+          />
+          <View style={styles.buttonWrapper}>
+            <CustomButton
+              primary
+              type="daftarjual"
+              title="Terbitkan"
+              onPress={onPressTerbit}
+            />
+          </View>
         </View>
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 };
+
 export default Preview;

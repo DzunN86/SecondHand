@@ -1,8 +1,9 @@
-import {LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT} from '../../types';
+import {LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT, SET_LOGIN_LOADING} from '../../types';
 
 const initialState = {
   userData: {},
   isLogin: false,
+  isLoading: false,
 };
 
 export const loginReducer = (state = initialState, action) => {
@@ -12,6 +13,12 @@ export const loginReducer = (state = initialState, action) => {
         ...state,
         userData: action.payload,
         isLogin: true,
+      };
+
+    case SET_LOGIN_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload,
       };
 
     case LOGIN_FAILED:

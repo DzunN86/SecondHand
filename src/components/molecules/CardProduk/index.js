@@ -21,6 +21,9 @@ export default function CardProduk({
     if (status == 'declined') {
       return COLORS.danger;
     }
+    if (status == 'tolak') {
+      return COLORS.danger;
+    }
   };
   return (
     <View style={styles.produk}>
@@ -32,7 +35,7 @@ export default function CardProduk({
           </View>
         )}
       </View>
-      <Text style={styles.kategori}>
+      <Text style={styles.kategori} numberOfLines={1}>
         {kategori?.length > 0
           ? kategori.map(item => item.name).join(', ')
           : '-'}

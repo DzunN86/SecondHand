@@ -24,8 +24,8 @@ export const deleteProductSeller = (id, navigation) => async (dispatch) => {
     dispatch(setLoading(false));
     navigation.goBack();
   }).catch(err => {
-    dispatch(deleteProductSellerFailed(err.message));
-    showError(err.message);
+    dispatch(deleteProductSellerFailed(err.response.message));
+    showError(err.response.message);
     dispatch(setLoading(false));
   });
 };

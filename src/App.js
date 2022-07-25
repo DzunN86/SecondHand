@@ -22,7 +22,7 @@ const MainApp = () => {
     <>
       <StatusBar
       backgroundColor={COLORS.primary}
-       barStyle="light-content" />
+       barStyle="default" />
       <Navigation />
       <FlashMessage position="top" />
     </>

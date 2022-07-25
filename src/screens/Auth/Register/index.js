@@ -29,11 +29,11 @@ export default function Register({navigation}) {
     formData.append('city', data.kota);
     formData.append('address', data.alamat);
     formData.append('phone_number', data.phone_number);
-    formData.append('image', {
-      uri: `https://ui-avatars.com/api/?name=${data.nama}`,
-      type: 'image/jpeg',
-      name: 'image.jpg',
-    });
+    // formData.append('image', {
+    //   uri: `https://ui-avatars.com/api/?name=${data.nama}`,
+    //   type: 'image/jpeg',
+    //   name: 'image.jpg',
+    // });
     dispatch(doRegister(formData, navigation));
   };
   return (

@@ -13,7 +13,12 @@ import {
   CardDeskripsi,
 } from '../../components';
 import {tawarSchema} from '../../plugins';
-import {doBid, getDetail} from '../../store/actions';
+import {doBid, fetchBuyerOrder, getDetail} from '../../store/actions';
+import {
+  addItemWishlist,
+  deleteItemWishlist,
+  getItemWishlist,
+} from '../../store/actions/wishlist';
 import {COLORS, FONTS} from '../../themes';
 import {formatRupiah} from '../../utils';
 import styles from './styles';
@@ -23,17 +28,42 @@ const DetailProduct = ({route, navigation}) => {
   const {dataProduk, isLoading} = useSelector(state => state.detailReducer);
   const {id_product} = route.params;
   const LoadingSend = useSelector(state => state.commonReducers.isLoading);
-  const {userData} = useSelector(state => state.loginReducer);
+  const {userData, isLogin} = useSelector(state => state.loginReducer);
   const [autoFocus, setAutoFocus] = useState(false);
   const sheetRef = useRef(null);
+  const dataWishlist = useSelector(state =>
+    state.wishlistReducer.dataWishlist.filter(
+      item => item.product_id === id_product,
+    ),
+  );
+  const dataBuyerOrder = useSelector(state => state.buyerReducer.dataBuyerOrder.filter(item => item.product_id === id_product));
+
+  const [isBookmark, setIsBookmark] = useState(dataWishlist.length > 0);
 
   const handleSnapPress = useCallback(index => {
     sheetRef.current?.snapToIndex(index);
   }, []);
 
+  const handleToggleBookmark = () => {
+    setIsBookmark(!isBookmark);
+    if (isBookmark) {
+      dispatch(deleteItemWishlist(dataWishlist[0]?.id));
+    }
+    if (!isBookmark) {
+      dispatch(addItemWishlist(dataProduk?.id));
+    }
+  };
+
   useEffect(() => {
     dispatch(getDetail(id_product));
   }, []);
+
+  useEffect(() => {
+    if (isLogin) {
+      dispatch(getItemWishlist());
+      dispatch(fetchBuyerOrder());
+    }
+  }, [isBookmark]);
 
   const handleSheetChanges = useCallback(index => {
     if (index == 2) {
@@ -45,7 +75,9 @@ const DetailProduct = ({route, navigation}) => {
 
   const onPressBid = ({bid_price}) => {
     dispatch(doBid(id_product, bid_price, navigation));
+    sheetRef.current?.snapToIndex(1);
   };
+
   const BottomSheetContent = () => (
     <View style={styles.bSheet}>
       <View>
@@ -100,6 +132,7 @@ const DetailProduct = ({route, navigation}) => {
       </Formik>
     </View>
   );
+
   if (isLoading) {
     return (
       <View
@@ -121,8 +154,10 @@ const DetailProduct = ({route, navigation}) => {
             source={{uri: dataProduk?.image_url}}
             style={styles.bgProduk}>
             <CustomHeader
-              type="BackHeader"
-              onPress={() => navigation.navigate('MainApp')}
+              type="BackHeaderLove"
+              onPress={() => navigation.goBack()}
+              isLoved={isBookmark}
+              presLoved={handleToggleBookmark}
             />
           </ImageBackground>
           <View style={styles.containerKeterangan}>
@@ -134,7 +169,7 @@ const DetailProduct = ({route, navigation}) => {
             <CardFoto
               text1={dataProduk.User?.full_name}
               text2={dataProduk?.location}
-              source={{uri: dataProduk.User?.image_url}}
+              source={{uri: dataProduk?.User?.image_url || `https://ui-avatars.com/api/?name=${dataProduk.User?.full_name}&background=01A0C7&color=fff`}}
             />
             <CardDeskripsi
               title="Deskripsi"
@@ -152,9 +187,15 @@ const DetailProduct = ({route, navigation}) => {
         }}>
         <CustomButton
           primary
-          disabled={!userData.access_token}
-          title="Saya Tertarik dan ingin Nego"
-          onPress={() => handleSnapPress(2)}
+          title={dataBuyerOrder.length > 0 ? "Anda sudah menawar produk ini" : "Saya Tertarik dan ingin Nego"}
+          disabled={dataBuyerOrder.length > 0}
+          onPress={() => {
+            if (userData?.access_token) {
+              handleSnapPress(2);
+            } else {
+              navigation.navigate('LoginScreen');
+            }
+          }}
         />
       </View>
       <BottomSheetComponent

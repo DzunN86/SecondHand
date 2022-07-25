@@ -1,49 +1,51 @@
-import {View, Text, Button} from 'react-native';
+import {useIsFocused} from '@react-navigation/native';
 import React, {useEffect} from 'react';
+import {Alert, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import styles from './styles';
-import {CustomHeader, Upload, Menu} from '../../components';
-import {logoutUser, doGetProfile} from '../../store/actions';
-import {showError, showSuccess} from '../../plugins';
 import {version} from '../../../package.json';
-import { useIsFocused } from '@react-navigation/native';
+import {NotLogin} from '../../assets';
+import {CustomHeader, EmptyState, Menu, Upload} from '../../components';
+import {showSuccess} from '../../plugins';
+import {doGetProfile, logoutUser} from '../../store/actions';
+import styles from './styles';
 
 export default function Account({navigation}) {
   const dispatch = useDispatch();
   const {userProfile} = useSelector(state => state.getUserReducer);
-  const {userData} = useSelector(state => state.loginReducer);
+  const {userData, isLogin} = useSelector(state => state.loginReducer);
   const isFocused = useIsFocused();
 
   const onPressLogout = () => {
-    try {
-      dispatch(logoutUser());
-      navigation.reset({index: 0, routes: [{name: 'MainApp'}]});
-      showSuccess('Logout Success');
-    } catch (error) {
-      showError(error);
-    }
+    Alert.alert('Konfirmasi', 'Apakah anda yakin ingin keluar?', [
+      {text: 'Tidak', style: 'cancel'},
+      {
+        text: 'Ya',
+        onPress: () => {
+          dispatch(logoutUser());
+          navigation.navigate('Home');
+
+          showSuccess('Logout Success');
+        },
+      },
+    ]);
   };
 
   useEffect(() => {
     if (userData.access_token) {
       dispatch(doGetProfile());
     }
-  }, [dispatch, isFocused]);
+  }, [isFocused]);
 
   return (
-    <View>
+    <View style={{flex: 1}}>
       <CustomHeader
         type="HeaderTitle"
-        title={
-          userData.access_token
-            ? userProfile.full_name || userData.name
-            : 'Akun'
-        }
+        title={isLogin ? userProfile.full_name || userData.name : 'Akun'}
       />
-      {userData.access_token ? (
+      {isLogin ? (
         <>
           <Upload
-            source={userProfile.image_url}
+            source={userProfile.image_url || `https://ui-avatars.com/api/?name=${userProfile.full_name}&background=01A0C7&color=fff`}
             style={{
               alignSelf: 'center',
             }}
@@ -65,26 +67,28 @@ export default function Account({navigation}) {
               title="Wishlist"
               onPress={() => navigation.navigate('WishlistScreen')}
             />
-            <Menu 
-              name="account-cog" 
+            <Menu
+              name="history"
+              title="History"
+              onPress={() => navigation.navigate('HistoryScreen')}
+            />
+            <Menu
+              name="account-cog"
               title="Pengaturan Akun"
-              onPress={() => navigation.navigate('SettingsScreen')} 
+              onPress={() => navigation.navigate('SettingsScreen')}
             />
-            <Menu 
-              name="logout" 
-              title="Keluar" 
-              onPress={onPressLogout} 
-            />
+            <Menu name="logout" title="Keluar" onPress={onPressLogout} />
           </View>
           <Text style={styles.version}> Version {version} </Text>
         </>
       ) : (
-        <View style={styles.doLogin}>
-          <Button
-            title="Masuk"
-            onPress={() => navigation.navigate('LoginScreen')}
-          />
-        </View>
+        <EmptyState
+          image={NotLogin}
+          title="Anda belum login"
+          subTitle="Silahkan login terlebih dahulu"
+          labelBtn={'Login'}
+          onPress={() => navigation.navigate('LoginScreen')}
+        />
       )}
     </View>
   );

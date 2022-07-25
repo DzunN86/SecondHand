@@ -40,9 +40,9 @@ export const fetchBuyerOrder = () => async dispatch => {
       dispatch(setBuyerOrderLoading(false));
     })
     .catch(err => {
-      dispatch(setBuyerOrderFailed(err.response.data.message));
+      dispatch(setBuyerOrderFailed(err.response.message));
       dispatch(setBuyerOrderLoading(false));
-      showError(err.response.data.message);
+      showError(err.response.message);
     });
 };
 
@@ -54,22 +54,25 @@ export const fetchDetailBuyerOrder = id => async dispatch => {
       dispatch(setBuyerOrderLoading(false));
     })
     .catch(err => {
-      dispatch(setBuyerOrderFailed(err.response.data.message));
+      dispatch(setBuyerOrderFailed(err.response.message));
       dispatch(setBuyerOrderLoading(false));
-      showError(err.response.data.message);
+      showError(err.response.message);
     });
 };
 
 export const putBuyerOrder =
-  (id_order, id_product, bid_price) => async dispatch => {
+  (id_order, bid_price, navigation) => async dispatch => {
     dispatch(setBuyerOrderLoading(true));
-    await updateBuyerOrder(id_order, id_product, bid_price)
+    await updateBuyerOrder(id_order, bid_price)
       .then(() => {
-        showSuccess('Bid Success');
+        showSuccess('Update Penawaran Success');
+        if (navigation) {
+          navigation.navigate('BuyerOrderScreen');
+        }
       })
       .catch(err => {
         dispatch(setBuyerOrderLoading(false));
-        showError(err.response.data.message);
+        showError(err.response.message);
         console.log(err);
       });
   };

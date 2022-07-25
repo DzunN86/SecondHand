@@ -57,7 +57,14 @@ const CardProduct = ({onPress, name, category, price, image}) => {
 
   return (
     <RectButton style={styles.cardProduct} onPress={onPress}>
-      <Image source={{uri: image}} style={styles.imageProduk} />
+      <Image
+        source={{
+          uri:
+            image ||
+            `https://ui-avatars.com/api/?name=Product&background=01A0C7&color=fff`,
+        }}
+        style={styles.imageProduk}
+      />
       <Text style={styles.textCardProduct} numberOfLines={1}>
         {name}
       </Text>

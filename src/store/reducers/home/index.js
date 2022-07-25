@@ -1,4 +1,5 @@
 import {
+  GET_NEXT_PRODUCT_LOADING,
   GET_PRODUCT_FAIL,
   GET_PRODUCT_LOADING,
   GET_PRODUCT_SUCCESS,
@@ -7,6 +8,7 @@ import {
 
 const initialState = {
   isLoading: false,
+  nextLoading: false,
   isError: false,
   errorMessage: '',
   products: [],
@@ -19,6 +21,11 @@ export const homeReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: action.payload,
+      };
+    case GET_NEXT_PRODUCT_LOADING:
+      return {
+        ...state,
+        nextLoading: action.payload,
       };
     case GET_PRODUCT_SUCCESS:
       return {

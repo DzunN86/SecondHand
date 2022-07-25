@@ -3,14 +3,16 @@ import {useMemo} from 'react';
 import {FlatList, RefreshControl, ScrollView, Text, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {useDispatch, useSelector} from 'react-redux';
+import {EmptySearch} from '../../assets';
 import {
   CardAds,
   CardCategory,
   CardProduct,
   CustomButton,
+  EmptyState,
   SearchBar,
 } from '../../components';
-import {getBanners, getProduct} from '../../store/actions/home';
+import {getBanners, getNextProduct, getProduct} from '../../store/actions/home';
 import {getKategori} from '../../store/actions/kategori';
 import {SIZES} from '../../themes';
 import {sortDate} from '../../utils';
@@ -20,7 +22,7 @@ export default function Home({navigation}) {
   const [Fcategory, setFCategory] = useState(0);
   const [perPage, setPerpage] = useState(10);
   const dispatch = useDispatch();
-  const {products, isLoading} = useSelector(state => state.homeReducer);
+  const {products, isLoading, nextLoading} = useSelector(state => state.homeReducer);
   const {category} = useSelector(state => state.categoryReducer);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -35,16 +37,11 @@ export default function Home({navigation}) {
       }),
     );
     setRefreshing(false);
-  }, [Fcategory, refreshing, perPage]);
-
-  useEffect(() => {
-    dispatch(getKategori());
-    dispatch(getBanners());
-  }, []);
-
+  }, [Fcategory, refreshing]);
+  
   useEffect(() => {
     dispatch(
-      getProduct({
+      getNextProduct({
         search: '',
         category_id: Fcategory !== 0 ? Fcategory : '',
         status: 'available',
@@ -52,8 +49,12 @@ export default function Home({navigation}) {
         per_page: perPage,
       }),
     );
-    setRefreshing(false);
-  }, [Fcategory, refreshing, perPage]);
+  }, [perPage]);
+
+  useEffect(() => {
+    dispatch(getKategori());
+    dispatch(getBanners());
+  }, []);
 
   const renderHeaderComponent = useMemo(
     () => (
@@ -91,18 +92,19 @@ export default function Home({navigation}) {
   );
 
   const renderFooter = useMemo(
-    () => (
-      <View style={{paddingHorizontal: 16, marginTop: 10}}>
-        <CustomButton
-          primary
-          loading={isLoading}
-          disabled={isLoading}
-          title="Show More"
-          onPress={() => setPerpage(perPage + 10)}
-        />
-      </View>
-    ),
-    [isLoading],
+    () =>
+      products?.length > 0 && (
+        <View style={{paddingHorizontal: 16, marginTop: 10}}>
+          <CustomButton
+            primary
+            loading={nextLoading}
+            disabled={nextLoading}
+            title="Show More"
+            onPress={() => setPerpage(perPage + 10)}
+          />
+        </View>
+      ),
+    [nextLoading],
   );
 
   const renderItem = useCallback(
@@ -142,7 +144,7 @@ export default function Home({navigation}) {
         numColumns={2}
         showsVerticalScrollIndicator={false}
         columnWrapperStyle={styles.cardProductWrapper}
-        data={products.sort(sortDate)}
+        data={products?.sort(sortDate)}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
         getItemLayout={getItemLayout}
@@ -150,6 +152,16 @@ export default function Home({navigation}) {
         windowSize={60}
         updateCellsBatchingPeriod={50}
         initialNumToRender={7}
+        ListEmptyComponent={() =>
+          !isLoading && (
+            <EmptyState
+              image={EmptySearch}
+              title="Tidak ada hasil yang ditemukan"
+              subTitle="Coba sesuaikan pencarian Anda
+            untuk menemukan apa yang Anda cari"
+            />
+          )
+        }
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
