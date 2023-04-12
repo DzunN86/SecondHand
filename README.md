@@ -1,7 +1,5 @@
 <div align="center" id="top">
   <img src="https://raw.githubusercontent.com/DzunN86/SecondHand/development/Cover.png" width="900" alt="Second Hand" />
-
-  <a href="https://profile-readme-generator.com">Demo</a>
 </div>
 
 <div align="center">
